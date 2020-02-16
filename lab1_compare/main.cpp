@@ -37,32 +37,30 @@ unsigned long CompareStreams(std::istream& in1, std::istream& in2) {
 
     // Checking errors while reading
     if (in1.bad()) {
-        throw std::runtime_error("Error while reading file1");
+        throw std::runtime_error("Error while reading first stream");
     }
     if (in2.bad()) {
-        throw std::runtime_error("Error while reading file2");
+        throw std::runtime_error("Error while reading second stream");
     }
     return 0;
 }
 
-// TODO: std::string_view
 unsigned long CompareFiles(const std::string& filePath1, const std::string& filePath2) {
     // Check if input file exists
     std::ifstream inputFile1;
     inputFile1.open(filePath1);
     if (!inputFile1.is_open()) {
-        std::cout << "Error '" << filePath1 << "' file not exists" << std::endl;
-        return 1;
+        throw std::runtime_error("Error '" + filePath1 + "' file not exists");
     }
 
     // Check if input file exists
     std::ifstream inputFile2;
     inputFile2.open(filePath2);
     if (!inputFile2.is_open()) {
-        std::cout << "Error '" << filePath2 << "' file not exists" << std::endl;
-        return 1;
+        throw std::runtime_error("Error '" + filePath2 + "' file not exists");
     }
 
+    return CompareStreams(inputFile1, inputFile2);
 }
 
 int main(int argc, char *argv[]) {
@@ -73,21 +71,20 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    auto difLine = CompareFiles(args->filePath1, args->filePath1);
-
-
+    // Comparing files
+    unsigned long difLine;
     try {
-        auto difLine = CompareStreams(inputFile1, inputFile2);
-        if (difLine) {
-            std::cout << "Files are different. Line number is " << difLine << std::endl;
-            return 1;
-        }
+        difLine = CompareFiles(args->filePath1, args->filePath2);
     } catch (std::exception& err) {
         std::cout << err.what() << std::endl;
         return 1;
     }
 
     // Writing result
+    if (difLine) {
+        std::cout << "Files are different. Line number is " << difLine << std::endl;
+        return 1;
+    }
     std::cout << "Files are equal" << std::endl;
 
     return 0;
