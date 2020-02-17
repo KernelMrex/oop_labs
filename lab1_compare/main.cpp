@@ -32,7 +32,7 @@ unsigned long CompareStreams(std::istream& in1, std::istream& in2) {
 
     // Checking EOF
     if (!in1.eof() || !in2.eof()) {
-        return amountOfNewLineChars + 1;
+        return amountOfNewLineChars;
     }
 
     // Checking errors while reading

@@ -8,15 +8,14 @@ EXEC_NAME="compare"
 
 cp ../cmake-build-debug/$EXEC_NAME .
 
-for entry in *.test
+for entry in *_1.test
 do
-  ./$EXEC_NAME "$entry" "$entry.toCompare"
+  result=$(./$EXEC_NAME "$entry" "${entry:0:-7}_2.test")
 
-  if cmp -s "$entry" "$entry.out"; then
-    printf "Test '%s' done!\n" "$entry"
+  if [ "$result" == "$(cat ${entry:0:-7}_expected.test)" ]; then
+    printf "Test %s done!\n" "${entry:0:-7}"
   else
-    printf "Test '%s' has failed\n" "$entry"
-    printf "Results in file %s\n" "$entry.out"
+    printf "Test %s has failed\n" "${entry:0:-7}"
     break;
   fi
 done
