@@ -2,6 +2,7 @@
 #include <iostream>
 #include <optional>
 #include <string>
+#include <algorithm>
 
 #define MAX_RADIX 36
 #define MIN_RADIX 2
@@ -12,6 +13,8 @@ bool IsCapitalLetter(char ch);
 bool IsDigit(char ch);
 
 uint8_t CharToIntRadix(char ch, uint8_t radix);
+
+char IntToCharRadix(uint8_t n, uint8_t radix);
 
 long StringToInt(const std::string &str, uint8_t radix);
 
@@ -57,11 +60,8 @@ int main(int argc, char *argv[]) {
 			std::cout << "Usage: radix <source notation> <destination notation> <value>" << std::endl;
 			return 1;
 		}
-
 		long decimalNumberView = StringToInt(result->value, result->sourceNotation);
-		std::cout << decimalNumberView << std::endl;
-
-		// TODO: std::cout << IntToString(decimalNumberView, result->destinationNotation) << std::endl;
+        std::cout << IntToString(decimalNumberView, result->destinationNotation) << std::endl;
 	} catch (std::exception &err) {
 		std::cout << err.what() << std::endl;
 		return 1;
@@ -111,7 +111,34 @@ long StringToInt(const std::string &str, uint8_t radix) {
 	return result;
 }
 
-// TODO
+char IntToCharRadix(uint8_t n, uint8_t radix) {
+    if ((radix > MAX_RADIX) || (radix < MIN_RADIX)) {
+        throw std::runtime_error("radix is not in correct range");
+    }
+
+    if (n >= radix) {
+        throw std::runtime_error("number is bigger than radix");
+    }
+
+    if ((n >= 0) && (n < 9)) {
+        return static_cast<char>('0' + n);
+    }
+
+    if ((n >= 10) && (n < 36)) {
+        return static_cast<char>('A' + n);
+    }
+
+    throw std::runtime_error("number is not in correct range");
+}
+
 std::string IntToString(long n, uint8_t radix) {
-	return "";
+    std::string result = "";
+    long divResult;
+    while (n > 0) {
+        divResult = (n / radix);
+        result += IntToCharRadix(n - (divResult * radix), radix);
+        n = divResult;
+    }
+    std::reverse(result.begin(), result.end());
+	return result;
 }
