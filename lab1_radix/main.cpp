@@ -101,11 +101,20 @@ long StringToInt(const std::string &str, uint8_t radix) {
 		throw std::runtime_error("radix is not in correct range");
 	}
 
-	long result = 0;
+	bool isNegative = false;
+    if (str.length() > 0 && str[0] == '-') {
+        isNegative = true;
+    }
+
+    long result = 0;
 	int offset = 0;
 	for (int i = (int) str.length() - 1; i >= 0; i--) {
-		result = result + ((long) pow(radix, offset)) * CharToIntRadix(str[i], radix);
-		offset++;
+	    if (i == 0 && isNegative) {
+	        result *= -1;
+            continue;
+	    }
+        result = result + ((long) pow(radix, offset)) * CharToIntRadix(str[i], radix);
+        offset++;
 	}
 
 	return result;
@@ -132,6 +141,12 @@ char IntToCharRadix(uint8_t n, uint8_t radix) {
 }
 
 std::string IntToString(long n, uint8_t radix) {
+    bool isNegative = false;
+    if (n < 0) {
+        n = -n;
+        isNegative = true;
+    }
+
     std::string result = "";
     long divResult;
     while (n > 0) {
@@ -139,6 +154,11 @@ std::string IntToString(long n, uint8_t radix) {
         result += IntToCharRadix(n - (divResult * radix), radix);
         n = divResult;
     }
+
+    if (isNegative) {
+        result += '-';
+    }
+
     std::reverse(result.begin(), result.end());
 	return result;
 }
