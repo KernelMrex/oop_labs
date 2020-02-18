@@ -141,6 +141,10 @@ char IntToCharRadix(uint8_t n, uint8_t radix) {
 }
 
 std::string IntToString(long n, uint8_t radix) {
+    if (n == 0) {
+        return "0";
+    }
+
     bool isNegative = false;
     if (n < 0) {
         n = -n;
