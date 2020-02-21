@@ -112,6 +112,7 @@ int CharToIntRadix(char ch, int radix)
 	throw std::logic_error("can not covert char to int");
 }
 
+// TODO: Add overflow test
 long StringToInt(const std::string& str, int radix)
 {
 	if ((radix > MAX_RADIX) || (radix < MIN_RADIX))
@@ -127,7 +128,7 @@ long StringToInt(const std::string& str, int radix)
 
 	long result = 0;
 	int offset = 0;
-	for (int i = (int)str.length() - 1; i >= 0; i--)
+	for (int i = static_cast<int>(str.length()) - 1; i >= 0; i--)
 	{
 		if (i == 0 && isNegative)
 		{
