@@ -18,10 +18,11 @@ do
   if [ "$result" == "$(cat "$prefix".test.expected)" ]; then
     printf "Test %s done!\n" "${entry:0:-5}"
   else
+    printf "\n"
     printf "Test %s has failed\n" "${entry:0:-5}"
     printf "Arguments: %s\n" "$args"
     printf "Output: %s\n" "$result"
-    break
+    printf "\n"
   fi
 done
 

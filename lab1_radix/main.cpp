@@ -3,6 +3,7 @@
 #include <iostream>
 #include <optional>
 #include <string>
+#include <climits>
 
 #define MAX_RADIX 36
 #define MIN_RADIX 2
@@ -127,16 +128,21 @@ long StringToInt(const std::string& str, int radix)
 	}
 
 	long result = 0;
-	int offset = 0;
-	for (int i = static_cast<int>(str.length()) - 1; i >= 0; i--)
+	for (int i = isNegative ? 1 : 0; i < static_cast<int>(str.length()); i++)
 	{
-		if (i == 0 && isNegative)
-		{
-			result *= -1;
-			continue;
+        long lastCharIntValue = CharToIntRadix(str[i], radix);
+		if (result > ((LONG_MAX - lastCharIntValue) / radix)) {
+			throw std::runtime_error("error: overflow while converting");
 		}
-		result = result + ((long)pow(radix, offset)) * CharToIntRadix(str[i], radix);
-		offset++;
+		result = result * radix + lastCharIntValue;
+	}
+
+	if (isNegative)
+	{
+		if (result == LONG_MIN) {
+			throw std::runtime_error("error: converting negative to positive overflow");
+		}
+		result = -result;
 	}
 
 	return result;
@@ -154,17 +160,17 @@ char IntToCharRadix(int n, int radix)
 		throw std::runtime_error("number is bigger than radix");
 	}
 
-	if ((n >= 0) && (n < 9))
+	if ((n >= 0) && (n <= 9))
 	{
 		return static_cast<char>('0' + n);
 	}
 
-	if ((n >= 10) && (n < 36))
+	if ((n >= 10) && (n <= 36))
 	{
-		return static_cast<char>('A' + n);
+		return static_cast<char>('A' + (n - 10));
 	}
 
-	throw std::runtime_error("number is not in correct range");
+    throw std::runtime_error("number is not in correct range");
 }
 
 std::string IntToString(long n, int radix)
@@ -185,7 +191,7 @@ std::string IntToString(long n, int radix)
 	long divResult;
 	while (n > 0)
 	{
-		divResult = (n / radix);
+		divResult = n / radix;
 		result += IntToCharRadix(n - (divResult * radix), radix);
 		n = divResult;
 	}
