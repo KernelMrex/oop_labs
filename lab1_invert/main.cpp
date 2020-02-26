@@ -3,15 +3,12 @@
 #include <fstream>
 
 #define MATRIX_3x3_SIZE 3
-#define MATRIX_2x2_SIZE 2
 
 struct Args {
     std::string filepath;
 };
 
 typedef double Matrix3x3[MATRIX_3x3_SIZE][MATRIX_3x3_SIZE];
-
-typedef double Matrix2x2[MATRIX_2x2_SIZE][MATRIX_2x2_SIZE];
 
 
 std::optional<Args> ParseArgs(int argc, char *argv[]);
