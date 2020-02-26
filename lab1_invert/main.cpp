@@ -24,7 +24,7 @@ long double CalcMatrixDeterminant(Matrix3x3 &matrix);
 
 void PrintMatrix(std::ostream &out, Matrix3x3 &matrix);
 
-void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &minorsMatrix);
+void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &algebraicComplementMatrix);
 
 int main(int argc, char *argv[]) {
     // Parsing arguments
@@ -51,16 +51,21 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Calculating minors
+    // Calculating algebraic complement matrix
+    Matrix3x3 algComplMatrix = {};
+    CalcAlgebraicComplementMatrix(matrix, algComplMatrix);
+
+    // Calculating algebraic complement matrix
     Matrix3x3 minorsMatrix = {};
-    CalcAlgebraicComplementMatrix(matrix, minorsMatrix);
+    CalcAlgebraicComplementMatrix(matrix, algComplMatrix);
+
 
     // TODO: ...
     PrintMatrix(std::cout, matrix);
 
     std::cout << std::endl;
 
-    PrintMatrix(std::cout, minorsMatrix);
+    PrintMatrix(std::cout, algComplMatrix);
 
     return 0;
 }
@@ -114,12 +119,12 @@ void PrintMatrix(std::ostream &out, Matrix3x3 &matrix) {
     }
 }
 
-void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &minorsMatrix) {
+void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &algebraicComplementMatrix) {
     for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
         for (int j = 0; j < MATRIX_3x3_SIZE; j++) {
             double minor = matrix[i][j] * matrix[(i + 1) % 3][(j + 1) % 3]
                                 - matrix[(i + 1) % 3][j] * matrix[i][(j + 1) % 3];
-            minorsMatrix[(i + 2) % 3][(j + 2) % 3] = minor;
+            algebraicComplementMatrix[(i + 2) % 3][(j + 2) % 3] = minor;
         }
     }
 }
