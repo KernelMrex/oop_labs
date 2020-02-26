@@ -50,36 +50,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Calculating matrix determinant
-    long double matrixDeterminant = CalcMatrixDeterminant(matrix);
-    if (matrixDeterminant == 0) {
-        std::cout << "Invert matrix not exists" << std::endl;
-        return 1;
-    }
-
-    // Calculating algebraic complement matrix
-    Matrix3x3 algebraicComplementMatrix = {};
-    CalcAlgebraicComplementMatrix(matrix, algebraicComplementMatrix);
-
-    // Calculating algebraic complement matrix
-    Matrix3x3 transposedMatrix = {};
-    CalcTransposedMatrix(algebraicComplementMatrix, transposedMatrix);
-
     // Calculating invert matrix
     Matrix3x3 invertMatrix = {};
     CalcInvertMatrix(matrix, invertMatrix);
 
-    // Test outputs
-    std::cout << std::endl << "Read matrix:" << std::endl;
-    PrintMatrix(std::cout, matrix);
-
-    std::cout << std::endl << "Algebraic complement matrix:" << std::endl;
-    PrintMatrix(std::cout, algebraicComplementMatrix);
-
-    std::cout << std::endl << "Transposed algebraic complement matrix:" << std::endl;
-    PrintMatrix(std::cout, transposedMatrix);
-
-    std::cout << std::endl << "Invert matrix:" << std::endl;
+    // Writing matrix
     PrintMatrix(std::cout, invertMatrix);
 
     return 0;
