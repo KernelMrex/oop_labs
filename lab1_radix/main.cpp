@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <cmath>
 #include <iostream>
 #include <optional>
 #include <string>
@@ -113,7 +112,6 @@ int CharToIntRadix(char ch, int radix)
 	throw std::logic_error("can not covert char to int");
 }
 
-// TODO: Add overflow test
 long StringToInt(const std::string& str, int radix)
 {
 	if ((radix > MAX_RADIX) || (radix < MIN_RADIX))
