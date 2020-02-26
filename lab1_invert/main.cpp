@@ -26,6 +26,8 @@ void PrintMatrix(std::ostream &out, Matrix3x3 &matrix);
 
 void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &algebraicComplementMatrix);
 
+void CalcTransposedMatrix(const Matrix3x3 &matrix, Matrix3x3 &transposedMatrix);
+
 int main(int argc, char *argv[]) {
     // Parsing arguments
     auto args = ParseArgs(argc, argv);
@@ -52,24 +54,25 @@ int main(int argc, char *argv[]) {
     }
 
     // Calculating algebraic complement matrix
-    Matrix3x3 algComplMatrix = {};
-    CalcAlgebraicComplementMatrix(matrix, algComplMatrix);
+    Matrix3x3 algebraicComplementMatrix = {};
+    CalcAlgebraicComplementMatrix(matrix, algebraicComplementMatrix);
 
     // Calculating algebraic complement matrix
-    Matrix3x3 minorsMatrix = {};
-    CalcAlgebraicComplementMatrix(matrix, algComplMatrix);
+    Matrix3x3 transposedMatrix = {};
+    CalcTransposedMatrix(algebraicComplementMatrix, transposedMatrix);
 
-
-    // TODO: ...
+    // Test outputs
+    std::cout << std::endl << "Read matrix:" << std::endl;
     PrintMatrix(std::cout, matrix);
 
-    std::cout << std::endl;
+    std::cout << std::endl << "Algebraic complement matrix:" << std::endl;
+    PrintMatrix(std::cout, algebraicComplementMatrix);
 
-    PrintMatrix(std::cout, algComplMatrix);
+    std::cout << std::endl << "Transposed algebraic complement matrix:" << std::endl;
+    PrintMatrix(std::cout, transposedMatrix);
 
     return 0;
 }
-
 
 std::optional<Args> ParseArgs(int argc, char *argv[]) {
     if (argc != 2) {
@@ -125,6 +128,15 @@ void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &algebraic
             double minor = matrix[i][j] * matrix[(i + 1) % 3][(j + 1) % 3]
                                 - matrix[(i + 1) % 3][j] * matrix[i][(j + 1) % 3];
             algebraicComplementMatrix[(i + 2) % 3][(j + 2) % 3] = minor;
+        }
+    }
+}
+
+void CalcTransposedMatrix(const Matrix3x3 &matrix, Matrix3x3 &transposedMatrix) {
+    for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
+        for (int j = i; j < MATRIX_3x3_SIZE; j++) {
+            transposedMatrix[j][i] = matrix[i][j];
+            transposedMatrix[i][j] = matrix[j][i];
         }
     }
 }
