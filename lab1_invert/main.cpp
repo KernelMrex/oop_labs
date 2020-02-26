@@ -24,7 +24,7 @@ long double CalcMatrixDeterminant(Matrix3x3 &matrix);
 
 void PrintMatrix(std::ostream &out, Matrix3x3 &matrix);
 
-void CalcAlgebComplMatrix(const Matrix3x3 &matrix, Matrix3x3 &minorsMatrix);
+void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &minorsMatrix);
 
 int main(int argc, char *argv[]) {
     // Parsing arguments
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 
     // Calculating minors
     Matrix3x3 minorsMatrix = {};
-    CalcAlgebComplMatrix(matrix, minorsMatrix);
+    CalcAlgebraicComplementMatrix(matrix, minorsMatrix);
 
     // TODO: ...
     PrintMatrix(std::cout, matrix);
@@ -114,7 +114,7 @@ void PrintMatrix(std::ostream &out, Matrix3x3 &matrix) {
     }
 }
 
-void CalcAlgebComplMatrix(const Matrix3x3 &matrix, Matrix3x3 &minorsMatrix) {
+void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &minorsMatrix) {
     for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
         for (int j = 0; j < MATRIX_3x3_SIZE; j++) {
             double minor = matrix[i][j] * matrix[(i + 1) % 3][(j + 1) % 3]
