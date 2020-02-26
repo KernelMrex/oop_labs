@@ -16,17 +16,21 @@ typedef double Matrix2x2[MATRIX_2x2_SIZE][MATRIX_2x2_SIZE];
 
 std::optional<Args> ParseArgs(int argc, char *argv[]);
 
-void ReadMatrixFromFile(const std::string &filepath, Matrix3x3 &matrix);
+void ReadMatrixFromFile(const std::string& filepath, Matrix3x3& matrix);
 
-void ReadMatrix(std::istream &in, Matrix3x3 &matrix);
+void ReadMatrix(std::istream& in, Matrix3x3& matrix);
 
-long double CalcMatrixDeterminant(Matrix3x3 &matrix);
+void DivideMatrix(const Matrix3x3& matrix, double divisor, Matrix3x3& resultMatrix);
 
-void PrintMatrix(std::ostream &out, Matrix3x3 &matrix);
+void PrintMatrix(std::ostream& out, Matrix3x3& matrix);
 
-void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &algebraicComplementMatrix);
+double CalcMatrixDeterminant(const Matrix3x3& matrix);
 
-void CalcTransposedMatrix(const Matrix3x3 &matrix, Matrix3x3 &transposedMatrix);
+void CalcAlgebraicComplementMatrix(const Matrix3x3& matrix, Matrix3x3& algebraicComplementMatrix);
+
+void CalcTransposedMatrix(const Matrix3x3& matrix, Matrix3x3& transposedMatrix);
+
+void CalcInvertMatrix(const Matrix3x3& matrix, Matrix3x3& invertMatrix);
 
 int main(int argc, char *argv[]) {
     // Parsing arguments
@@ -41,7 +45,7 @@ int main(int argc, char *argv[]) {
     Matrix3x3 matrix = {};
     try {
         ReadMatrixFromFile(args->filepath, matrix);
-    } catch (std::exception &err) {
+    } catch (std::exception& err) {
         std::cout << err.what() << std::endl;
         return 1;
     }
@@ -61,6 +65,10 @@ int main(int argc, char *argv[]) {
     Matrix3x3 transposedMatrix = {};
     CalcTransposedMatrix(algebraicComplementMatrix, transposedMatrix);
 
+    // Calculating invert matrix
+    Matrix3x3 invertMatrix = {};
+    CalcInvertMatrix(matrix, invertMatrix);
+
     // Test outputs
     std::cout << std::endl << "Read matrix:" << std::endl;
     PrintMatrix(std::cout, matrix);
@@ -70,6 +78,9 @@ int main(int argc, char *argv[]) {
 
     std::cout << std::endl << "Transposed algebraic complement matrix:" << std::endl;
     PrintMatrix(std::cout, transposedMatrix);
+
+    std::cout << std::endl << "Invert matrix:" << std::endl;
+    PrintMatrix(std::cout, invertMatrix);
 
     return 0;
 }
@@ -81,11 +92,9 @@ std::optional<Args> ParseArgs(int argc, char *argv[]) {
     return {(Args) {argv[1]}};
 }
 
-void ReadMatrixFromFile(const std::string &filepath, Matrix3x3 &matrix) {
+void ReadMatrixFromFile(const std::string& filepath, Matrix3x3& matrix) {
     std::ifstream file;
-
     std::cout << filepath << std::endl;
-
     file.open(filepath, std::ios::in);
     if (!file.is_open()) {
         throw std::runtime_error("cannot open file '" + filepath + "'");
@@ -93,9 +102,9 @@ void ReadMatrixFromFile(const std::string &filepath, Matrix3x3 &matrix) {
     ReadMatrix(file, matrix);
 }
 
-void ReadMatrix(std::istream &in, Matrix3x3 &matrix) {
-    for (auto &matrixRow : matrix) {
-        for (double &matrixField : matrixRow) {
+void ReadMatrix(std::istream& in, Matrix3x3& matrix) {
+    for (auto& matrixRow : matrix) {
+        for (double& matrixField : matrixRow) {
             if (!(in >> matrixField)) {
                 throw std::runtime_error("error while reading matrix");
             }
@@ -103,7 +112,24 @@ void ReadMatrix(std::istream &in, Matrix3x3 &matrix) {
     }
 }
 
-long double CalcMatrixDeterminant(Matrix3x3 &matrix) {
+void PrintMatrix(std::ostream& out, Matrix3x3& matrix) {
+    for (auto& matrixRow : matrix) {
+        for (double& matrixField : matrixRow) {
+            out << matrixField << " ";
+        }
+        out << std::endl;
+    }
+}
+
+void DivideMatrix(const Matrix3x3& matrix, double divisor, Matrix3x3& resultMatrix) {
+    for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
+        for (int j = 0; j < MATRIX_3x3_SIZE; j++) {
+            resultMatrix[i][j] = matrix[i][j] / divisor;
+        }
+    }
+}
+
+double CalcMatrixDeterminant(const Matrix3x3& matrix) {
     return
             matrix[0][0] * matrix[1][1] * matrix[2][2]
             + matrix[0][2] * matrix[1][0] * matrix[2][1]
@@ -113,16 +139,7 @@ long double CalcMatrixDeterminant(Matrix3x3 &matrix) {
             - matrix[0][1] * matrix[1][0] * matrix[2][2];
 }
 
-void PrintMatrix(std::ostream &out, Matrix3x3 &matrix) {
-    for (auto &matrixRow : matrix) {
-        for (double &matrixField : matrixRow) {
-            out << matrixField << " ";
-        }
-        out << std::endl;
-    }
-}
-
-void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &algebraicComplementMatrix) {
+void CalcAlgebraicComplementMatrix(const Matrix3x3& matrix, Matrix3x3& algebraicComplementMatrix) {
     for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
         for (int j = 0; j < MATRIX_3x3_SIZE; j++) {
             double minor = matrix[i][j] * matrix[(i + 1) % 3][(j + 1) % 3]
@@ -132,11 +149,30 @@ void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &algebraic
     }
 }
 
-void CalcTransposedMatrix(const Matrix3x3 &matrix, Matrix3x3 &transposedMatrix) {
+void CalcTransposedMatrix(const Matrix3x3& matrix, Matrix3x3& transposedMatrix) {
     for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
         for (int j = i; j < MATRIX_3x3_SIZE; j++) {
             transposedMatrix[j][i] = matrix[i][j];
             transposedMatrix[i][j] = matrix[j][i];
         }
     }
+}
+
+void CalcInvertMatrix(const Matrix3x3& matrix, Matrix3x3& invertMatrix) {
+    // Calculating matrix determinant
+    double matrixDeterminant = CalcMatrixDeterminant(matrix);
+    if (matrixDeterminant == 0) {
+        throw std::logic_error("Invert matrix not exists");
+    }
+
+    // Calculating algebraic complement matrix
+    Matrix3x3 algebraicComplementMatrix = {};
+    CalcAlgebraicComplementMatrix(matrix, algebraicComplementMatrix);
+
+    // Calculating transposed matrix
+    Matrix3x3 transposedMatrix = {};
+    CalcTransposedMatrix(algebraicComplementMatrix, transposedMatrix);
+
+    // Calculating result
+    DivideMatrix(transposedMatrix, matrixDeterminant, invertMatrix);
 }
