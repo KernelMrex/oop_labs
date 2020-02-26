@@ -126,7 +126,7 @@ void CalcAlgebraicComplementMatrix(const Matrix3x3 &matrix, Matrix3x3 &algebraic
     for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
         for (int j = 0; j < MATRIX_3x3_SIZE; j++) {
             double minor = matrix[i][j] * matrix[(i + 1) % 3][(j + 1) % 3]
-                                - matrix[(i + 1) % 3][j] * matrix[i][(j + 1) % 3];
+                           - matrix[(i + 1) % 3][j] * matrix[i][(j + 1) % 3];
             algebraicComplementMatrix[(i + 2) % 3][(j + 2) % 3] = minor;
         }
     }
