@@ -7,4 +7,6 @@ double SafeAddition(double x, double y);
 
 double SafeSubtraction(double x, double y);
 
+double SafeDivision(double x, double y);
+
 #endif //LAB1_INVERT_SAFE_OPERATIONS_H

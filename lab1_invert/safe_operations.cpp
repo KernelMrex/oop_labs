@@ -52,3 +52,19 @@ double SafeSubtraction(double x, double y) {
 
     return x - y;
 }
+
+double SafeDivision(double x, double y) {
+    if (x == std::numeric_limits<double>::min()) {
+        throw std::runtime_error("addition division: x");
+    }
+
+    if (y == std::numeric_limits<double>::min()) {
+        throw std::runtime_error("addition division: y");
+    }
+
+    if ((x > 0 ? x : -x) > std::numeric_limits<double>::max() * (y > 0 ? y : -y)) {
+        throw std::runtime_error("addition division");
+    }
+
+    return x / y;
+}

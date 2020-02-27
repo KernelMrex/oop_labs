@@ -49,7 +49,13 @@ int main(int argc, char *argv[]) {
 
     // Calculating invert matrix
     Matrix3x3 invertMatrix = {};
-    CalcInvertMatrix(matrix, invertMatrix);
+    try {
+        CalcInvertMatrix(matrix, invertMatrix);
+
+    } catch (std::exception& err) {
+        std::cout << err.what() << std::endl;
+        return 1;
+    }
 
     // Writing matrix
     PrintMatrix(std::cout, invertMatrix);
@@ -96,7 +102,7 @@ void PrintMatrix(std::ostream& out, Matrix3x3& matrix) {
 void DivideMatrix(const Matrix3x3& matrix, double divisor, Matrix3x3& resultMatrix) {
     for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
         for (int j = 0; j < MATRIX_3x3_SIZE; j++) {
-            resultMatrix[i][j] = matrix[i][j] / divisor;
+            resultMatrix[i][j] = SafeDivision(matrix[i][j], divisor);
         }
     }
 }
@@ -119,23 +125,15 @@ double CalcMatrixDeterminant(const Matrix3x3& matrix) {
                             SafeMultiply(SafeMultiply(matrix[0][1], matrix[1][0]), matrix[2][2])
                     )
             );
-
-    /* Explanation
-    return
-            matrix[0][0] * matrix[1][1] * matrix[2][2]
-            + matrix[0][2] * matrix[1][0] * matrix[2][1]
-            + matrix[0][1] * matrix[1][2] * matrix[2][0]
-            - matrix[0][2] * matrix[1][1] * matrix[2][0]
-            - matrix[0][0] * matrix[1][2] * matrix[2][1]
-            - matrix[0][1] * matrix[1][0] * matrix[2][2];
-            */
 }
 
 void CalcAlgebraicComplementMatrix(const Matrix3x3& matrix, Matrix3x3& algebraicComplementMatrix) {
     for (int i = 0; i < MATRIX_3x3_SIZE; i++) {
         for (int j = 0; j < MATRIX_3x3_SIZE; j++) {
-            double minor = matrix[i][j] * matrix[(i + 1) % 3][(j + 1) % 3]
-                           - matrix[(i + 1) % 3][j] * matrix[i][(j + 1) % 3];
+            double minor = SafeSubtraction(
+                    SafeMultiply(matrix[i][j], matrix[(i + 1) % 3][(j + 1) % 3]),
+                    SafeMultiply(matrix[(i + 1) % 3][j], matrix[i][(j + 1) % 3])
+            );
             algebraicComplementMatrix[(i + 2) % 3][(j + 2) % 3] = minor;
         }
     }
