@@ -1,6 +1,7 @@
 #include <iostream>
 #include <optional>
 #include <fstream>
+#include "safe_operations.h"
 
 #define MATRIX_3x3_SIZE 3
 
@@ -9,7 +10,6 @@ struct Args {
 };
 
 typedef double Matrix3x3[MATRIX_3x3_SIZE][MATRIX_3x3_SIZE];
-
 
 std::optional<Args> ParseArgs(int argc, char *argv[]);
 
@@ -103,12 +103,32 @@ void DivideMatrix(const Matrix3x3& matrix, double divisor, Matrix3x3& resultMatr
 
 double CalcMatrixDeterminant(const Matrix3x3& matrix) {
     return
+            SafeSubtraction(
+                    SafeAddition(
+                            SafeAddition(
+                                    SafeMultiply(SafeMultiply(matrix[0][0], matrix[1][1]), matrix[2][2]),
+                                    SafeMultiply(SafeMultiply(matrix[0][2], matrix[1][0]), matrix[2][1])
+                            ),
+                            SafeMultiply(SafeMultiply(matrix[0][1], matrix[1][2]), matrix[2][0])
+                    ),
+                    SafeAddition(
+                            SafeAddition(
+                                    SafeMultiply(SafeMultiply(matrix[0][2], matrix[1][1]), matrix[2][0]),
+                                    SafeMultiply(SafeMultiply(matrix[0][0], matrix[1][2]), matrix[2][1])
+                            ),
+                            SafeMultiply(SafeMultiply(matrix[0][1], matrix[1][0]), matrix[2][2])
+                    )
+            );
+
+    /* Explanation
+    return
             matrix[0][0] * matrix[1][1] * matrix[2][2]
             + matrix[0][2] * matrix[1][0] * matrix[2][1]
             + matrix[0][1] * matrix[1][2] * matrix[2][0]
             - matrix[0][2] * matrix[1][1] * matrix[2][0]
             - matrix[0][0] * matrix[1][2] * matrix[2][1]
             - matrix[0][1] * matrix[1][0] * matrix[2][2];
+            */
 }
 
 void CalcAlgebraicComplementMatrix(const Matrix3x3& matrix, Matrix3x3& algebraicComplementMatrix) {

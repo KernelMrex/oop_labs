@@ -3,4 +3,4 @@ project(lab1_invert)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(invert main.cpp)
+add_executable(invert main.cpp safe_operations.h safe_operations.cpp)
