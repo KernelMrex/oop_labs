@@ -14,19 +14,7 @@ double SafeMultiply(double x, double y) {
         throw std::runtime_error("multiply overflow: y");
     }
 
-    if (x > 0 && y > 0 && x > std::numeric_limits<double>::max() / y) {
-        throw std::runtime_error("multiply overflow");
-    }
-
-    if (x > 0 && y < 0 && y < std::numeric_limits<double>::min() / x) {
-        throw std::runtime_error("multiply overflow");
-    }
-
-    if (x < 0 && y > 0 && x < std::numeric_limits<double>::min() / y) {
-        throw std::runtime_error("multiply overflow");
-    }
-
-    if (x < 0 && y < 0 && -x > std::numeric_limits<double>::max() / -y) {
+    if ((x > 0 ? x : -x) > std::numeric_limits<double>::max() / (y > 0 ? y : -y)) {
         throw std::runtime_error("multiply overflow");
     }
 
