@@ -1,8 +1,8 @@
 #include <algorithm>
+#include <climits>
 #include <iostream>
 #include <optional>
 #include <string>
-#include <climits>
 
 #define MAX_RADIX 36
 #define MIN_RADIX 2
@@ -128,8 +128,9 @@ long StringToInt(const std::string& str, int radix)
 	long result = 0;
 	for (int i = isNegative ? 1 : 0; i < static_cast<int>(str.length()); i++)
 	{
-        long lastCharIntValue = CharToIntRadix(str[i], radix);
-		if (result > ((LONG_MAX - lastCharIntValue) / radix)) {
+		long lastCharIntValue = CharToIntRadix(str[i], radix);
+		if (result > ((LONG_MAX - lastCharIntValue) / radix))
+		{
 			throw std::runtime_error("error: overflow while converting");
 		}
 		result = result * radix + lastCharIntValue;
@@ -137,7 +138,8 @@ long StringToInt(const std::string& str, int radix)
 
 	if (isNegative)
 	{
-		if (result == LONG_MIN) {
+		if (result == LONG_MIN)
+		{
 			throw std::runtime_error("error: converting negative to positive overflow");
 		}
 		result = -result;
@@ -168,7 +170,7 @@ char IntToCharRadix(int n, int radix)
 		return static_cast<char>('A' + (n - 10));
 	}
 
-    throw std::runtime_error("number is not in correct range");
+	throw std::runtime_error("number is not in correct range");
 }
 
 std::string IntToString(long n, int radix)
