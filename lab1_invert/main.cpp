@@ -83,7 +83,6 @@ std::optional<Args> ParseArgs(int argc, char* argv[])
 void ReadMatrixFromFile(const std::string& filepath, Matrix3x3& matrix)
 {
 	std::ifstream file;
-	std::cout << filepath << std::endl;
 	file.open(filepath, std::ios::in);
 	if (!file.is_open())
 	{
@@ -112,7 +111,8 @@ void PrintMatrix(std::ostream& out, Matrix3x3& matrix)
 	{
 		for (double& matrixField : matrixRow)
 		{
-			out << std::trunc(matrixField * 100) / 100 << " ";
+			double matrixCell = std::trunc(matrixField * 100) / 100;
+			out << ((matrixCell == 0) ? 0 : matrixCell) << " ";
 		}
 		out << std::endl;
 	}

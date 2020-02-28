@@ -4,14 +4,14 @@
 #  Auto tests by KernelMrex
 #
 
-EXEC_NAME="radix"
+EXEC_NAME="invert"
 
 cp ../cmake-build-debug/$EXEC_NAME .
 
 for entry in *.test
 do
-  args=$(cat "$entry")
-  result=$(./$EXEC_NAME $args)
+  args=$entry
+  result=$(./$EXEC_NAME "$args")
 
   prefix="${entry:0:-5}"
 
@@ -22,6 +22,7 @@ do
     printf "Test %s has failed\n" "${entry:0:-5}"
     printf "Arguments: %s\n" "$args"
     printf "Output: %s\n" "$result"
+    printf "Expected: %s\n" "$(cat "$prefix".test.expected)"
     printf "\n"
   fi
 done
