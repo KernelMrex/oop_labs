@@ -1,4 +1,4 @@
-#include "safe_operations.h"
+#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <optional>
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 	{
 		ReadMatrixFromFile(args->filepath, matrix);
 	}
-	catch (std::exception& err)
+	catch (const std::exception& err)
 	{
 		std::cout << err.what() << std::endl;
 		return 1;
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 	{
 		CalcInvertMatrix(matrix, invertMatrix);
 	}
-	catch (std::exception& err)
+	catch (const std::exception& err)
 	{
 		std::cout << err.what() << std::endl;
 		return 1;
@@ -112,7 +112,7 @@ void PrintMatrix(std::ostream& out, Matrix3x3& matrix)
 	{
 		for (double& matrixField : matrixRow)
 		{
-			out << matrixField << " ";
+			out << std::trunc(matrixField * 100) / 100 << " ";
 		}
 		out << std::endl;
 	}
@@ -124,24 +124,19 @@ void DivideMatrix(const Matrix3x3& matrix, double divisor, Matrix3x3& resultMatr
 	{
 		for (int j = 0; j < MATRIX_3x3_SIZE; j++)
 		{
-			resultMatrix[i][j] = SafeDivision(matrix[i][j], divisor);
+			resultMatrix[i][j] = matrix[i][j] / divisor;
 		}
 	}
 }
 
 double CalcMatrixDeterminant(const Matrix3x3& matrix)
 {
-	return SafeSubtraction(
-		SafeAddition(
-			SafeAddition(
-				SafeMultiply(SafeMultiply(matrix[0][0], matrix[1][1]), matrix[2][2]),
-				SafeMultiply(SafeMultiply(matrix[0][2], matrix[1][0]), matrix[2][1])),
-			SafeMultiply(SafeMultiply(matrix[0][1], matrix[1][2]), matrix[2][0])),
-		SafeAddition(
-			SafeAddition(
-				SafeMultiply(SafeMultiply(matrix[0][2], matrix[1][1]), matrix[2][0]),
-				SafeMultiply(SafeMultiply(matrix[0][0], matrix[1][2]), matrix[2][1])),
-			SafeMultiply(SafeMultiply(matrix[0][1], matrix[1][0]), matrix[2][2])));
+	return matrix[0][0] * matrix[1][1] * matrix[2][2]
+		+ matrix[0][2] * matrix[1][0] * matrix[2][1]
+		+ matrix[0][1] * matrix[1][2] * matrix[2][0]
+		- matrix[0][2] * matrix[1][1] * matrix[2][0]
+		- matrix[0][0] * matrix[1][2] * matrix[2][1]
+		- matrix[0][1] * matrix[1][0] * matrix[2][2];
 }
 
 void CalcAlgebraicComplementMatrix(const Matrix3x3& matrix, Matrix3x3& algebraicComplementMatrix)
@@ -150,9 +145,7 @@ void CalcAlgebraicComplementMatrix(const Matrix3x3& matrix, Matrix3x3& algebraic
 	{
 		for (int j = 0; j < MATRIX_3x3_SIZE; j++)
 		{
-			double minor = SafeSubtraction(
-				SafeMultiply(matrix[i][j], matrix[(i + 1) % 3][(j + 1) % 3]),
-				SafeMultiply(matrix[(i + 1) % 3][j], matrix[i][(j + 1) % 3]));
+			double minor = matrix[i][j] * matrix[(i + 1) % 3][(j + 1) % 3] - matrix[(i + 1) % 3][j] * matrix[i][(j + 1) % 3];
 			algebraicComplementMatrix[(i + 2) % 3][(j + 2) % 3] = minor;
 		}
 	}
