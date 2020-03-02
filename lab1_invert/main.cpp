@@ -1,3 +1,4 @@
+#include <array>
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -10,7 +11,7 @@ struct Args
 	std::string filepath;
 };
 
-typedef double Matrix3x3[MATRIX_3x3_SIZE][MATRIX_3x3_SIZE];
+typedef std::array<std::array<double, MATRIX_3x3_SIZE>, MATRIX_3x3_SIZE> Matrix3x3;
 
 std::optional<Args> ParseArgs(int argc, char* argv[]);
 
@@ -28,7 +29,7 @@ void CalcAlgebraicComplementMatrix(const Matrix3x3& matrix, Matrix3x3& algebraic
 
 void CalcTransposedMatrix(const Matrix3x3& matrix, Matrix3x3& transposedMatrix);
 
-void CalcInvertMatrix(const Matrix3x3& matrix, Matrix3x3& invertMatrix);
+std::optional<Matrix3x3> CalcInvertMatrix(const Matrix3x3& matrix);
 
 int main(int argc, char* argv[])
 {
@@ -54,19 +55,14 @@ int main(int argc, char* argv[])
 	}
 
 	// Calculating invert matrix
-	Matrix3x3 invertMatrix = {};
-	try
-	{
-		CalcInvertMatrix(matrix, invertMatrix);
-	}
-	catch (const std::exception& err)
-	{
-		std::cout << err.what() << std::endl;
-		return 1;
+	auto optionalMatrix = CalcInvertMatrix(matrix);
+	if (!optionalMatrix.has_value()) {
+        std::cout << "Invert matrix not exists" << std::endl;
+        return 1;
 	}
 
 	// Writing matrix
-	PrintMatrix(std::cout, invertMatrix);
+	PrintMatrix(std::cout, optionalMatrix.value());
 
 	return 0;
 }
@@ -163,13 +159,15 @@ void CalcTransposedMatrix(const Matrix3x3& matrix, Matrix3x3& transposedMatrix)
 	}
 }
 
-void CalcInvertMatrix(const Matrix3x3& matrix, Matrix3x3& invertMatrix)
+std::optional<Matrix3x3> CalcInvertMatrix(const Matrix3x3& matrix)
 {
+	Matrix3x3 invertMatrix;
+
 	// Calculating matrix determinant
 	double matrixDeterminant = CalcMatrixDeterminant(matrix);
 	if (matrixDeterminant == 0)
 	{
-		throw std::logic_error("Invert matrix not exists");
+		return std::nullopt;
 	}
 
 	// Calculating algebraic complement matrix
@@ -182,4 +180,6 @@ void CalcInvertMatrix(const Matrix3x3& matrix, Matrix3x3& invertMatrix)
 
 	// Calculating result
 	DivideMatrix(transposedMatrix, matrixDeterminant, invertMatrix);
+
+	return { invertMatrix };
 }
