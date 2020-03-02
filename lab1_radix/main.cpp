@@ -188,12 +188,11 @@ std::string IntToString(long n, int radix)
 	}
 
 	std::string result = "";
-	long divResult;
 	while (n > 0)
 	{
-		divResult = n / radix;
-		result += IntToCharRadix(n - (divResult * radix), radix);
-		n = divResult;
+		auto divResult = std::ldiv(n, radix);
+		result += IntToCharRadix(static_cast<int>(divResult.rem), radix);
+		n = divResult.quot;
 	}
 
 	if (isNegative)
