@@ -84,35 +84,6 @@ Labyrinth ReadLabyrinthFromFile(const std::string& filepath) {
     return labyrinth;
 }
 
-//Labyrinth ReadLabyrinth(std::istream& inputStream) {
-//    Labyrinth labyrinth;
-//    bool isEOF = false;
-//    int i;
-//    for (i = 0; i < LABYRINTH_MAX_SIZE && !isEOF; i++) {
-//        bool isNewLine = false;
-//        for (int j = 0; j < LABYRINTH_MAX_SIZE && !isNewLine && !isEOF; j++) {
-//            if (inputStream.eof()) {
-//                isEOF = true;
-//                continue;
-//            }
-//            char ch;
-//            if (!(inputStream >> ch)) {
-//                throw std::runtime_error("error while reading labyrinth");
-//            }
-//            if (ch == '\r') {
-//                continue;
-//            }
-//            if (ch == '\n') {
-//                labyrinth[i][j + 1] = LABYRINTH_CELL_EOL;
-//                isNewLine = true;
-//            }
-//            labyrinth[i][j] = GetLabyrinthCellByChar(ch);
-//        }
-//    }
-//    labyrinth[i][0] = LABYRINTH_CELL_EOF;
-//    return labyrinth;
-//}
-
 Labyrinth ReadLabyrinth(std::istream& inputStream) {
     Labyrinth labyrinth;
 
@@ -137,12 +108,11 @@ Labyrinth ReadLabyrinth(std::istream& inputStream) {
                 throw std::runtime_error("unexpected input");
         }
     }
-
     labyrinth[i][0] = LABYRINTH_CELL_EOF;
 
-//    if (inputStream.bad()) {
-//        throw std::runtime_error("error while reading labyrinth");
-//    }
+    if (inputStream.bad()) {
+        throw std::runtime_error("error while reading labyrinth");
+    }
 
     return labyrinth;
 }
