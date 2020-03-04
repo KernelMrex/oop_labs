@@ -4,12 +4,14 @@
 #include <fstream>
 
 /* Defines */
-#define LABYRINTH_MAX_SIZE 5
+#define LABYRINTH_MAX_SIZE 12
 #define LABYRINTH_CELL_EMPTY 0
 #define LABYRINTH_CELL_EOL -1
 #define LABYRINTH_CELL_EOF -2
 #define LABYRINTH_CELL_NOT_DEFINED -3
 #define LABYRINTH_CELL_WALL -4
+#define LABYRINTH_CELL_START -5
+#define LABYRINTH_CELL_STOP -6
 
 
 struct Args {
@@ -70,8 +72,8 @@ std::optional<Args> ParseArgs(int argc, char **argv) {
 
 Labyrinth ReadLabyrinthFromFile(const std::string& filepath) {
     std::ifstream inputFile;
-    inputFile.open(filepath);
-    if (!inputFile.is_open()) {
+    inputFile.open(filepath, std::ios::in|std::ios::binary);
+    if (!inputFile.is_open() || !inputFile.good()) {
         throw std::runtime_error("couldn't open file");
     }
 
@@ -117,25 +119,30 @@ Labyrinth ReadLabyrinth(std::istream& inputStream) {
     char ch;
     int i = 0;
     int j = 0;
-    while (!(inputStream >> ch)) {
+    while (inputStream >> std::noskipws >> ch) {
         switch (ch) {
             case 'A':
             case 'B':
+            case '#':
             case ' ':
-                i++;
                 labyrinth[i][j] = GetLabyrinthCellByChar(ch);
+                j++;
                 break;
             case '\n':
-                j++;
+                labyrinth[i][j] = GetLabyrinthCellByChar(ch);
+                j = 0;
+                i++;
                 break;
             default:
                 throw std::runtime_error("unexpected input");
         }
     }
 
-    if (!inputStream.good()) {
-        throw std::runtime_error("error while reading labyrinth");
-    }
+    labyrinth[i][0] = LABYRINTH_CELL_EOF;
+
+//    if (inputStream.bad()) {
+//        throw std::runtime_error("error while reading labyrinth");
+//    }
 
     return labyrinth;
 }
@@ -145,8 +152,14 @@ int GetLabyrinthCellByChar(char ch) {
     switch (ch) {
         case ' ':
             return LABYRINTH_CELL_EMPTY;
+        case '\n':
+            return LABYRINTH_CELL_EOL;
         case '#':
             return LABYRINTH_CELL_WALL;
+        case 'A':
+            return LABYRINTH_CELL_START;
+        case 'B':
+            return LABYRINTH_CELL_STOP;
         default:
             return LABYRINTH_CELL_NOT_DEFINED;
     }
@@ -160,6 +173,10 @@ char GetLabyrinthCellByInt(int cell) {
             return '#';
         case LABYRINTH_CELL_EOL:
             return '\n';
+        case LABYRINTH_CELL_START:
+            return 'A';
+        case LABYRINTH_CELL_STOP:
+            return 'B';
         default:
             return '%';
     }
@@ -176,8 +193,9 @@ void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth) {
         for (int j = 0; j < LABYRINTH_MAX_SIZE && !isEOL; j++) {
             if (labyrinth[i][j] == LABYRINTH_CELL_EOL) {
                 isEOL = true;
+                continue;
             }
-            outputStream << "[" << GetLabyrinthCellByInt(labyrinth[i][j]) << "]";
+            outputStream << GetLabyrinthCellByInt(labyrinth[i][j]);
         }
         outputStream << std::endl;
     }
