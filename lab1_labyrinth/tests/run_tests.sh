@@ -33,7 +33,7 @@ for entry in *.test.args; do
   else
     printf "\n"
     printf "Test %s has failed\n" "$prefix"
-    printf "Arguments: %s\n" "$args"
+    printf "Arguments: %s %s\n" "${args[1]}" "${args[2]}"
     printf "Output: %s\n" "$(cat "$fileToCompare")"
     printf "Expected: %s\n" "$(cat "$prefix".test.expected)"
     printf "\n"
