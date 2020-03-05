@@ -2,6 +2,9 @@
 #include <optional>
 #include <array>
 #include <fstream>
+#include <queue>
+#include <tuple>
+#include <iomanip>
 
 /* Defines */
 #define LABYRINTH_MAX_SIZE 12
@@ -21,6 +24,13 @@ struct Args {
 
 typedef std::array<std::array<int, LABYRINTH_MAX_SIZE + 1>, LABYRINTH_MAX_SIZE + 1> Labyrinth;
 
+typedef int CellType;
+
+struct WaveCell {
+    std::pair<int, int> coordinates;
+    int value;
+};
+
 /* Prototypes */
 std::optional<Args> ParseArgs(int argc, char *argv[]);
 
@@ -34,6 +44,12 @@ char GetLabyrinthCellByInt(int cell);
 
 void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth);
 
+Labyrinth LabyrinthWaveFill(Labyrinth labyrinth);
+
+std::optional<std::pair<int, int>> FindFirstCellOfType(const Labyrinth& labyrinth, CellType cellType);
+
+void SpreadWave(std::queue<WaveCell>& queue, const WaveCell& waveCell);
+
 /* Main */
 int main(int argc, char *argv[]) {
     auto argsOptional = ParseArgs(argc, argv);
@@ -43,7 +59,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-
     Labyrinth labyrinth;
     try {
         labyrinth = ReadLabyrinthFromFile(argsOptional->inputFilename);
@@ -52,7 +67,10 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    PrintLabyrinth(std::cout, labyrinth);
+    Labyrinth wavedLabyrinth;
+    wavedLabyrinth = LabyrinthWaveFill(labyrinth);
+
+    PrintLabyrinth(std::cout, wavedLabyrinth);
 
     return 0;
 }
@@ -72,7 +90,7 @@ std::optional<Args> ParseArgs(int argc, char **argv) {
 
 Labyrinth ReadLabyrinthFromFile(const std::string& filepath) {
     std::ifstream inputFile;
-    inputFile.open(filepath, std::ios::in|std::ios::binary);
+    inputFile.open(filepath, std::ios::in | std::ios::binary);
     if (!inputFile.is_open() || !inputFile.good()) {
         throw std::runtime_error("couldn't open file");
     }
@@ -165,8 +183,87 @@ void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth) {
                 isEOL = true;
                 continue;
             }
-            outputStream << GetLabyrinthCellByInt(labyrinth[i][j]);
+            if (labyrinth[i][j] > 0) {
+                outputStream << std::setw(3) << labyrinth[i][j];
+            } else {
+                outputStream << std::setw(3) << GetLabyrinthCellByInt(labyrinth[i][j]);
+            }
         }
         outputStream << std::endl;
+    }
+}
+
+Labyrinth LabyrinthWaveFill(Labyrinth labyrinth) {
+    std::queue<WaveCell> waveQueue;
+
+    // Find labyrinth start
+    auto startCoordinatesOptional = FindFirstCellOfType(labyrinth, LABYRINTH_CELL_START);
+    if (!startCoordinatesOptional.has_value()) {
+        throw std::runtime_error("malformed labyrinth");
+    }
+    labyrinth[startCoordinatesOptional->first][startCoordinatesOptional->second] = 0;
+    waveQueue.push((WaveCell) {
+            startCoordinatesOptional.value(),
+            1
+    });
+
+    // Wave fill
+    while (!waveQueue.empty()) {
+        auto waveCell = waveQueue.front();
+        waveQueue.pop();
+
+        std::cout <<  waveCell.coordinates.first << " " << waveCell.coordinates.second << " : " << labyrinth[waveCell.coordinates.first][waveCell.coordinates.second] << std::endl;
+        int labyrinthCellValue = labyrinth[waveCell.coordinates.first][waveCell.coordinates.second];
+        if (labyrinthCellValue == LABYRINTH_CELL_STOP) {
+            break;
+        }
+        if (labyrinthCellValue == LABYRINTH_CELL_WALL) {
+            continue;
+        }
+        if (labyrinthCellValue == LABYRINTH_CELL_EMPTY) {
+            labyrinth[waveCell.coordinates.first][waveCell.coordinates.second] = waveCell.value;
+            SpreadWave(waveQueue, waveCell);
+        }
+    }
+    return labyrinth;
+}
+
+std::optional<std::pair<int, int>> FindFirstCellOfType(const Labyrinth& labyrinth, CellType cellType) {
+    for (int i = 0; i < LABYRINTH_MAX_SIZE; i++) {
+        bool isEOL = false;
+        for (int j = 0; j < LABYRINTH_MAX_SIZE && !isEOL; j++) {
+            isEOL = (labyrinth[i][j] == LABYRINTH_CELL_EOL);
+            if (labyrinth[i][j] == cellType) {
+                return {std::pair<int, int>(i, j)};
+            }
+        }
+    }
+    return std::nullopt;
+}
+
+void SpreadWave(std::queue<WaveCell>& queue, const WaveCell& waveCell) {
+    if (waveCell.coordinates.first - 1 >= 0) {
+        queue.push((WaveCell) {
+                std::pair<int, int>(waveCell.coordinates.first - 1, waveCell.coordinates.second),
+                waveCell.value + 1
+        });
+    }
+    if (waveCell.coordinates.second - 1 >= 0) {
+        queue.push((WaveCell) {
+                std::pair<int, int>(waveCell.coordinates.first, waveCell.coordinates.second - 1),
+                waveCell.value + 1
+        });
+    }
+    if (waveCell.coordinates.first + 1 < LABYRINTH_MAX_SIZE) {
+        queue.push((WaveCell) {
+                std::pair<int, int>(waveCell.coordinates.first + 1, waveCell.coordinates.second),
+                waveCell.value + 1
+        });
+    }
+    if (waveCell.coordinates.second + 1 < LABYRINTH_MAX_SIZE) {
+        queue.push((WaveCell) {
+                std::pair<int, int>(waveCell.coordinates.first, waveCell.coordinates.second + 1),
+                waveCell.value + 1
+        });
     }
 }
