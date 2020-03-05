@@ -44,7 +44,7 @@ int GetLabyrinthCellByChar(char ch);
 
 char GetLabyrinthCellByInt(int cell);
 
-void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth);
+void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth, int width = 3);
 
 Labyrinth LabyrinthWaveFill(Labyrinth labyrinth);
 
@@ -57,6 +57,8 @@ std::optional<Labyrinth> CalculateWay(const Labyrinth& labyrinth);
 std::optional<CellCoordinates> SearchNextNeighbour(const Labyrinth& labyrinth, const CellCoordinates& curCell);
 
 std::optional<Cell> GetCell(const Labyrinth& labyrinth, int x, int y);
+
+void WriteLabyrinthInFile(const std::string& filepath, const Labyrinth& labyrinth);
 
 /* Main */
 int main(int argc, char *argv[]) {
@@ -80,7 +82,13 @@ int main(int argc, char *argv[]) {
 		std::cout << "Error while searching fastest way: malformed labyrinth" << std::endl;
 		return 1;
 	}
-	PrintLabyrinth(std::cout, resultLabyrinth.value());
+
+	try {
+		WriteLabyrinthInFile(argsOptional->outputFilename, resultLabyrinth.value());
+	} catch (const std::exception& err) {
+		std::cout << "Error while writing labyrinth: " << err.what() << std::endl;
+		return 1;
+	}
 
 	return 0;
 }
@@ -108,7 +116,6 @@ Labyrinth ReadLabyrinthFromFile(const std::string& filepath) {
 	auto labyrinth = ReadLabyrinth(inputFile);
 
 	inputFile.close();
-
 	return labyrinth;
 }
 
@@ -182,7 +189,7 @@ char GetLabyrinthCellByInt(int cell) {
 	}
 }
 
-void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth) {
+void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth, int width) {
 	bool isEOF = false;
 	for (int i = 0; i < LABYRINTH_MAX_SIZE && !isEOF; i++) {
 		if (labyrinth[i][0] == LABYRINTH_CELL_EOF) {
@@ -195,13 +202,20 @@ void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth) {
 				isEOL = true;
 				continue;
 			}
+			if (!outputStream.good()) {
+				throw std::runtime_error("outputStream is not good");
+			}
 			if (labyrinth[i][j] > 0) {
-				outputStream << std::setw(3) << labyrinth[i][j];
+				outputStream << std::setw(width) << labyrinth[i][j];
 			} else {
-				outputStream << std::setw(3) << GetLabyrinthCellByInt(labyrinth[i][j]);
+				outputStream << std::setw(width) << GetLabyrinthCellByInt(labyrinth[i][j]);
 			}
 		}
-		outputStream << std::endl;
+		if (outputStream.good()) {
+			outputStream << std::endl;
+		} else {
+			throw std::runtime_error("outputStream is not good");
+		}
 	}
 }
 
@@ -375,4 +389,17 @@ std::optional<Cell> GetCell(const Labyrinth& labyrinth, int x, int y) {
 		CellCoordinates(x, y),
 		labyrinth[x][y]
 	}};
+}
+
+void WriteLabyrinthInFile(const std::string& filepath, const Labyrinth& labyrinth) {
+	std::ofstream outputFile;
+	outputFile.open(filepath, std::ios::out);
+
+	if (!outputFile.is_open() || !outputFile.good()) {
+		throw std::runtime_error("couldn't open file");
+	}
+
+	PrintLabyrinth(outputFile, labyrinth, 1);
+
+	outputFile.close();
 }
