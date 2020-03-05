@@ -126,7 +126,8 @@ Labyrinth ReadLabyrinth(std::istream& inputStream) {
                 throw std::runtime_error("unexpected input");
         }
     }
-    labyrinth[i][0] = LABYRINTH_CELL_EOF;
+    labyrinth[i][j] = LABYRINTH_CELL_EOL;
+    labyrinth[i + 1][0] = LABYRINTH_CELL_EOF;
 
     if (inputStream.bad()) {
         throw std::runtime_error("error while reading labyrinth");
@@ -212,7 +213,6 @@ Labyrinth LabyrinthWaveFill(Labyrinth labyrinth) {
         auto waveCell = waveQueue.front();
         waveQueue.pop();
 
-        std::cout <<  waveCell.coordinates.first << " " << waveCell.coordinates.second << " : " << labyrinth[waveCell.coordinates.first][waveCell.coordinates.second] << std::endl;
         int labyrinthCellValue = labyrinth[waveCell.coordinates.first][waveCell.coordinates.second];
         if (labyrinthCellValue == LABYRINTH_CELL_STOP) {
             break;
