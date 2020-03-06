@@ -20,13 +20,13 @@ typedef int CellType;
 
 typedef std::array<std::array<int, LABYRINTH_MAX_SIZE + 1>, LABYRINTH_MAX_SIZE + 1> Labyrinth;
 
-//typedef std::pair<int, int> CellCoordinates;
-
-struct CellCoordinates{
+struct CellCoordinates
+{
 	int row{};
 	int column{};
 	CellCoordinates() = default;
-	CellCoordinates(int row, int column) {
+	CellCoordinates(int row, int column)
+	{
 		this->row = row;
 		this->column = column;
 	}
