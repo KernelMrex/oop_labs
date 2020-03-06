@@ -56,9 +56,10 @@ int main(int argc, char* argv[])
 
 	// Calculating invert matrix
 	auto optionalMatrix = CalcInvertMatrix(matrix);
-	if (!optionalMatrix.has_value()) {
-        std::cout << "Invert matrix not exists" << std::endl;
-        return 1;
+	if (!optionalMatrix.has_value())
+	{
+		std::cout << "Invert matrix does not exists" << std::endl;
+		return 1;
 	}
 
 	// Writing matrix
