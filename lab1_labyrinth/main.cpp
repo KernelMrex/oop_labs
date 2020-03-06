@@ -6,15 +6,15 @@
 #include <queue>
 
 /* Defines */
-#define LABYRINTH_MAX_SIZE 12
-#define LABYRINTH_CELL_EMPTY 0
-#define LABYRINTH_CELL_EOL -1
-#define LABYRINTH_CELL_EOF -2
-#define LABYRINTH_CELL_NOT_DEFINED -3
-#define LABYRINTH_CELL_WALL -4
-#define LABYRINTH_CELL_START -5
-#define LABYRINTH_CELL_STOP -6
-#define LABYRINTH_CELL_WAY -7
+constexpr int LABYRINTH_MAX_SIZE = 100;
+constexpr int LABYRINTH_CELL_EMPTY = 0;
+constexpr int LABYRINTH_CELL_EOL = -1;
+constexpr int LABYRINTH_CELL_EOF = -2;
+constexpr int LABYRINTH_CELL_NOT_DEFINED = -3;
+constexpr int LABYRINTH_CELL_WALL = -4;
+constexpr int LABYRINTH_CELL_START = -5;
+constexpr int LABYRINTH_CELL_STOP = -6;
+constexpr int LABYRINTH_CELL_WAY = -7;
 
 typedef int CellType;
 
