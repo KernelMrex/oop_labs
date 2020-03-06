@@ -20,7 +20,17 @@ typedef int CellType;
 
 typedef std::array<std::array<int, LABYRINTH_MAX_SIZE + 1>, LABYRINTH_MAX_SIZE + 1> Labyrinth;
 
-typedef std::pair<int, int> CellCoordinates;
+//typedef std::pair<int, int> CellCoordinates;
+
+struct CellCoordinates{
+	int row{};
+	int column{};
+	CellCoordinates() = default;
+	CellCoordinates(int row, int column) {
+		this->row = row;
+		this->column = column;
+	}
+};
 
 struct Cell
 {
@@ -49,7 +59,7 @@ void PrintLabyrinth(std::ostream& outputStream, const Labyrinth& labyrinth, int 
 
 Labyrinth LabyrinthWaveFill(Labyrinth labyrinth);
 
-std::optional<std::pair<int, int>> FindFirstCellOfType(const Labyrinth& labyrinth, CellType cellType);
+std::optional<CellCoordinates> FindFirstCellOfType(const Labyrinth& labyrinth, CellType cellType);
 
 void SpreadWave(std::queue<Cell>& queue, const Cell& waveCell);
 
@@ -272,7 +282,7 @@ Labyrinth LabyrinthWaveFill(Labyrinth labyrinth)
 		auto waveCell = waveQueue.front();
 		waveQueue.pop();
 
-		int labyrinthCellValue = labyrinth[waveCell.coordinates.first][waveCell.coordinates.second];
+		int labyrinthCellValue = labyrinth[waveCell.coordinates.row][waveCell.coordinates.column];
 		if (labyrinthCellValue == LABYRINTH_CELL_STOP)
 		{
 			break;
@@ -287,7 +297,7 @@ Labyrinth LabyrinthWaveFill(Labyrinth labyrinth)
 		}
 		if (labyrinthCellValue == LABYRINTH_CELL_EMPTY)
 		{
-			labyrinth[waveCell.coordinates.first][waveCell.coordinates.second] = waveCell.value;
+			labyrinth[waveCell.coordinates.row][waveCell.coordinates.column] = waveCell.value;
 			SpreadWave(waveQueue, waveCell);
 		}
 	}
@@ -313,28 +323,28 @@ std::optional<CellCoordinates> FindFirstCellOfType(const Labyrinth& labyrinth, C
 
 void SpreadWave(std::queue<Cell>& queue, const Cell& waveCell)
 {
-	if (waveCell.coordinates.first - 1 >= 0)
+	if (waveCell.coordinates.row - 1 >= 0)
 	{
 		queue.push((Cell){
-			CellCoordinates(waveCell.coordinates.first - 1, waveCell.coordinates.second),
+			CellCoordinates(waveCell.coordinates.row - 1, waveCell.coordinates.column),
 			waveCell.value + 1 });
 	}
-	if (waveCell.coordinates.second - 1 >= 0)
+	if (waveCell.coordinates.column - 1 >= 0)
 	{
 		queue.push((Cell){
-			CellCoordinates(waveCell.coordinates.first, waveCell.coordinates.second - 1),
+			CellCoordinates(waveCell.coordinates.row, waveCell.coordinates.column - 1),
 			waveCell.value + 1 });
 	}
-	if (waveCell.coordinates.first + 1 < LABYRINTH_MAX_SIZE)
+	if (waveCell.coordinates.row + 1 < LABYRINTH_MAX_SIZE)
 	{
 		queue.push((Cell){
-			CellCoordinates(waveCell.coordinates.first + 1, waveCell.coordinates.second),
+			CellCoordinates(waveCell.coordinates.row + 1, waveCell.coordinates.column),
 			waveCell.value + 1 });
 	}
-	if (waveCell.coordinates.second + 1 < LABYRINTH_MAX_SIZE)
+	if (waveCell.coordinates.column + 1 < LABYRINTH_MAX_SIZE)
 	{
 		queue.push((Cell){
-			CellCoordinates(waveCell.coordinates.first, waveCell.coordinates.second + 1),
+			CellCoordinates(waveCell.coordinates.row, waveCell.coordinates.column + 1),
 			waveCell.value + 1 });
 	}
 }
@@ -361,11 +371,11 @@ std::optional<Labyrinth> CalculateWay(const Labyrinth& labyrinth)
 			return std::nullopt;
 		}
 
-		if (result[nextCell->first][nextCell->second] == LABYRINTH_CELL_START)
+		if (result[nextCell->row][nextCell->column] == LABYRINTH_CELL_START)
 		{
 			return result;
 		}
-		result[nextCell->first][nextCell->second] = LABYRINTH_CELL_WAY;
+		result[nextCell->row][nextCell->column] = LABYRINTH_CELL_WAY;
 
 		currentCell = nextCell.value();
 	}
@@ -377,7 +387,7 @@ std::optional<CellCoordinates> SearchNextNeighbour(const Labyrinth& labyrinth, c
 	bool isMinFound = false;
 
 	// Upper
-	auto upperCell = GetCell(labyrinth, curCell.first - 1, curCell.second);
+	auto upperCell = GetCell(labyrinth, curCell.row - 1, curCell.column);
 	if (upperCell.has_value() && (upperCell->value > 0 || upperCell->value == LABYRINTH_CELL_START))
 	{
 		minCell = upperCell.value();
@@ -385,7 +395,7 @@ std::optional<CellCoordinates> SearchNextNeighbour(const Labyrinth& labyrinth, c
 	}
 
 	// Right
-	auto rightCell = GetCell(labyrinth, curCell.first, curCell.second + 1);
+	auto rightCell = GetCell(labyrinth, curCell.row, curCell.column + 1);
 	if (rightCell.has_value() && (rightCell->value > 0 || rightCell->value == LABYRINTH_CELL_START))
 	{
 		if (!isMinFound)
@@ -403,7 +413,7 @@ std::optional<CellCoordinates> SearchNextNeighbour(const Labyrinth& labyrinth, c
 	}
 
 	// Lower
-	auto lowerCell = GetCell(labyrinth, curCell.first + 1, curCell.second);
+	auto lowerCell = GetCell(labyrinth, curCell.row + 1, curCell.column);
 	if (lowerCell.has_value() && (lowerCell->value > 0 || lowerCell->value == LABYRINTH_CELL_START))
 	{
 		if (!isMinFound)
@@ -421,7 +431,7 @@ std::optional<CellCoordinates> SearchNextNeighbour(const Labyrinth& labyrinth, c
 	}
 
 	// Left
-	auto leftCell = GetCell(labyrinth, curCell.first, curCell.second - 1);
+	auto leftCell = GetCell(labyrinth, curCell.row, curCell.column - 1);
 	if (leftCell.has_value() && (leftCell->value > 0 || leftCell->value == LABYRINTH_CELL_START))
 	{
 		if (!isMinFound)
