@@ -25,11 +25,7 @@ struct CellCoordinates
 	int row{};
 	int column{};
 	CellCoordinates() = default;
-	CellCoordinates(int row, int column)
-	{
-		this->row = row;
-		this->column = column;
-	}
+	CellCoordinates(int row, int column) : row(row), column(column) {}
 };
 
 struct Cell
