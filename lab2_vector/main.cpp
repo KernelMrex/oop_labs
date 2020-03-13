@@ -26,6 +26,8 @@ int main()
 
 	auto resultVector = AddToEachItemSumOf3MinNumbers(vector.value());
 
+	std::sort(resultVector.begin(), resultVector.end());
+
 	PrintVector(resultVector, std::cout);
 	return 0;
 }
@@ -53,18 +55,10 @@ void PrintVector(const std::vector<double>& vector, std::ostream& output)
 
 std::vector<double> GetMinItemsInVector(std::vector<double> vector, int minItemsAmount)
 {
-	std::vector<double> result;
-	for (int i = 0; i < minItemsAmount; i++)
-	{
-		if (vector.empty())
-		{
-			return vector;
-		}
-		auto minItem = std::min_element(vector.begin(), vector.end());
-		result.push_back(*minItem);
-		vector.erase(minItem);
-	}
-	return result;
+	std::partial_sort(vector.begin(), vector.end(), vector.end());
+	auto iterTo = vector.begin();
+	std::advance(iterTo, minItemsAmount);
+	return std::vector(vector.begin(), iterTo);
 }
 
 std::vector<double> AddNumToEachItem(std::vector<double> vector, double num)
