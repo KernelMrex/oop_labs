@@ -41,7 +41,7 @@ for entry in *.test.args; do
     printf "Expected: %s\n" "$(cat "$prefix".test.expected)"
     printf "\n"
   fi
-  #rm "$fileToCompare"
+  rm "$fileToCompare"
 done
 
 rm $EXEC_NAME
