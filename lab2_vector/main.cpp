@@ -1,10 +1,9 @@
 #include <algorithm>
-#include <cmath>
 #include <iostream>
 #include <numeric>
 #include <optional>
-#include <sstream>
 #include <vector>
+#include <iterator>
 
 std::optional<std::vector<double>> ReadVector(std::istream& input);
 
@@ -12,9 +11,9 @@ void PrintVector(const std::vector<double>& vector, std::ostream& output);
 
 std::vector<double> GetMinItemsInVector(std::vector<double> vector, int minItemsAmount);
 
-std::vector<double> AddNumToEachItem(const std::vector<double>& vector, double num);
+std::vector<double> AddNumToEachItem(std::vector<double> vector, double num);
 
-std::vector<double> AddToEachItemAverageOf3MinNumbers(const std::vector<double>& vector);
+std::vector<double> AddToEachItemSumOf3MinNumbers(const std::vector<double>& vector);
 
 int main()
 {
@@ -25,7 +24,7 @@ int main()
 		return 1;
 	}
 
-	auto resultVector = AddToEachItemAverageOf3MinNumbers(vector.value());
+	auto resultVector = AddToEachItemSumOf3MinNumbers(vector.value());
 
 	PrintVector(resultVector, std::cout);
 	return 0;
@@ -33,20 +32,9 @@ int main()
 
 std::optional<std::vector<double>> ReadVector(std::istream& input)
 {
-	// Get first line of input
-	std::string inputString;
-	std::getline(input, inputString);
-	std::istringstream stringStream(inputString);
+	std::vector<double> vector(std::istream_iterator<double>(input), (std::istream_iterator<double>()));
 
-	// Reading vector from first string
-	std::vector<double> vector;
-	double num;
-	while (stringStream >> num)
-	{
-		vector.push_back(num);
-	}
-
-	if (!stringStream.eof() || stringStream.bad())
+	if (!input.eof() || input.bad())
 	{
 		return std::nullopt;
 	}
@@ -79,19 +67,17 @@ std::vector<double> GetMinItemsInVector(std::vector<double> vector, int minItems
 	return result;
 }
 
-std::vector<double> AddNumToEachItem(const std::vector<double>& vector, double num)
+std::vector<double> AddNumToEachItem(std::vector<double> vector, double num)
 {
-	std::vector<double> result = vector;
-	for (auto iterator = result.begin(); iterator != result.end(); std::advance(iterator, 1))
-	{
-		*iterator += num;
-	}
-	return result;
+	std::transform(vector.begin(), vector.end(), vector.begin(), [num](const double a) {
+		return a + num;
+	});
+	return vector;
 }
 
-std::vector<double> AddToEachItemAverageOf3MinNumbers(const std::vector<double>& vector)
+std::vector<double> AddToEachItemSumOf3MinNumbers(const std::vector<double>& vector)
 {
 	auto minItems = GetMinItemsInVector(vector, 3);
-	auto average = std::round((std::accumulate(minItems.begin(), minItems.end(), 0.0) / 3) * 1000) / 1000;
-	return AddNumToEachItem(vector, average);
+	auto sum = std::accumulate(minItems.begin(), minItems.end(), 0.0);
+	return AddNumToEachItem(vector, sum);
 }
