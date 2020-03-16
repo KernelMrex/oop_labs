@@ -32,7 +32,7 @@ bool isWordInWindow(const Window& window, const std::string& word);
 
 int main() {
 	try {
-		HtmlDecode("test&lt;ertqwertyuiop");
+		std::cout << HtmlDecode("&lt;test&lt;ertqwertyuiop&gt;") << std::endl;
 	} catch (const std::exception& err) {
 		std::cout << "Error while decoding: " << err.what() << std::endl;
 	}
@@ -70,30 +70,24 @@ void HtmlDecode(std::istream& in, std::ostream& out, const Dictionary& chars) {
 	char ch;
 	while (in >> std::noskipws >> ch) {
 		char popped = MoveWindow(window, ch);
-		if (popped == 0) {
-			continue;
-		}
 		auto replaced = GetReplace(window, chars);
-
+		if (popped != 0) {
+			out << popped;
+		}
 		if (replaced.has_value()) {
 			out << replaced.value();
-		} else {
-			out << popped;
 		}
 	}
 
 	// Processing the rest of chars
 	for (int i = 0; i < window.size; i++) {
-		char popped = MoveWindow(window, 0);
-		if (popped == 0) {
-			continue;
-		}
+		char popped = MoveWindow(window, ch);
 		auto replaced = GetReplace(window, chars);
-
+		if (popped != 0) {
+			out << popped;
+		}
 		if (replaced.has_value()) {
 			out << replaced.value();
-		} else {
-			out << popped;
 		}
 	}
 
