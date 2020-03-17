@@ -22,9 +22,11 @@ std::string HtmlDecode(const std::string& html);
 
 void HtmlDecode(std::istream& in, std::ostream& out, const Dictionary& chars);
 
+void PushNextToDecoder(Window& window, char ch, const Dictionary& dict, std::ostream& out);
+
 std::optional<int> DetermineMaxKeyLength(const Dictionary& chars);
 
-char MoveWindow(Window& window, char ch);
+std::optional<char> MoveWindow(Window& window, char ch);
 
 std::optional<char> GetReplace(Window& window, const Dictionary& dict);
 
@@ -32,7 +34,11 @@ bool isWordInWindow(const Window& window, const std::string& word);
 
 int main() {
 	try {
-		std::cout << HtmlDecode("&lt;test&lt;ertqwertyuiop&gt;") << std::endl;
+		std::string line;
+		while (std::cin.good()) {
+			std::getline(std::cin, line);
+			std::cout << HtmlDecode(line) << std::endl;
+		}
 	} catch (const std::exception& err) {
 		std::cout << "Error while decoding: " << err.what() << std::endl;
 	}
@@ -46,7 +52,8 @@ std::string HtmlDecode(const std::string& html) {
 
 	std::map<std::string, char> chars = {
 		{"&amp;",  '&'},
-		{"&quot;", '\''},
+        {"&quot;", '\"'},
+        {"&apos;", '\''},
 		{"&lt;",   '<'},
 		{"&gt;",   '>'}
 	};
@@ -69,29 +76,28 @@ void HtmlDecode(std::istream& in, std::ostream& out, const Dictionary& chars) {
 	// Moving window
 	char ch;
 	while (in >> std::noskipws >> ch) {
-		char popped = MoveWindow(window, ch);
-		auto replaced = GetReplace(window, chars);
-		if (popped != 0) {
-			out << popped;
-		}
-		if (replaced.has_value()) {
-			out << replaced.value();
-		}
+		PushNextToDecoder(window, ch, chars, out);
+	}
+
+	if (!in.eof() && in.fail()) {
+		throw std::runtime_error("error while reading input stream");
 	}
 
 	// Processing the rest of chars
 	for (int i = 0; i < window.size; i++) {
-		char popped = MoveWindow(window, ch);
-		auto replaced = GetReplace(window, chars);
-		if (popped != 0) {
-			out << popped;
-		}
-		if (replaced.has_value()) {
-			out << replaced.value();
-		}
+		PushNextToDecoder(window, ch, chars, out);
 	}
+}
 
-	out << std::endl;
+void PushNextToDecoder(Window& window, char ch, const Dictionary& dict, std::ostream& out) {
+	auto popped = MoveWindow(window, ch);
+	auto replaced = GetReplace(window, dict);
+	if (popped.has_value()) {
+		out << popped.value();
+	}
+	if (replaced.has_value()) {
+		out << replaced.value();
+	}
 }
 
 std::optional<int> DetermineMaxKeyLength(const Dictionary& chars) {
@@ -109,13 +115,17 @@ std::optional<int> DetermineMaxKeyLength(const Dictionary& chars) {
 	return {max};
 }
 
-char MoveWindow(Window& window, char ch) {
+std::optional<char> MoveWindow(Window& window, char ch) {
 	char poppedChar = window.content[0];
 	for (int i = 0; i < window.size - 1; i++) {
 		std::swap(window.content[i], window.content[i + 1]);
 	}
 	window.content[window.size - 1] = ch;
-	return poppedChar;
+
+	if (poppedChar == 0) {
+		return std::nullopt;
+	}
+	return {poppedChar};
 }
 
 std::optional<char> GetReplace(Window& window, const Dictionary& dict) {

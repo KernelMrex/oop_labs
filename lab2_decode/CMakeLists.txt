@@ -3,4 +3,4 @@ project(lab2_decode)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(lab2_decode main.cpp)
+add_executable(decode main.cpp)
