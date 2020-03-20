@@ -1,7 +1,8 @@
 #include <iostream>
-#include "dictionary.h"
+#include "Dictionary.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    auto dict = Dictionary();
+
     return 0;
 }
