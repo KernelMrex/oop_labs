@@ -3,4 +3,8 @@ project(lab2_vector)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(vector main.cpp)
+# Main
+add_executable(vector main.cpp vector_functions.h vector_functions.cpp)
+
+# Tests
+add_executable(vector_tests tests/tests.cpp vector_functions.h vector_functions.cpp tests/catch.hpp)
