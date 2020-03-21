@@ -1,16 +1,18 @@
 #include <string>
 #include <map>
 #include <vector>
-
+#include <set>
 
 class Dictionary {
 public:
-    explicit Dictionary(const std::string& path);
+    Dictionary();
+
     ~Dictionary();
 
-    std::optional<std::string> Translate(const std::string& phrase);
-    void SaveDict();
+    std::optional<std::set<std::string>> Translate(const std::string& phrase);
+
+    void AddTranslation(const std::string& phrase, const std::string& translation);
+
 private:
-    const std::string dictPath;
-    std::map<std::string, std::vector<std::string>> dict;
+    std::map<std::string, std::set<std::string>> dict;
 };
