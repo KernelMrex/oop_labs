@@ -1,4 +1,5 @@
 #include <set>
+#include <sstream>
 #include "Dictionary.h"
 
 // Constructors
@@ -16,7 +17,31 @@ std::optional<std::set<std::string>> Dictionary::Translate(const std::string& ph
     return {itemIterator->second};
 }
 
+std::optional<std::string> Dictionary::TranslateToString(const std::string& phrase) {
+    auto translations = this->Translate(phrase);
+    if (!translations.has_value()) {
+        return std::nullopt;
+    }
+
+    std::ostringstream result;
+    auto transSet = translations.value();
+    for (auto it = transSet.begin(); it != transSet.end(); std::advance(it, 1)) {
+        if (it != transSet.begin()) {
+            result << ", ";
+        }
+        result << *it;
+    }
+
+    return {result.str()};
+}
+
+
 void Dictionary::AddTranslation(const std::string& phrase, const std::string& translation) {
+    this->AddOneWayTranslation(phrase, translation);
+    this->AddOneWayTranslation(translation, phrase);
+}
+
+void Dictionary::AddOneWayTranslation(const std::string& phrase, const std::string& translation) {
     auto itemIterator = this->dict.find(phrase);
     if (itemIterator == dict.end()) {
         this->dict.insert(

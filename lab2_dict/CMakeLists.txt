@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(dict main.cpp Dictionary.cpp Dictionary.h)
 
-add_executable(dict_tests tests/tests.cpp)
+add_executable(dict_tests tests/tests.cpp Dictionary.cpp Dictionary.h)
