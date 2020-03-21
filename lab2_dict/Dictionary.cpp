@@ -55,3 +55,7 @@ void Dictionary::AddOneWayTranslation(const std::string& phrase, const std::stri
         setOfTranslations->insert(translation);
     }
 }
+
+const std::map<std::string, std::set<std::string>>& Dictionary::GetDict() {
+    return this->dict;
+}

@@ -15,6 +15,9 @@ public:
 
     void AddTranslation(const std::string& phrase, const std::string& translation);
 
+protected:
+    const std::map<std::string, std::set<std::string>>& GetDict();
+
 private:
     void AddOneWayTranslation(const std::string& phrase, const std::string& translation);
 

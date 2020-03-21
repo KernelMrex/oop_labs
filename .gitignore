@@ -1,5 +1,6 @@
 /*/.idea
 /*/cmake-build-debug
 /*/tmp
+/*/bin
 
 .clang-format
