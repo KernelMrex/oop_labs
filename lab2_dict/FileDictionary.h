@@ -13,4 +13,5 @@ public:
 private:
     std::string path;
     void SaveDictToStream(std::ostream& out);
+    void LoadDictFromStream(std::istream& in);
 };

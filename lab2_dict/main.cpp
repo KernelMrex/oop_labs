@@ -12,14 +12,8 @@ int main(int argc, char *argv[]) {
     }
 
     FileDictionary dict(args.value());
-
-    dict.AddTranslation("cat", "кошка");
-    dict.AddTranslation("dog", "собака");
-    dict.AddTranslation("test", "тест");
-    dict.AddTranslation("test", "испытание");
-    dict.AddTranslation("mansion", "замок");
-    dict.AddTranslation("lock", "замок");
-    dict.Save();
+    dict.Load();
+    std::cout << (dict.TranslateToString("lock").has_value() ? dict.TranslateToString("lock").value() : "")  << std::endl;
 
     return 0;
 }
