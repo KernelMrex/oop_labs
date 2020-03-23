@@ -1,17 +1,23 @@
 #include "Dictionary.h"
 
-class FileDictionary : public Dictionary {
+class FileDictionary : public Dictionary
+{
 public:
-    explicit FileDictionary(std::string path);
+	explicit FileDictionary(std::string path);
 
-    ~FileDictionary();
+	~FileDictionary();
 
-    void Load();
+	void AddTranslation(const std::string& phrase, const std::string& translation);
 
-    void Save();
+	void Load();
+
+	void Save();
+
+	bool isSaved();
 
 private:
-    std::string path;
-    void SaveDictToStream(std::ostream& out);
-    void LoadDictFromStream(std::istream& in);
+	bool isSavedToFile;
+	std::string path;
+	void SaveDictToStream(std::ostream& out);
+	void LoadDictFromStream(std::istream& in);
 };
