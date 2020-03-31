@@ -1,47 +1,38 @@
+#include "prime_numbers.h"
 #include <iostream>
-#include <set>
-#include <vector>
-#include <chrono>
-#include <cmath>
 
-std::set<int> GeneratePrimeNumbers(int upperBound);
-
-int main() {
-    auto begin = std::chrono::high_resolution_clock::now();
-    auto primeNumbers = GeneratePrimeNumbers(100000000);
-    auto end = std::chrono::high_resolution_clock::now();
-    std::cout << "Amount of prime numbers generated: "
-              << primeNumbers.size() << std::endl;
-    std::cout << "Time spent: "
-              << std::chrono::duration_cast<std::chrono::seconds>(end - begin).count()
-              << " seconds" << std::endl;
-//    std::cout << "Found: ";
-//    for (auto i : primeNumbers) {
-//        std::cout << i << " ";
-//    }
-//    std::cout << std::endl;
-    return 0;
+std::optional<int> GetArgs(int argc, char* argv[])
+{
+	if (argc == 2)
+	{
+		try
+		{
+			return { std::stoi(argv[1]) };
+		}
+		catch (const std::exception&)
+		{
+			return std::nullopt;
+		}
+	}
+	return std::nullopt;
 }
 
-std::set<int> GeneratePrimeNumbers(int upperBound) {
-    std::set<int> primeNumbers;
-    std::vector<bool> sieve(upperBound, true);
+int main(int argc, char* argv[])
+{
+	auto upperBound = GetArgs(argc, argv);
+	if (!upperBound.has_value())
+	{
+		std::cout << "Bad upper bound number." << std::endl
+				  << "Usage: prime <upper_bound>" << std::endl;
+		return 1;
+	}
 
-    primeNumbers.insert(2);
+	auto primeSet = GeneratePrimeNumbers(upperBound.value());
+	for (auto item : primeSet)
+	{
+		std::cout << item << " ";
+	}
+	std::cout << std::endl;
 
-    for (int i = 3; i < upperBound - 1; i += 2) {
-        if (!sieve[i]) {
-            continue;
-        }
-
-        if (i < std::sqrt(upperBound - 1)) {
-            for (int j = i * i; j < upperBound - 1; j += i) {
-                sieve[j] = false;
-            }
-        }
-
-        primeNumbers.insert(i);
-    }
-
-    return primeNumbers;
+	return 0;
 }
