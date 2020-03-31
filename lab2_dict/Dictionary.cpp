@@ -1,4 +1,5 @@
 #include "Dictionary.h"
+#include "string_utils.h"
 #include <set>
 #include <sstream>
 
@@ -11,7 +12,7 @@ Dictionary::~Dictionary() = default;
 // Methods
 std::optional<std::set<std::string>> Dictionary::Translate(const std::string& phrase)
 {
-	auto itemIterator = this->dict.find(phrase);
+	auto itemIterator = this->dict.find(StringToLowerUTF8(phrase));
 	if (itemIterator == dict.end())
 	{
 		return std::nullopt;
@@ -43,8 +44,10 @@ std::optional<std::string> Dictionary::TranslateToString(const std::string& phra
 
 void Dictionary::AddTranslation(const std::string& phrase, const std::string& translation)
 {
-	this->AddOneWayTranslation(phrase, translation);
-	this->AddOneWayTranslation(translation, phrase);
+	auto FormattedPhrase = StringToLowerUTF8(phrase);
+	auto FormattedTranslation = StringToLowerUTF8(translation);
+	this->AddOneWayTranslation(FormattedPhrase, FormattedTranslation);
+	this->AddOneWayTranslation(FormattedTranslation, FormattedPhrase);
 }
 
 void Dictionary::AddOneWayTranslation(const std::string& phrase, const std::string& translation)

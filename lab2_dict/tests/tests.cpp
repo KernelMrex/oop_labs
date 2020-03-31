@@ -37,3 +37,23 @@ TEST_CASE("Empty dictionary", "[empty_dict]")
 	Dictionary dict;
 	REQUIRE(!dict.TranslateToString("something").has_value());
 }
+
+TEST_CASE("Case sensitive", "[case_sensitive]")
+{
+	Dictionary dict;
+	dict.AddTranslation("cat", "кошка");
+	dict.AddTranslation("dog", "собака");
+	dict.AddTranslation("test", "тест");
+	dict.AddTranslation("test", "испытание");
+	dict.AddTranslation("mansion", "замок");
+	dict.AddTranslation("lock", "замок");
+	dict.AddTranslation("Море", "sea");
+	REQUIRE(dict.TranslateToString("море").value() == "sea");
+	REQUIRE(dict.TranslateToString("мОрЕ").value() == "sea");
+	REQUIRE(dict.TranslateToString("sea").value() == "море");
+	REQUIRE(dict.TranslateToString("SeA").value() == "море");
+	REQUIRE(dict.TranslateToString("MaNsIoN").value() == "замок");
+	REQUIRE(dict.TranslateToString("mansion").value() == "замок");
+	REQUIRE(dict.TranslateToString("замок").value() == "lock, mansion");
+	REQUIRE(dict.TranslateToString("ЗамОК").value() == "lock, mansion");
+}

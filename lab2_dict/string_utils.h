@@ -1,8 +1,7 @@
-//
-// Created by mrex on 3/25/20.
-//
+#include <string>
 
-#ifndef LAB2_DICT_STRING_UTILS_H
-#define LAB2_DICT_STRING_UTILS_H
+std::string StringToLowerUTF8(const std::string& s);
 
-#endif //LAB2_DICT_STRING_UTILS_H
+std::wstring StringToWstring(const std::string& s);
+
+std::string WstringToString(const std::wstring& s);
