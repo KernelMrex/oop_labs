@@ -2,6 +2,7 @@
 #define LAB3_RECT_CRECTANGLE_H
 
 #include "Point2D.h"
+
 class CRectangle
 {
 public:
@@ -30,15 +31,11 @@ public:
 
 	void SetAnchor(const Point2D& anchor);
 
-	void SetAnchorX(int x);
-
-	void SetAnchorY(int y);
-
 	void SetWidth(int width);
 
 	void SetHeight(int height);
 
-	Point2D GetAnchor();
+	Point2D* GetAnchor();
 
 	int GetWidth();
 

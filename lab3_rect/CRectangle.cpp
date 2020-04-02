@@ -40,28 +40,19 @@ void CRectangle::SetAnchor(const Point2D& anchor)
 	this->anchorPoint = anchor;
 }
 
-void CRectangle::SetAnchorX(int x)
-{
-	this->anchorPoint.SetX(x);
-}
-
-void CRectangle::SetAnchorY(int y)
-{
-	this->anchorPoint.SetY(y);
-}
-
 void CRectangle::SetWidth(int width)
 {
-	this->width = width;
+    this->width = (width > 0) ? width : 0;
 }
 
 void CRectangle::SetHeight(int height)
 {
-	this->height = height;
+    this->height = (height > 0 && (this->GetAnchor()->GetY() - height) > 0) ? height : 0;
 }
-Point2D CRectangle::GetAnchor()
+
+Point2D* CRectangle::GetAnchor()
 {
-	return this->anchorPoint;
+	return &this->anchorPoint;
 }
 
 int CRectangle::GetWidth()
@@ -76,20 +67,20 @@ int CRectangle::GetHeight()
 
 int CRectangle::GetLeft()
 {
-	return this->GetAnchor().GetX();
+	return this->GetAnchor()->GetX();
 }
 
 int CRectangle::GetRight()
 {
-	return this->GetAnchor().GetX() + this->GetWidth();
+	return this->GetAnchor()->GetX() + this->GetWidth();
 }
 
 int CRectangle::GetTop()
 {
-	return this->GetAnchor().GetY();
+	return this->GetAnchor()->GetY();
 }
 
 int CRectangle::GetBottom()
 {
-	return this->GetAnchor().GetY() - this->GetHeight();
+	return this->GetAnchor()->GetY() - this->GetHeight();
 }
