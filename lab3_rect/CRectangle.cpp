@@ -42,12 +42,12 @@ void CRectangle::SetAnchor(const Point2D& anchor)
 
 void CRectangle::SetWidth(int width)
 {
-    this->width = (width > 0) ? width : 0;
+	this->width = (width > 0) ? width : 0;
 }
 
 void CRectangle::SetHeight(int height)
 {
-    this->height = (height > 0 && (this->GetAnchor()->GetY() - height) > 0) ? height : 0;
+	this->height = (height > 0 && (this->GetAnchor()->GetY() - height) > 0) ? height : 0;
 }
 
 Point2D* CRectangle::GetAnchor()
