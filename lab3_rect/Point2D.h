@@ -8,11 +8,11 @@ public:
 
 	void SetX(int x);
 
-	int GetX();
+	int GetX() const;
 
 	void SetY(int y);
 
-	int GetY();
+	int GetY() const;
 
 private:
 	int x;

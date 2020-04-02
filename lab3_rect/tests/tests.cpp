@@ -4,21 +4,21 @@
 
 TEST_CASE("Getters and setters test", "[rect_getters_setters]")
 {
-	CRectangle rect{ 1, 6, 3, 4 };
+	CRectangle rect{ 1, 2, 3, 4 };
 	REQUIRE(rect.GetLeft() == 1);
-	REQUIRE(rect.GetRight() == 4);
-	REQUIRE(rect.GetTop() == 6);
-	REQUIRE(rect.GetBottom() == 2);
+	REQUIRE(rect.GetRight() == 3);
+	REQUIRE(rect.GetTop() == 2);
+	REQUIRE(rect.GetBottom() == 5);
 
 	// Updating all values using setters
-	rect.GetAnchor()->SetX(11);
-	rect.GetAnchor()->SetY(16);
+	rect.SetAnchorX(11);
+	rect.SetAnchorY(12);
 	rect.SetWidth(13);
-	rect.SetHeight(15);
+	rect.SetHeight(14);
 	REQUIRE(rect.GetLeft() == 11);
-	REQUIRE(rect.GetRight() == 24);
-	REQUIRE(rect.GetTop() == 16);
-	REQUIRE(rect.GetBottom() == 1);
+	REQUIRE(rect.GetRight() == 23);
+	REQUIRE(rect.GetTop() == 12);
+	REQUIRE(rect.GetBottom() == 25);
 }
 
 TEST_CASE("Incorrect setters values", "[bad_setters_values]")
@@ -31,10 +31,61 @@ TEST_CASE("Incorrect setters values", "[bad_setters_values]")
 
 	rect.SetWidth(-1);
 	rect.SetHeight(-1);
-	rect.GetAnchor()->SetX(-1);
-	rect.GetAnchor()->SetY(-1);
+	rect.SetAnchorX(-1);
+	rect.SetAnchorY(-1);
 	REQUIRE(rect.GetLeft() == 0);
 	REQUIRE(rect.GetRight() == 0);
 	REQUIRE(rect.GetTop() == 0);
 	REQUIRE(rect.GetBottom() == 0);
+}
+
+TEST_CASE("Intersect check", "[intersect_check]")
+{
+	/**    1 2 3 4 5 6
+	 *   #------------
+	 * 1 | 0 0 0 0 0 0
+	 * 2 | 0 2 2 2 0 0
+	 * 3 | 0 2 2 2 0 0
+	 * 4 |   1 1 1
+	 * 5 |   1 1 1
+	 */
+	CRectangle rect1{ 1, 1, 6, 3 };
+	CRectangle rect2{ 2, 2, 3, 4 };
+	REQUIRE(rect1.Intersect(rect2));
+
+	/**    1 2 3 4 5 6
+	 *   #------------
+	 * 1 |     0 0
+	 * 2 |     0 0
+	 * 3 | 1 1 2 2 1 1
+	 * 4 |     0 0
+	 * 5 |
+	 */
+	CRectangle rect3{ 3, 1, 2, 4 };
+	CRectangle rect4{ 1, 3, 6, 1 };
+	REQUIRE(rect3.Intersect(rect4));
+
+	/**    1 2 3 4 5 6
+	 *   #------------
+ 	 * 1 |
+ 	 * 2 |   0 0 0 0
+ 	 * 3 |   0 2 2 0
+ 	 * 4 |   0 2 2 0
+     * 5 |   0 0 0 0
+ 	 */
+	CRectangle rect5{ 2, 2, 4, 4 };
+	CRectangle rect6{ 3, 3, 2, 2 };
+	REQUIRE(rect5.Intersect(rect6));
+
+	/**    1 2 3 4 5 6
+ 	 *   #------------
+  	 * 1 | 0 0
+	 * 2 | 0 0 1 1 1
+     * 3 | 0 0 1 1 1
+     * 4 |     1 1 1
+     * 5 |
+	 */
+	CRectangle rect7{ 1, 1, 2, 3 };
+	CRectangle rect8{ 3, 2, 3, 3 };
+	REQUIRE(!rect7.Intersect(rect8));
 }

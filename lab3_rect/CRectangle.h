@@ -7,8 +7,6 @@ class CRectangle
 {
 public:
 	/* Constructors and destructor */
-	CRectangle(const Point2D& anchor, int width, int height);
-
 	CRectangle(int anchorX, int anchorY, int width, int height);
 
 	~CRectangle();
@@ -21,25 +19,25 @@ public:
 	bool Intersect(CRectangle const& other);
 
 	/* Getters and setters */
-	int GetLeft();
+	int GetLeft() const;
 
-	int GetRight();
+	int GetRight() const;
 
-	int GetTop();
+	int GetTop() const;
 
-	int GetBottom();
-
-	void SetAnchor(const Point2D& anchor);
+	int GetBottom() const;
 
 	void SetWidth(int width);
 
 	void SetHeight(int height);
 
-	Point2D* GetAnchor();
+	void SetAnchorX(int y);
 
-	int GetWidth();
+	void SetAnchorY(int y);
 
-	int GetHeight();
+	int GetWidth() const;
+
+	int GetHeight() const;
 
 private:
 	Point2D anchorPoint{ 0, 0 };

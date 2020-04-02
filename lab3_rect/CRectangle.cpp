@@ -1,16 +1,11 @@
 #include "CRectangle.h"
+#include <algorithm>
 
 /* Constructors and destructor */
-CRectangle::CRectangle(const Point2D& anchor, int width, int height)
-{
-	this->SetAnchor(anchor);
-	this->SetWidth(width);
-	this->SetHeight(height);
-}
-
 CRectangle::CRectangle(int anchorX, int anchorY, int width, int height)
 {
-	this->SetAnchor(Point2D{ anchorX, anchorY });
+	this->SetAnchorX(anchorX);
+	this->SetAnchorY(anchorY);
 	this->SetWidth(width);
 	this->SetHeight(height);
 }
@@ -18,10 +13,13 @@ CRectangle::CRectangle(int anchorX, int anchorY, int width, int height)
 CRectangle::~CRectangle() = default;
 
 /* Methods */
-// TODO
 bool CRectangle::Intersect(CRectangle const& other)
 {
-	return false;
+	int left = std::max(this->GetLeft(), other.GetLeft());
+	int top = std::max(this->GetTop(), other.GetTop());
+	int right = std::min(this->GetRight(), other.GetRight());
+	int bottom = std::min(this->GetBottom(), other.GetBottom());
+	return right - left >= 0 && bottom - top >= 0;
 }
 
 // TODO
@@ -35,9 +33,14 @@ void CRectangle::Move(int dx, int dy)
 }
 
 /* Setters and Getters */
-void CRectangle::SetAnchor(const Point2D& anchor)
+void CRectangle::SetAnchorX(int x)
 {
-	this->anchorPoint = anchor;
+	this->anchorPoint.SetX(x);
+}
+
+void CRectangle::SetAnchorY(int y)
+{
+	this->anchorPoint.SetY(y);
 }
 
 void CRectangle::SetWidth(int width)
@@ -47,40 +50,43 @@ void CRectangle::SetWidth(int width)
 
 void CRectangle::SetHeight(int height)
 {
-	this->height = (height > 0 && (this->GetAnchor()->GetY() - height) > 0) ? height : 0;
+	this->height = (height > 0) ? height : 0;
 }
 
-Point2D* CRectangle::GetAnchor()
-{
-	return &this->anchorPoint;
-}
-
-int CRectangle::GetWidth()
+int CRectangle::GetWidth() const
 {
 	return this->width;
 }
 
-int CRectangle::GetHeight()
+int CRectangle::GetHeight() const
 {
 	return this->height;
 }
 
-int CRectangle::GetLeft()
+int CRectangle::GetLeft() const
 {
-	return this->GetAnchor()->GetX();
+	return this->anchorPoint.GetX();
 }
 
-int CRectangle::GetRight()
+int CRectangle::GetRight() const
 {
-	return this->GetAnchor()->GetX() + this->GetWidth();
+	if (this->GetWidth() == 0)
+	{
+		return this->anchorPoint.GetX();
+	}
+	return this->anchorPoint.GetX() + this->GetWidth() - 1;
 }
 
-int CRectangle::GetTop()
+int CRectangle::GetTop() const
 {
-	return this->GetAnchor()->GetY();
+	return this->anchorPoint.GetY();
 }
 
-int CRectangle::GetBottom()
+int CRectangle::GetBottom() const
 {
-	return this->GetAnchor()->GetY() - this->GetHeight();
+	if (this->GetHeight() == 0)
+	{
+		return this->anchorPoint.GetY();
+	}
+	return this->anchorPoint.GetY() + this->GetHeight() - 1;
 }
