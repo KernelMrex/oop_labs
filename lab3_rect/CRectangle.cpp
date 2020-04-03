@@ -27,9 +27,14 @@ void CRectangle::Scale(int sx, int sy)
 {
 }
 
-// TODO
 void CRectangle::Move(int dx, int dy)
 {
+	int newAnchorX = this->GetAnchor()->GetX() + dx;
+	int newAnchorY = this->GetAnchor()->GetY() + dy;
+	if (newAnchorX >= 0 && newAnchorY >= 0)
+	{
+		this->SetNewAnchorPos(newAnchorX, newAnchorY);
+	}
 }
 
 /* Setters and Getters */
