@@ -112,7 +112,7 @@ TEST_CASE("Move test", "[movement]")
      * 0 |                    0 | 0 0
      * 1 |                    1 | 0 0
      * 2 |                ==> 2 | 0 0
-     * 3 |   0 0              3 |      
+     * 3 |   0 0              3 |
      * 4 |   0 0              4 |
      * 5 |   0 0              5 |
      */
@@ -130,4 +130,38 @@ TEST_CASE("Move test", "[movement]")
 	REQUIRE(rect.GetRight() == 1);
 	REQUIRE(rect.GetTop() == 0);
 	REQUIRE(rect.GetBottom() == 2);
+}
+
+TEST_CASE("Scale test", "[scale]")
+{
+	/** Scale test
+     *     1 2 3 4 5 6            1 2 3 4 5 6
+     *   #------------          #------------
+     * 1 | 0 0                1 | 0 0 0 0
+     * 2 | 0 0                2 | 0 0 0 0
+     * 3 |                ==> 3 | 0 0 0 0
+     * 4 |                    4 |
+     * 5 |                    5 |
+     */
+	CRectangle rect{ 1, 1, 2, 2 };
+	rect.Scale(2, 1);
+	REQUIRE(rect.GetLeft() == 1);
+	REQUIRE(rect.GetRight() == 4);
+	REQUIRE(rect.GetTop() == 1);
+	REQUIRE(rect.GetBottom() == 3);
+
+	/** Scale test
+     *     1 2 3 4 5 6            1 2 3 4 5 6
+     *   #------------          #------------
+     * 1 | 0 0 0 0            1 | 0 0 0
+     * 2 | 0 0 0 0            2 |
+     * 3 | 0 0 0 0        ==> 3 |
+     * 4 |                    4 |
+     * 5 |                    5 |
+     */
+	rect.Scale(-1, -2);
+	REQUIRE(rect.GetLeft() == 1);
+	REQUIRE(rect.GetRight() == 3);
+	REQUIRE(rect.GetTop() == 1);
+	REQUIRE(rect.GetBottom() == 1);
 }

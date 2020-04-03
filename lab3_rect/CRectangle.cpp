@@ -22,9 +22,15 @@ bool CRectangle::Intersect(CRectangle const& other)
 	return right - left >= 0 && bottom - top >= 0;
 }
 
-// TODO
 void CRectangle::Scale(int sx, int sy)
 {
+	int newWidth = this->GetWidth() + sx;
+	int newHeight = this->GetHeight() + sy;
+	if (newWidth >= 0 && newHeight >= 0)
+	{
+		this->SetWidth(newWidth);
+		this->SetHeight(newHeight);
+	}
 }
 
 void CRectangle::Move(int dx, int dy)
