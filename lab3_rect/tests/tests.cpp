@@ -11,8 +11,7 @@ TEST_CASE("Getters and setters test", "[rect_getters_setters]")
 	REQUIRE(rect.GetBottom() == 5);
 
 	// Updating all values using setters
-	rect.SetAnchorX(11);
-	rect.SetAnchorY(12);
+	rect.SetNewAnchorPos(11, 12);
 	rect.SetWidth(13);
 	rect.SetHeight(14);
 	REQUIRE(rect.GetLeft() == 11);
@@ -31,8 +30,7 @@ TEST_CASE("Incorrect setters values", "[bad_setters_values]")
 
 	rect.SetWidth(-1);
 	rect.SetHeight(-1);
-	rect.SetAnchorX(-1);
-	rect.SetAnchorY(-1);
+	rect.SetNewAnchorPos(-1, -1);
 	REQUIRE(rect.GetLeft() == 0);
 	REQUIRE(rect.GetRight() == 0);
 	REQUIRE(rect.GetTop() == 0);

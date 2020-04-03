@@ -4,8 +4,8 @@
 /* Constructors and destructor */
 CRectangle::CRectangle(int anchorX, int anchorY, int width, int height)
 {
-	this->SetAnchorX(anchorX);
-	this->SetAnchorY(anchorY);
+	this->GetAnchor()->SetX(anchorX);
+	this->GetAnchor()->SetY(anchorY);
 	this->SetWidth(width);
 	this->SetHeight(height);
 }
@@ -33,16 +33,6 @@ void CRectangle::Move(int dx, int dy)
 }
 
 /* Setters and Getters */
-void CRectangle::SetAnchorX(int x)
-{
-	this->anchorPoint.SetX(x);
-}
-
-void CRectangle::SetAnchorY(int y)
-{
-	this->anchorPoint.SetY(y);
-}
-
 void CRectangle::SetWidth(int width)
 {
 	this->width = (width > 0) ? width : 0;
@@ -89,4 +79,20 @@ int CRectangle::GetBottom() const
 		return this->anchorPoint.GetY();
 	}
 	return this->anchorPoint.GetY() + this->GetHeight() - 1;
+}
+
+const Point2D* CRectangle::GetAnchor() const
+{
+	return static_cast<const Point2D*>(&this->anchorPoint);
+}
+
+Point2D* CRectangle::GetAnchor()
+{
+	return &this->anchorPoint;
+}
+
+void CRectangle::SetNewAnchorPos(int x, int y)
+{
+	this->GetAnchor()->SetX(x);
+	this->GetAnchor()->SetY(y);
 }

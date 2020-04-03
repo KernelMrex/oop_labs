@@ -31,18 +31,20 @@ public:
 
 	void SetHeight(int height);
 
-	void SetAnchorX(int y);
-
-	void SetAnchorY(int y);
-
 	int GetWidth() const;
 
 	int GetHeight() const;
 
+	void SetNewAnchorPos(int x, int y);
+
+protected:
+	const Point2D* GetAnchor() const;
+	Point2D* GetAnchor();
+
 private:
 	Point2D anchorPoint{ 0, 0 };
-	int width;
-	int height;
+	int width = 0;
+	int height = 0;
 };
 
 #endif //LAB3_RECT_CRECTANGLE_H
