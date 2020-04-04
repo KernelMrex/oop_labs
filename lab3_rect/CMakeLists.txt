@@ -3,6 +3,6 @@ project(lab3_rect)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(rect main.cpp CRectangle.cpp CRectangle.h Point2D.cpp Point2D.h)
+add_executable(rect main.cpp CRectangle.cpp CRectangle.h Point2D.cpp Point2D.h rectangles.cpp rectangles.h string_utils.cpp string_utils.h)
 
-add_executable(rect_tests ../../catch.hpp tests/tests.cpp CRectangle.cpp CRectangle.h Point2D.cpp Point2D.h)
+add_executable(rect_tests ../../catch.hpp tests/tests.cpp CRectangle.cpp CRectangle.h Point2D.cpp Point2D.h rectangles.cpp rectangles.h)
