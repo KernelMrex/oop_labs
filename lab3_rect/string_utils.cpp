@@ -5,7 +5,8 @@ void split(const std::string& str, Container& cont, char delimiter)
 {
 	std::stringstream ss(str);
 	std::string token;
-	while (std::getline(ss, token, delimiter)) {
+	while (std::getline(ss, token, delimiter))
+	{
 		cont.push_back(token);
 	}
 }

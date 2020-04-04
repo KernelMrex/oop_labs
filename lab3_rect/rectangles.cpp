@@ -45,7 +45,8 @@ std::optional<std::vector<CRectangle>> ParseRectangles(std::istream& in)
 			break;
 		case CRectangleCommands::SCALE:
 		case CRectangleCommands::MOVE:
-			if (!(objId >= 0 && objId < rectangles.size())) {
+			if (!(objId >= 0 && objId < rectangles.size()))
+			{
 				return std::nullopt;
 			}
 			break;
@@ -53,6 +54,5 @@ std::optional<std::vector<CRectangle>> ParseRectangles(std::istream& in)
 
 		// Parse arguments
 		// TODO: ...
-
 	}
 }
