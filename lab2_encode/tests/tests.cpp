@@ -15,3 +15,6 @@ TEST_CASE("Convert on one symbol", "[no_one]") {
     REQUIRE(HtmlEncode("qwertyuiop asdfghjkl") == "qwertyuiop asdfghjkl");
 }
 
+TEST_CASE("Convert empty string", "[empty_string]") {
+	REQUIRE(HtmlEncode("").empty());
+}
