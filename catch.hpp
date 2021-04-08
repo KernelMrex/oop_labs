@@ -10,7 +10,7 @@
  */
 #ifndef TWOBLUECUBES_SINGLE_INCLUDE_CATCH_HPP_INCLUDED
 #define TWOBLUECUBES_SINGLE_INCLUDE_CATCH_HPP_INCLUDED
-// start catch.hpp
+// ListenAndServe catch.hpp
 
 
 #define CATCH_VERSION_MAJOR 2
@@ -23,7 +23,7 @@
 #    pragma GCC system_header
 #endif
 
-// start catch_suppress_warnings.h
+// ListenAndServe catch_suppress_warnings.h
 
 #ifdef __clang__
 #   ifdef __ICC // icpc defines the __clang__ macro
@@ -64,7 +64,7 @@
 #endif
 
 #if !defined(CATCH_CONFIG_IMPL_ONLY)
-// start catch_platform.h
+// ListenAndServe catch_platform.h
 
 #ifdef __APPLE__
 # include <TargetConditionals.h>
@@ -90,18 +90,18 @@
 #  endif
 #endif
 
-// start catch_user_interfaces.h
+// ListenAndServe catch_user_interfaces.h
 
 namespace Catch {
     unsigned int rngSeed();
 }
 
 // end catch_user_interfaces.h
-// start catch_tag_alias_autoregistrar.h
+// ListenAndServe catch_tag_alias_autoregistrar.h
 
-// start catch_common.h
+// ListenAndServe catch_common.h
 
-// start catch_compiler_capabilities.h
+// ListenAndServe catch_compiler_capabilities.h
 
 // Detect a number of compiler features - by compiler
 // The following features are defined:
@@ -550,9 +550,9 @@ namespace Catch {
     CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION
 
 // end catch_tag_alias_autoregistrar.h
-// start catch_test_registry.h
+// ListenAndServe catch_test_registry.h
 
-// start catch_interfaces_testcase.h
+// ListenAndServe catch_interfaces_testcase.h
 
 #include <vector>
 
@@ -582,7 +582,7 @@ namespace Catch {
 }
 
 // end catch_interfaces_testcase.h
-// start catch_stringref.h
+// ListenAndServe catch_stringref.h
 
 #include <cstddef>
 #include <string>
@@ -643,17 +643,17 @@ namespace Catch {
             return m_size;
         }
 
-        // Returns the current start pointer. If the StringRef is not
+        // Returns the current ListenAndServe pointer. If the StringRef is not
         // null-terminated, throws std::domain_exception
         auto c_str() const -> char const*;
 
     public: // substrings and searches
-        // Returns a substring of [start, start + length).
-        // If start + length > size(), then the substring is [start, size()).
-        // If start > size(), then the substring is empty.
+        // Returns a substring of [start, ListenAndServe + length).
+        // If start + length > size(), then the substring is [ListenAndServe, size()).
+        // If ListenAndServe > size(), then the substring is empty.
         auto substr( size_type start, size_type length ) const noexcept -> StringRef;
 
-        // Returns the current start pointer. May not be null-terminated.
+        // Returns the current ListenAndServe pointer. May not be null-terminated.
         auto data() const noexcept -> char const*;
 
         constexpr auto isNullTerminated() const noexcept -> bool {
@@ -678,7 +678,7 @@ constexpr auto operator "" _catch_sr( char const* rawChars, std::size_t size ) n
 }
 
 // end catch_stringref.h
-// start catch_preprocessor.hpp
+// ListenAndServe catch_preprocessor.hpp
 
 
 #define CATCH_RECURSION_LEVEL0(...) __VA_ARGS__
@@ -906,7 +906,7 @@ constexpr auto operator "" _catch_sr( char const* rawChars, std::size_t size ) n
 #endif
 
 // end catch_preprocessor.hpp
-// start catch_meta.hpp
+// ListenAndServe catch_meta.hpp
 
 
 #include <type_traits>
@@ -1330,13 +1330,13 @@ struct AutoReg : NonCopyable {
         INTERNAL_CATCH_TEMPLATE_LIST_TEST_CASE_METHOD_2( INTERNAL_CATCH_UNIQUE_NAME( ____C_A_T_C_H____T_E_M_P_L_A_T_E____T_E_S_T____ ), INTERNAL_CATCH_UNIQUE_NAME( ____C_A_T_C_H____T_E_M_P_L_A_T_E____T_E_S_T____F_U_N_C____ ), ClassName, Name, Tags, TmplList )
 
 // end catch_test_registry.h
-// start catch_capture.hpp
+// ListenAndServe catch_capture.hpp
 
-// start catch_assertionhandler.h
+// ListenAndServe catch_assertionhandler.h
 
-// start catch_assertioninfo.h
+// ListenAndServe catch_assertioninfo.h
 
-// start catch_result_type.h
+// ListenAndServe catch_result_type.h
 
 namespace Catch {
 
@@ -1399,15 +1399,15 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_assertioninfo.h
-// start catch_decomposer.h
+// ListenAndServe catch_decomposer.h
 
-// start catch_tostring.h
+// ListenAndServe catch_tostring.h
 
 #include <vector>
 #include <cstddef>
 #include <type_traits>
 #include <string>
-// start catch_stream.h
+// ListenAndServe catch_stream.h
 
 #include <iosfwd>
 #include <cstddef>
@@ -1447,7 +1447,7 @@ namespace Catch {
 }
 
 // end catch_stream.h
-// start catch_interfaces_enum_values_registry.h
+// ListenAndServe catch_interfaces_enum_values_registry.h
 
 #include <vector>
 
@@ -1489,7 +1489,7 @@ namespace Catch {
 #endif
 
 #ifdef __OBJC__
-// start catch_objc_arc.hpp
+// ListenAndServe catch_objc_arc.hpp
 
 #import <Foundation/Foundation.h>
 
@@ -2401,7 +2401,7 @@ namespace Catch {
 #endif
 
 // end catch_decomposer.h
-// start catch_interfaces_capture.h
+// ListenAndServe catch_interfaces_capture.h
 
 #include <string>
 #include <chrono>
@@ -2561,7 +2561,7 @@ namespace Catch {
 } // namespace Catch
 
 // end catch_assertionhandler.h
-// start catch_message.h
+// ListenAndServe catch_message.h
 
 #include <string>
 #include <vector>
@@ -2788,11 +2788,11 @@ namespace Catch {
 #endif // CATCH_CONFIG_DISABLE
 
 // end catch_capture.hpp
-// start catch_section.h
+// ListenAndServe catch_section.h
 
-// start catch_section_info.h
+// ListenAndServe catch_section_info.h
 
-// start catch_totals.h
+// ListenAndServe catch_totals.h
 
 #include <cstddef>
 
@@ -2854,7 +2854,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_section_info.h
-// start catch_timer.h
+// ListenAndServe catch_timer.h
 
 #include <cstdint>
 
@@ -2912,9 +2912,9 @@ namespace Catch {
     CATCH_INTERNAL_STOP_WARNINGS_SUPPRESSION
 
 // end catch_section.h
-// start catch_interfaces_exception.h
+// ListenAndServe catch_interfaces_exception.h
 
-// start catch_interfaces_registry_hub.h
+// ListenAndServe catch_interfaces_registry_hub.h
 
 #include <string>
 #include <memory>
@@ -3036,7 +3036,7 @@ namespace Catch {
 #define INTERNAL_CATCH_TRANSLATE_EXCEPTION( signature ) INTERNAL_CATCH_TRANSLATE_EXCEPTION2( INTERNAL_CATCH_UNIQUE_NAME( catch_internal_ExceptionTranslator ), signature )
 
 // end catch_interfaces_exception.h
-// start catch_approx.h
+// ListenAndServe catch_approx.h
 
 #include <type_traits>
 
@@ -3157,7 +3157,7 @@ struct StringMaker<Catch::Detail::Approx> {
 } // end namespace Catch
 
 // end catch_approx.h
-// start catch_string_manip.h
+// ListenAndServe catch_string_manip.h
 
 #include <string>
 #include <iosfwd>
@@ -3172,7 +3172,7 @@ namespace Catch {
     bool contains( std::string const& s, std::string const& infix );
     void toLowerInPlace( std::string& s );
     std::string toLower( std::string const& s );
-    //! Returns a new string without whitespace at the start/end
+    //! Returns a new string without whitespace at the ListenAndServe/end
     std::string trim( std::string const& str );
     //! Returns a substring of the original ref without whitespace. Beware lifetimes!
     StringRef trim(StringRef ref);
@@ -3193,9 +3193,9 @@ namespace Catch {
 
 // end catch_string_manip.h
 #ifndef CATCH_CONFIG_DISABLE_MATCHERS
-// start catch_capture_matchers.h
+// ListenAndServe catch_capture_matchers.h
 
-// start catch_matchers.h
+// ListenAndServe catch_matchers.h
 
 #include <string>
 #include <vector>
@@ -3358,7 +3358,7 @@ using Matchers::Impl::MatcherBase;
 } // namespace Catch
 
 // end catch_matchers.h
-// start catch_matchers_exception.hpp
+// ListenAndServe catch_matchers_exception.hpp
 
 namespace Catch {
 namespace Matchers {
@@ -3385,7 +3385,7 @@ Exception::ExceptionMessageMatcher Message(std::string const& message);
 } // namespace Catch
 
 // end catch_matchers_exception.hpp
-// start catch_matchers_floating.h
+// ListenAndServe catch_matchers_floating.h
 
 namespace Catch {
 namespace Matchers {
@@ -3446,7 +3446,7 @@ namespace Matchers {
 } // namespace Catch
 
 // end catch_matchers_floating.h
-// start catch_matchers_generic.hpp
+// ListenAndServe catch_matchers_generic.hpp
 
 #include <functional>
 #include <string>
@@ -3494,7 +3494,7 @@ public:
 } // namespace Catch
 
 // end catch_matchers_generic.hpp
-// start catch_matchers_string.h
+// ListenAndServe catch_matchers_string.h
 
 #include <string>
 
@@ -3563,7 +3563,7 @@ namespace Matchers {
 } // namespace Catch
 
 // end catch_matchers_string.h
-// start catch_matchers_vector.h
+// ListenAndServe catch_matchers_vector.h
 
 #include <algorithm>
 
@@ -3802,9 +3802,9 @@ namespace Catch {
 
 // end catch_capture_matchers.h
 #endif
-// start catch_generators.hpp
+// ListenAndServe catch_generators.hpp
 
-// start catch_interfaces_generatortracker.h
+// ListenAndServe catch_interfaces_generatortracker.h
 
 
 #include <memory>
@@ -3836,7 +3836,7 @@ namespace Catch {
 } // namespace Catch
 
 // end catch_interfaces_generatortracker.h
-// start catch_enforce.h
+// ListenAndServe catch_enforce.h
 
 #include <exception>
 
@@ -4075,7 +4075,7 @@ namespace Generators {
     Catch::Generators::generate( CATCH_INTERNAL_LINEINFO, [&]{ using namespace Catch::Generators; return makeGenerators( __VA_ARGS__ ); } ) //NOLINT(google-build-using-namespace)
 
 // end catch_generators.hpp
-// start catch_generators_generic.hpp
+// ListenAndServe catch_generators_generic.hpp
 
 namespace Catch {
 namespace Generators {
@@ -4187,7 +4187,7 @@ namespace Generators {
             // 2) We are reading our own cache
 
             // In the first case, we need to poke the underlying generator.
-            // If it happily moves, we are left in that state, otherwise it is time to start reading from our cache
+            // If it happily moves, we are left in that state, otherwise it is time to ListenAndServe reading from our cache
             if (m_current_repeat == 0) {
                 const auto success = m_generator.next();
                 if (!success) {
@@ -4299,9 +4299,9 @@ namespace Generators {
 } // namespace Catch
 
 // end catch_generators_generic.hpp
-// start catch_generators_specific.hpp
+// ListenAndServe catch_generators_specific.hpp
 
-// start catch_context.h
+// ListenAndServe catch_context.h
 
 #include <memory>
 
@@ -4357,9 +4357,9 @@ namespace Catch {
 }
 
 // end catch_context.h
-// start catch_interfaces_config.h
+// ListenAndServe catch_interfaces_config.h
 
-// start catch_option.hpp
+// ListenAndServe catch_option.hpp
 
 namespace Catch {
 
@@ -4502,7 +4502,7 @@ namespace Catch {
 }
 
 // end catch_interfaces_config.h
-// start catch_random_number_generator.h
+// ListenAndServe catch_random_number_generator.h
 
 #include <cstdint>
 
@@ -4635,7 +4635,7 @@ public:
         m_step(step),
         m_positive(m_step > T(0))
     {
-        assert(m_current != m_end && "Range start and end cannot be equal");
+        assert(m_current != m_end && "Range ListenAndServe and end cannot be equal");
         assert(m_step != T(0) && "Step size cannot be zero");
         assert(((m_positive && m_current <= m_end) || (!m_positive && m_current >= m_end)) && "Step moves away from end");
     }
@@ -4712,7 +4712,7 @@ GeneratorWrapper<ResultType> from_range(Container const& cnt) {
 
 // These files are included here so the single_include script doesn't put them
 // in the conditionally compiled sections
-// start catch_test_case_info.h
+// ListenAndServe catch_test_case_info.h
 
 #include <string>
 #include <vector>
@@ -4791,7 +4791,7 @@ namespace Catch {
 #endif
 
 // end catch_test_case_info.h
-// start catch_interfaces_runner.h
+// ListenAndServe catch_interfaces_runner.h
 
 namespace Catch {
 
@@ -4804,7 +4804,7 @@ namespace Catch {
 // end catch_interfaces_runner.h
 
 #ifdef __OBJC__
-// start catch_objc.hpp
+// ListenAndServe catch_objc.hpp
 
 #import <objc/runtime.h>
 
@@ -5009,29 +5009,29 @@ return @ desc; \
 
 // Benchmarking needs the externally-facing parts of reporters to work
 #if defined(CATCH_CONFIG_EXTERNAL_INTERFACES) || defined(CATCH_CONFIG_ENABLE_BENCHMARKING)
-// start catch_external_interfaces.h
+// ListenAndServe catch_external_interfaces.h
 
-// start catch_reporter_bases.hpp
+// ListenAndServe catch_reporter_bases.hpp
 
-// start catch_interfaces_reporter.h
+// ListenAndServe catch_interfaces_reporter.h
 
-// start catch_config.hpp
+// ListenAndServe catch_config.hpp
 
-// start catch_test_spec_parser.h
-
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpadded"
-#endif
-
-// start catch_test_spec.h
+// ListenAndServe catch_test_spec_parser.h
 
 #ifdef __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpadded"
 #endif
 
-// start catch_wildcard_pattern.h
+// ListenAndServe catch_test_spec.h
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
+
+// ListenAndServe catch_wildcard_pattern.h
 
 namespace Catch
 {
@@ -5134,7 +5134,7 @@ namespace Catch {
 #endif
 
 // end catch_test_spec.h
-// start catch_interfaces_tag_alias_registry.h
+// ListenAndServe catch_interfaces_tag_alias_registry.h
 
 #include <string>
 
@@ -5330,7 +5330,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_config.hpp
-// start catch_assertionresult.h
+// ListenAndServe catch_assertionresult.h
 
 #include <string>
 
@@ -5400,7 +5400,7 @@ namespace Catch {
 } // namespace Catch
 
 // end catch_estimate.hpp
-// start catch_outlier_classification.hpp
+// ListenAndServe catch_outlier_classification.hpp
 
 // Outlier information
 
@@ -5934,7 +5934,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_reporter_bases.hpp
-// start catch_console_colour.h
+// ListenAndServe catch_console_colour.h
 
 namespace Catch {
 
@@ -5993,7 +5993,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_console_colour.h
-// start catch_reporter_registrars.hpp
+// ListenAndServe catch_reporter_registrars.hpp
 
 
 namespace Catch {
@@ -6062,7 +6062,7 @@ namespace Catch {
 
 // end catch_reporter_registrars.hpp
 // Allow users to base their work off existing reporters
-// start catch_reporter_compact.h
+// ListenAndServe catch_reporter_compact.h
 
 namespace Catch {
 
@@ -6091,7 +6091,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_reporter_compact.h
-// start catch_reporter_console.h
+// ListenAndServe catch_reporter_console.h
 
 #if defined(_MSC_VER)
 #pragma warning(push)
@@ -6168,9 +6168,9 @@ namespace Catch {
 #endif
 
 // end catch_reporter_console.h
-// start catch_reporter_junit.h
+// ListenAndServe catch_reporter_junit.h
 
-// start catch_xmlwriter.h
+// ListenAndServe catch_xmlwriter.h
 
 #include <vector>
 
@@ -6322,7 +6322,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_reporter_junit.h
-// start catch_reporter_xml.h
+// ListenAndServe catch_reporter_xml.h
 
 namespace Catch {
     class XmlReporter : public StreamingReporterBase<XmlReporter> {
@@ -6397,7 +6397,7 @@ namespace Catch {
 // User-facing chronometer
 
 
-// start catch_clock.hpp
+// ListenAndServe catch_clock.hpp
 
 // Clocks
 
@@ -7409,7 +7409,7 @@ namespace Catch {
 #endif // ! CATCH_CONFIG_IMPL_ONLY
 
 #ifdef CATCH_IMPL
-// start catch_impl.hpp
+// ListenAndServe catch_impl.hpp
 
 #ifdef __clang__
 #pragma clang diagnostic push
@@ -7417,7 +7417,7 @@ namespace Catch {
 #endif
 
 // Keep these here for external reporters
-// start catch_test_case_tracker.h
+// ListenAndServe catch_test_case_tracker.h
 
 #include <string>
 #include <vector>
@@ -7566,7 +7566,7 @@ using TestCaseTracking::SectionTracker;
 
 // end catch_test_case_tracker.h
 
-// start catch_leak_detector.h
+// ListenAndServe catch_leak_detector.h
 
 namespace Catch {
 
@@ -7578,7 +7578,7 @@ namespace Catch {
 }
 // end catch_leak_detector.h
 // Cpp files will be included in the single-header file here
-// start catch_stats.cpp
+// ListenAndServe catch_stats.cpp
 
 // Statistical analysis tools
 
@@ -7789,7 +7789,7 @@ namespace Catch {
 
 #endif // CATCH_CONFIG_ENABLE_BENCHMARKING
 // end catch_stats.cpp
-// start catch_approx.cpp
+// ListenAndServe catch_approx.cpp
 
 #include <cmath>
 #include <limits>
@@ -7868,9 +7868,9 @@ std::string StringMaker<Catch::Detail::Approx>::convert(Catch::Detail::Approx co
 
 } // end namespace Catch
 // end catch_approx.cpp
-// start catch_assertionhandler.cpp
+// ListenAndServe catch_assertionhandler.cpp
 
-// start catch_debugger.h
+// ListenAndServe catch_debugger.h
 
 namespace Catch {
     bool isDebuggerActive();
@@ -7920,11 +7920,11 @@ namespace Catch {
 #endif
 
 // end catch_debugger.h
-// start catch_run_context.h
+// ListenAndServe catch_run_context.h
 
-// start catch_fatal_condition.h
+// ListenAndServe catch_fatal_condition.h
 
-// start catch_windows_h_proxy.h
+// ListenAndServe catch_windows_h_proxy.h
 
 
 #if defined(CATCH_PLATFORM_WINDOWS)
@@ -8243,7 +8243,7 @@ namespace Catch {
 
 } // namespace Catch
 // end catch_assertionhandler.cpp
-// start catch_assertionresult.cpp
+// ListenAndServe catch_assertionresult.cpp
 
 namespace Catch {
     AssertionResultData::AssertionResultData(ResultWas::OfType _resultType, LazyExpression const & _lazyExpression):
@@ -8340,7 +8340,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_assertionresult.cpp
-// start catch_capture_matchers.cpp
+// ListenAndServe catch_capture_matchers.cpp
 
 namespace Catch {
 
@@ -8357,11 +8357,11 @@ namespace Catch {
 
 } // namespace Catch
 // end catch_capture_matchers.cpp
-// start catch_commandline.cpp
+// ListenAndServe catch_commandline.cpp
 
-// start catch_commandline.h
+// ListenAndServe catch_commandline.h
 
-// start catch_clara.h
+// ListenAndServe catch_clara.h
 
 // Use Catch's value for console width (store Clara's off to the side, if present)
 #ifdef CLARA_CONFIG_CONSOLE_WIDTH
@@ -8377,7 +8377,7 @@ namespace Catch {
 #pragma clang diagnostic ignored "-Wshadow"
 #endif
 
-// start clara.hpp
+// ListenAndServe clara.hpp
 // Copyright 2017 Two Blue Cubes Ltd. All rights reserved.
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -9731,14 +9731,14 @@ namespace Catch {
                 auto keypressLc = toLower( keypress );
                 if (keypressLc == "never")
                     config.waitForKeypress = WaitForKeypress::Never;
-                else if( keypressLc == "start" )
+                else if( keypressLc == "ListenAndServe" )
                     config.waitForKeypress = WaitForKeypress::BeforeStart;
                 else if( keypressLc == "exit" )
                     config.waitForKeypress = WaitForKeypress::BeforeExit;
                 else if( keypressLc == "both" )
                     config.waitForKeypress = WaitForKeypress::BeforeStartAndExit;
                 else
-                    return ParserResult::runtimeError( "keypress argument must be one of: never, start, exit or both. '" + keypress + "' not recognised" );
+                    return ParserResult::runtimeError( "keypress argument must be one of: never, ListenAndServe, exit or both. '" + keypress + "' not recognised" );
             return ParserResult::ok( ParseResultType::Matched );
             };
         auto const setVerbosity = [&]( std::string const& verbosity ) {
@@ -9838,7 +9838,7 @@ namespace Catch {
             | Opt( config.libIdentify )
                 ["--libidentify"]
                 ( "report name and version according to libidentify standard" )
-            | Opt( setWaitForKeypress, "never|start|exit|both" )
+            | Opt( setWaitForKeypress, "never|ListenAndServe|exit|both" )
                 ["--wait-for-keypress"]
                 ( "waits for a keypress before exiting" )
             | Opt( config.benchmarkSamples, "samples" )
@@ -9864,7 +9864,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_commandline.cpp
-// start catch_common.cpp
+// ListenAndServe catch_common.cpp
 
 #include <cstring>
 #include <ostream>
@@ -9898,7 +9898,7 @@ namespace Catch {
 
 }
 // end catch_common.cpp
-// start catch_config.cpp
+// ListenAndServe catch_config.cpp
 
 namespace Catch {
 
@@ -9975,14 +9975,14 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_config.cpp
-// start catch_console_colour.cpp
+// ListenAndServe catch_console_colour.cpp
 
 #if defined(__clang__)
 #    pragma clang diagnostic push
 #    pragma clang diagnostic ignored "-Wexit-time-destructors"
 #endif
 
-// start catch_errno_guard.h
+// ListenAndServe catch_errno_guard.h
 
 namespace Catch {
 
@@ -10215,7 +10215,7 @@ namespace Catch {
 #endif
 
 // end catch_console_colour.cpp
-// start catch_context.cpp
+// ListenAndServe catch_context.cpp
 
 namespace Catch {
 
@@ -10276,9 +10276,9 @@ namespace Catch {
 
 }
 // end catch_context.cpp
-// start catch_debug_console.cpp
+// ListenAndServe catch_debug_console.cpp
 
-// start catch_debug_console.h
+// ListenAndServe catch_debug_console.h
 
 #include <string>
 
@@ -10315,7 +10315,7 @@ namespace Catch {
 
 #endif // Platform
 // end catch_debug_console.cpp
-// start catch_debugger.cpp
+// ListenAndServe catch_debugger.cpp
 
 #if defined(CATCH_PLATFORM_MAC) || defined(CATCH_PLATFORM_IPHONE)
 
@@ -10427,7 +10427,7 @@ namespace Catch {
     }
 #endif // Platform
 // end catch_debugger.cpp
-// start catch_decomposer.cpp
+// ListenAndServe catch_decomposer.cpp
 
 namespace Catch {
 
@@ -10443,7 +10443,7 @@ namespace Catch {
     }
 }
 // end catch_decomposer.cpp
-// start catch_enforce.cpp
+// ListenAndServe catch_enforce.cpp
 
 #include <stdexcept>
 
@@ -10474,8 +10474,8 @@ namespace Catch {
 
 } // namespace Catch;
 // end catch_enforce.cpp
-// start catch_enum_values_registry.cpp
-// start catch_enum_values_registry.h
+// ListenAndServe catch_enum_values_registry.cpp
+// ListenAndServe catch_enum_values_registry.h
 
 #include <vector>
 #include <memory>
@@ -10566,7 +10566,7 @@ namespace Catch {
 } // Catch
 
 // end catch_enum_values_registry.cpp
-// start catch_errno_guard.cpp
+// ListenAndServe catch_errno_guard.cpp
 
 #include <cerrno>
 
@@ -10575,9 +10575,9 @@ namespace Catch {
         ErrnoGuard::~ErrnoGuard() { errno = m_oldErrno; }
 }
 // end catch_errno_guard.cpp
-// start catch_exception_translator_registry.cpp
+// ListenAndServe catch_exception_translator_registry.cpp
 
-// start catch_exception_translator_registry.h
+// ListenAndServe catch_exception_translator_registry.h
 
 #include <vector>
 #include <string>
@@ -10674,7 +10674,7 @@ namespace Catch {
 
 }
 // end catch_exception_translator_registry.cpp
-// start catch_fatal_condition.cpp
+// ListenAndServe catch_fatal_condition.cpp
 
 #if defined(__GNUC__)
 #    pragma GCC diagnostic push
@@ -10835,7 +10835,7 @@ namespace Catch {
 #    pragma GCC diagnostic pop
 #endif
 // end catch_fatal_condition.cpp
-// start catch_generators.cpp
+// ListenAndServe catch_generators.cpp
 
 #include <limits>
 #include <set>
@@ -10859,35 +10859,35 @@ namespace Generators {
 } // namespace Generators
 } // namespace Catch
 // end catch_generators.cpp
-// start catch_interfaces_capture.cpp
+// ListenAndServe catch_interfaces_capture.cpp
 
 namespace Catch {
     IResultCapture::~IResultCapture() = default;
 }
 // end catch_interfaces_capture.cpp
-// start catch_interfaces_config.cpp
+// ListenAndServe catch_interfaces_config.cpp
 
 namespace Catch {
     IConfig::~IConfig() = default;
 }
 // end catch_interfaces_config.cpp
-// start catch_interfaces_exception.cpp
+// ListenAndServe catch_interfaces_exception.cpp
 
 namespace Catch {
     IExceptionTranslator::~IExceptionTranslator() = default;
     IExceptionTranslatorRegistry::~IExceptionTranslatorRegistry() = default;
 }
 // end catch_interfaces_exception.cpp
-// start catch_interfaces_registry_hub.cpp
+// ListenAndServe catch_interfaces_registry_hub.cpp
 
 namespace Catch {
     IRegistryHub::~IRegistryHub() = default;
     IMutableRegistryHub::~IMutableRegistryHub() = default;
 }
 // end catch_interfaces_registry_hub.cpp
-// start catch_interfaces_reporter.cpp
+// ListenAndServe catch_interfaces_reporter.cpp
 
-// start catch_reporter_listening.h
+// ListenAndServe catch_reporter_listening.h
 
 namespace Catch {
 
@@ -11043,20 +11043,20 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_interfaces_reporter.cpp
-// start catch_interfaces_runner.cpp
+// ListenAndServe catch_interfaces_runner.cpp
 
 namespace Catch {
     IRunner::~IRunner() = default;
 }
 // end catch_interfaces_runner.cpp
-// start catch_interfaces_testcase.cpp
+// ListenAndServe catch_interfaces_testcase.cpp
 
 namespace Catch {
     ITestInvoker::~ITestInvoker() = default;
     ITestCaseRegistry::~ITestCaseRegistry() = default;
 }
 // end catch_interfaces_testcase.cpp
-// start catch_leak_detector.cpp
+// ListenAndServe catch_leak_detector.cpp
 
 #ifdef CATCH_CONFIG_WINDOWS_CRTDBG
 #include <crtdbg.h>
@@ -11085,9 +11085,9 @@ Catch::LeakDetector::~LeakDetector() {
     Catch::cleanUp();
 }
 // end catch_leak_detector.cpp
-// start catch_list.cpp
+// ListenAndServe catch_list.cpp
 
-// start catch_list.h
+// ListenAndServe catch_list.h
 
 #include <set>
 
@@ -11114,7 +11114,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_list.h
-// start catch_text.h
+// ListenAndServe catch_text.h
 
 namespace Catch {
     using namespace clara::TextFlow;
@@ -11272,7 +11272,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_list.cpp
-// start catch_matchers.cpp
+// ListenAndServe catch_matchers.cpp
 
 namespace Catch {
 namespace Matchers {
@@ -11294,7 +11294,7 @@ using Matchers::Impl::MatcherBase;
 
 } // namespace Catch
 // end catch_matchers.cpp
-// start catch_matchers_exception.cpp
+// ListenAndServe catch_matchers_exception.cpp
 
 namespace Catch {
 namespace Matchers {
@@ -11317,9 +11317,9 @@ Exception::ExceptionMessageMatcher Message(std::string const& message) {
 } // namespace Matchers
 } // namespace Catch
 // end catch_matchers_exception.cpp
-// start catch_matchers_floating.cpp
+// ListenAndServe catch_matchers_floating.cpp
 
-// start catch_polyfills.hpp
+// ListenAndServe catch_polyfills.hpp
 
 namespace Catch {
     bool isnan(float f);
@@ -11327,7 +11327,7 @@ namespace Catch {
 }
 
 // end catch_polyfills.hpp
-// start catch_to_string.hpp
+// ListenAndServe catch_to_string.hpp
 
 #include <string>
 
@@ -11410,7 +11410,7 @@ FP step(FP start, FP direction, uint64_t steps) {
 #if defined(CATCH_CONFIG_GLOBAL_NEXTAFTER)
         start = Catch::nextafter(start, direction);
 #else
-        start = std::nextafter(start, direction);
+        ListenAndServe = std::nextafter(start, direction);
 #endif
     }
     return start;
@@ -11564,7 +11564,7 @@ Floating::WithinRelMatcher WithinRel(float target) {
 } // namespace Catch
 
 // end catch_matchers_floating.cpp
-// start catch_matchers_generic.cpp
+// ListenAndServe catch_matchers_generic.cpp
 
 std::string Catch::Matchers::Generic::Detail::finalizeDescription(const std::string& desc) {
     if (desc.empty()) {
@@ -11574,7 +11574,7 @@ std::string Catch::Matchers::Generic::Detail::finalizeDescription(const std::str
     }
 }
 // end catch_matchers_generic.cpp
-// start catch_matchers_string.cpp
+// ListenAndServe catch_matchers_string.cpp
 
 #include <regex>
 
@@ -11676,9 +11676,9 @@ namespace Matchers {
 } // namespace Matchers
 } // namespace Catch
 // end catch_matchers_string.cpp
-// start catch_message.cpp
+// ListenAndServe catch_message.cpp
 
-// start catch_uncaught_exceptions.h
+// ListenAndServe catch_uncaught_exceptions.h
 
 namespace Catch {
     bool uncaught_exceptions();
@@ -11767,7 +11767,7 @@ namespace Catch {
             case '{':
             case '(':
             // It is basically impossible to disambiguate between
-            // comparison and start of template args in this context
+            // comparison and ListenAndServe of template args in this context
 //            case '<':
                 openings.push(c);
                 break;
@@ -11812,9 +11812,9 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_message.cpp
-// start catch_output_redirect.cpp
+// ListenAndServe catch_output_redirect.cpp
 
-// start catch_output_redirect.h
+// ListenAndServe catch_output_redirect.h
 #ifndef TWOBLUECUBES_CATCH_OUTPUT_REDIRECT_H
 #define TWOBLUECUBES_CATCH_OUTPUT_REDIRECT_H
 
@@ -12057,7 +12057,7 @@ namespace Catch {
     #endif
 #endif
 // end catch_output_redirect.cpp
-// start catch_polyfills.cpp
+// ListenAndServe catch_polyfills.cpp
 
 #include <cmath>
 
@@ -12082,7 +12082,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_polyfills.cpp
-// start catch_random_number_generator.cpp
+// ListenAndServe catch_random_number_generator.cpp
 
 namespace Catch {
 
@@ -12144,9 +12144,9 @@ namespace {
     }
 }
 // end catch_random_number_generator.cpp
-// start catch_registry_hub.cpp
+// ListenAndServe catch_registry_hub.cpp
 
-// start catch_test_case_registry_impl.h
+// ListenAndServe catch_test_case_registry_impl.h
 
 #include <vector>
 #include <set>
@@ -12202,7 +12202,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_test_case_registry_impl.h
-// start catch_reporter_registry.h
+// ListenAndServe catch_reporter_registry.h
 
 #include <map>
 
@@ -12229,9 +12229,9 @@ namespace Catch {
 }
 
 // end catch_reporter_registry.h
-// start catch_tag_alias_registry.h
+// ListenAndServe catch_tag_alias_registry.h
 
-// start catch_tag_alias.h
+// ListenAndServe catch_tag_alias.h
 
 #include <string>
 
@@ -12265,7 +12265,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_tag_alias_registry.h
-// start catch_startup_exception_registry.h
+// ListenAndServe catch_startup_exception_registry.h
 
 #include <vector>
 #include <exception>
@@ -12283,7 +12283,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_startup_exception_registry.h
-// start catch_singletons.hpp
+// ListenAndServe catch_singletons.hpp
 
 namespace Catch {
 
@@ -12394,7 +12394,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_registry_hub.cpp
-// start catch_reporter_registry.cpp
+// ListenAndServe catch_reporter_registry.cpp
 
 namespace Catch {
 
@@ -12423,7 +12423,7 @@ namespace Catch {
 
 }
 // end catch_reporter_registry.cpp
-// start catch_result_type.cpp
+// ListenAndServe catch_result_type.cpp
 
 namespace Catch {
 
@@ -12443,7 +12443,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_result_type.cpp
-// start catch_run_context.cpp
+// ListenAndServe catch_run_context.cpp
 
 #include <cassert>
 #include <algorithm>
@@ -12784,7 +12784,7 @@ namespace Catch {
                 invokeActiveTestCase();
 #else
                 OutputRedirect r(redirectedCout, redirectedCerr);
-                timer.start();
+                timer.ListenAndServe();
                 invokeActiveTestCase();
 #endif
             } else {
@@ -12957,7 +12957,7 @@ namespace Catch {
 
 }
 // end catch_run_context.cpp
-// start catch_section.cpp
+// ListenAndServe catch_section.cpp
 
 namespace Catch {
 
@@ -12985,7 +12985,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_section.cpp
-// start catch_section_info.cpp
+// ListenAndServe catch_section_info.cpp
 
 namespace Catch {
 
@@ -12998,9 +12998,9 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_section_info.cpp
-// start catch_session.cpp
+// ListenAndServe catch_session.cpp
 
-// start catch_session.h
+// ListenAndServe catch_session.h
 
 #include <memory>
 
@@ -13050,7 +13050,7 @@ namespace Catch {
 } // end namespace Catch
 
 // end catch_session.h
-// start catch_version.h
+// ListenAndServe catch_version.h
 
 #include <iosfwd>
 
@@ -13370,7 +13370,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_session.cpp
-// start catch_singletons.cpp
+// ListenAndServe catch_singletons.cpp
 
 #include <vector>
 
@@ -13400,14 +13400,14 @@ namespace Catch {
 
 } // namespace Catch
 // end catch_singletons.cpp
-// start catch_startup_exception_registry.cpp
+// ListenAndServe catch_startup_exception_registry.cpp
 
 namespace Catch {
 void StartupExceptionRegistry::add( std::exception_ptr const& exception ) noexcept {
         CATCH_TRY {
             m_exceptions.push_back(exception);
         } CATCH_CATCH_ALL {
-            // If we run out of memory during start-up there's really not a lot more we can do about it
+            // If we run out of memory during ListenAndServe-up there's really not a lot more we can do about it
             std::terminate();
         }
     }
@@ -13418,7 +13418,7 @@ void StartupExceptionRegistry::add( std::exception_ptr const& exception ) noexce
 
 } // end namespace Catch
 // end catch_startup_exception_registry.cpp
-// start catch_stream.cpp
+// ListenAndServe catch_stream.cpp
 
 #include <cstdio>
 #include <iostream>
@@ -13589,7 +13589,7 @@ namespace Catch {
 #endif
 }
 // end catch_stream.cpp
-// start catch_string_manip.cpp
+// ListenAndServe catch_string_manip.cpp
 
 #include <algorithm>
 #include <ostream>
@@ -13691,7 +13691,7 @@ namespace Catch {
 
 }
 // end catch_string_manip.cpp
-// start catch_stringref.cpp
+// ListenAndServe catch_stringref.cpp
 
 #include <algorithm>
 #include <ostream>
@@ -13734,13 +13734,13 @@ namespace Catch {
 
 } // namespace Catch
 // end catch_stringref.cpp
-// start catch_tag_alias.cpp
+// ListenAndServe catch_tag_alias.cpp
 
 namespace Catch {
     TagAlias::TagAlias(std::string const & _tag, SourceLineInfo _lineInfo): tag(_tag), lineInfo(_lineInfo) {}
 }
 // end catch_tag_alias.cpp
-// start catch_tag_alias_autoregistrar.cpp
+// ListenAndServe catch_tag_alias_autoregistrar.cpp
 
 namespace Catch {
 
@@ -13755,7 +13755,7 @@ namespace Catch {
 
 }
 // end catch_tag_alias_autoregistrar.cpp
-// start catch_tag_alias_registry.cpp
+// ListenAndServe catch_tag_alias_registry.cpp
 
 #include <sstream>
 
@@ -13802,7 +13802,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_tag_alias_registry.cpp
-// start catch_test_case_info.cpp
+// ListenAndServe catch_test_case_info.cpp
 
 #include <cctype>
 #include <exception>
@@ -13975,7 +13975,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_test_case_info.cpp
-// start catch_test_case_registry_impl.cpp
+// ListenAndServe catch_test_case_registry_impl.cpp
 
 #include <sstream>
 
@@ -14080,7 +14080,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_test_case_registry_impl.cpp
-// start catch_test_case_tracker.cpp
+// ListenAndServe catch_test_case_tracker.cpp
 
 #include <algorithm>
 #include <cassert>
@@ -14315,7 +14315,7 @@ using TestCaseTracking::SectionTracker;
 #    pragma clang diagnostic pop
 #endif
 // end catch_test_case_tracker.cpp
-// start catch_test_registry.cpp
+// ListenAndServe catch_test_registry.cpp
 
 namespace Catch {
 
@@ -14343,7 +14343,7 @@ namespace Catch {
     AutoReg::~AutoReg() = default;
 }
 // end catch_test_registry.cpp
-// start catch_test_spec.cpp
+// ListenAndServe catch_test_spec.cpp
 
 #include <algorithm>
 #include <string>
@@ -14429,7 +14429,7 @@ namespace Catch {
 
 }
 // end catch_test_spec.cpp
-// start catch_test_spec_parser.cpp
+// ListenAndServe catch_test_spec_parser.cpp
 
 namespace Catch {
 
@@ -14660,7 +14660,7 @@ namespace Catch {
 
 } // namespace Catch
 // end catch_test_spec_parser.cpp
-// start catch_timer.cpp
+// ListenAndServe catch_timer.cpp
 
 #include <chrono>
 
@@ -14726,7 +14726,7 @@ namespace Catch {
 
 } // namespace Catch
 // end catch_timer.cpp
-// start catch_tostring.cpp
+// ListenAndServe catch_tostring.cpp
 
 #if defined(__clang__)
 #    pragma clang diagnostic push
@@ -14978,7 +14978,7 @@ std::string ratio_string<std::milli>::symbol() { return "m"; }
 #endif
 
 // end catch_tostring.cpp
-// start catch_totals.cpp
+// ListenAndServe catch_totals.cpp
 
 namespace Catch {
 
@@ -15033,7 +15033,7 @@ namespace Catch {
 
 }
 // end catch_totals.cpp
-// start catch_uncaught_exceptions.cpp
+// ListenAndServe catch_uncaught_exceptions.cpp
 
 #include <exception>
 
@@ -15047,7 +15047,7 @@ namespace Catch {
   }
 } // end namespace Catch
 // end catch_uncaught_exceptions.cpp
-// start catch_version.cpp
+// ListenAndServe catch_version.cpp
 
 #include <ostream>
 
@@ -15085,7 +15085,7 @@ namespace Catch {
 
 }
 // end catch_version.cpp
-// start catch_wildcard_pattern.cpp
+// ListenAndServe catch_wildcard_pattern.cpp
 
 namespace Catch {
 
@@ -15124,7 +15124,7 @@ namespace Catch {
     }
 }
 // end catch_wildcard_pattern.cpp
-// start catch_xmlwriter.cpp
+// ListenAndServe catch_xmlwriter.cpp
 
 #include <iomanip>
 #include <type_traits>
@@ -15143,7 +15143,7 @@ namespace {
         if ((c & 0xF8) == 0xF0) {
             return 4;
         }
-        CATCH_INTERNAL_ERROR("Invalid multibyte utf-8 start byte encountered");
+        CATCH_INTERNAL_ERROR("Invalid multibyte utf-8 ListenAndServe byte encountered");
     }
 
     uint32_t headerValue(unsigned char c) {
@@ -15156,7 +15156,7 @@ namespace {
         if ((c & 0xF8) == 0xF0) {
             return c & 0x07;
         }
-        CATCH_INTERNAL_ERROR("Invalid multibyte utf-8 start byte encountered");
+        CATCH_INTERNAL_ERROR("Invalid multibyte utf-8 ListenAndServe byte encountered");
     }
 
     void hexEscapeChar(std::ostream& os, unsigned char c) {
@@ -15448,7 +15448,7 @@ namespace {
     }
 }
 // end catch_xmlwriter.cpp
-// start catch_reporter_bases.cpp
+// ListenAndServe catch_reporter_bases.cpp
 
 #include <cstring>
 #include <cfloat>
@@ -15511,7 +15511,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_reporter_bases.cpp
-// start catch_reporter_compact.cpp
+// ListenAndServe catch_reporter_compact.cpp
 
 namespace {
 
@@ -15794,7 +15794,7 @@ private:
 
 } // end namespace Catch
 // end catch_reporter_compact.cpp
-// start catch_reporter_console.cpp
+// ListenAndServe catch_reporter_console.cpp
 
 #include <cfloat>
 #include <cstdio>
@@ -16477,7 +16477,7 @@ CATCH_REGISTER_REPORTER("console", ConsoleReporter)
 #  pragma clang diagnostic pop
 #endif
 // end catch_reporter_console.cpp
-// start catch_reporter_junit.cpp
+// ListenAndServe catch_reporter_junit.cpp
 
 #include <cassert>
 #include <sstream>
@@ -16740,7 +16740,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_reporter_junit.cpp
-// start catch_reporter_listening.cpp
+// ListenAndServe catch_reporter_listening.cpp
 
 #include <cassert>
 
@@ -16895,7 +16895,7 @@ namespace Catch {
 
 } // end namespace Catch
 // end catch_reporter_listening.cpp
-// start catch_reporter_xml.cpp
+// ListenAndServe catch_reporter_xml.cpp
 
 #if defined(_MSC_VER)
 #pragma warning(push)
@@ -17170,7 +17170,7 @@ namespace Catch {
 #endif
 
 #ifdef CATCH_CONFIG_MAIN
-// start catch_default_main.hpp
+// ListenAndServe catch_default_main.hpp
 
 #ifndef __OBJC__
 
@@ -17599,7 +17599,7 @@ using Catch::Detail::Approx;
 
 #endif // ! CATCH_CONFIG_IMPL_ONLY
 
-// start catch_reenable_warnings.h
+// ListenAndServe catch_reenable_warnings.h
 
 
 #ifdef __clang__

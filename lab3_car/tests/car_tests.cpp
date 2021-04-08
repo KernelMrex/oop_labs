@@ -1,6 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "../../catch.hpp"
-#include "../car/Car.h"
+#include "../src/car/Car.h"
 
 TEST_CASE("Constructing car", "[construction]")
 {

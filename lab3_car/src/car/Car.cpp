@@ -30,7 +30,7 @@ Direction Car::GetDirection() const
 
 int Car::GetSpeed() const
 {
-	return (speed > 0) ? speed : -speed;
+	return speed > 0 ? speed : -speed;
 }
 
 int Car::GetGear() const
