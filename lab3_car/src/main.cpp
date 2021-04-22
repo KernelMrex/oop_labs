@@ -4,7 +4,6 @@
 int main()
 {
 	Car car;
-	CommandControl commandControl(car);
-
-	commandControl.ListenAndServe(std::cin, std::cout);
+	CommandControl commandControl(car, std::cin, std::cout);
+	commandControl.ListenAndServe();
 }

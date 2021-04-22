@@ -1,14 +1,26 @@
 #include "../car/Car.h"
-#include "command_parser/CommandParser.h"
+#include "command/Command.h"
 #include <istream>
+#include <memory>
+#include <optional>
+
+#ifndef INCLUDE_COMMAND_CONTROL_H
+#define INCLUDE_COMMAND_CONTROL_H
 
 class CommandControl
 {
 public:
-	explicit CommandControl(Car& car);
+	explicit CommandControl(Car& car, std::istream& in, std::ostream& out);
 
-	void ListenAndServe(std::istream& in, std::ostream& out) const;
+	void ListenAndServe() const;
 
 private:
+	[[nodiscard]] std::optional<std::unique_ptr<Command>> readCommand() const;
+	[[nodiscard]] static std::string getNextArgument(const std::string& instruction, size_t prevDelimiterPos = 0);
+
 	Car& car;
+	std::istream& in;
+	std::ostream& out;
 };
+
+#endif

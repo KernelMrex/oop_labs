@@ -1,7 +1,19 @@
-#include "../CommandInterface.h"
+#include "../Command.h"
+#include <ostream>
 
-class GetInfoCommand : public CommandInterface
+#ifndef INCLUDE_GET_INFO_COMMAND_H
+#define INCLUDE_GET_INFO_COMMAND_H
+
+class GetInfoCommand : public Command
 {
 public:
-	Result execute(Car& car) override;
+	GetInfoCommand(const Car&, std::ostream&);
+
+	bool execute() override;
+
+private:
+	const Car& car;
+	std::ostream& output;
 };
+
+#endif

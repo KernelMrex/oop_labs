@@ -1,5 +1,8 @@
 #include "direction/Direction.h"
 
+#ifndef INCLUDE_CAR_H
+#define INCLUDE_CAR_H
+
 class Car
 {
 public:
@@ -30,3 +33,5 @@ private:
 
 	[[nodiscard]] bool IsValidSpeedChange(int newSpeed) const;
 };
+
+#endif

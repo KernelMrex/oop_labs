@@ -1,6 +1,12 @@
 #include "ChangeGearCommand.h"
 
-Result ChangeGearCommand::execute(Car& car)
+ChangeGearCommand::ChangeGearCommand(Car& car, int newGear)
+	: car(car)
+	, newGear(newGear)
 {
-	return Result(car.SetGear(newGear));
+}
+
+bool ChangeGearCommand::execute()
+{
+	return car.SetGear(newGear);
 }

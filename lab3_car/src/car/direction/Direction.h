@@ -7,5 +7,6 @@ enum class Direction
 	BACKWARD,
 	STILL,
 };
+
 #endif
 

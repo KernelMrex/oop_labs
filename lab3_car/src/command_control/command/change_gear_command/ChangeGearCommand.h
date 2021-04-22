@@ -1,10 +1,18 @@
-#include "../CommandInterface.h"
+#include "../Command.h"
 
-class ChangeGearCommand : public CommandInterface
+#ifndef INCLUDE_CHANGE_GEAR_COMMAND_H
+#define INCLUDE_CHANGE_GEAR_COMMAND_H
+
+class ChangeGearCommand : public Command
 {
 public:
-	Result execute(Car& car) override;
+	ChangeGearCommand(Car &car, int newGear);
+
+	bool execute() override;
 
 private:
+	Car& car;
 	int newGear;
 };
+
+#endif
