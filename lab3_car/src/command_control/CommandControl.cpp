@@ -14,9 +14,10 @@ CommandControl::CommandControl(Car& car, std::istream& in, std::ostream& out)
 
 void CommandControl::ListenAndServe() const
 {
-	while (!in.eof())
+	while (!in.eof() && !in.fail())
 	{
 		auto command = ReadCommand();
+
 		if (command.has_value())
 		{
 			if (command.value()->Execute())
@@ -28,38 +29,47 @@ void CommandControl::ListenAndServe() const
 				out << "Command Execute failed" << std::endl;
 			}
 		}
+		else if (!in.eof())
+		{
+			out << "Unknown command" << std::endl;
+		}
 	}
 }
 
 std::optional<std::unique_ptr<Command>> CommandControl::ReadCommand() const
 {
-	std::string instruction;
-	std::getline(in, instruction);
+	try
+	{
+		std::string instruction;
+		std::getline(in, instruction);
 
-	auto commandType = GetNextArgument(instruction);
+		auto commandType = GetNextArgument(instruction);
 
-	if (commandType == "Info")
-	{
-		return { std::make_unique<GetInfoCommand>(car, out) };
+		if (commandType == "Info")
+		{
+			return { std::make_unique<GetInfoCommand>(car, out) };
+		}
+		else if (commandType == "EngineOn")
+		{
+			return { std::make_unique<TurnEngineOnCommand>(car) };
+		}
+		else if (commandType == "EngineOff")
+		{
+			return { std::make_unique<TurnEngineOffCommand>(car) };
+		}
+		else if (commandType == "SetGear")
+		{
+			auto newGear = std::stoi(GetNextArgument(instruction, commandType.length()));
+			return { std::make_unique<ChangeGearCommand>(car, newGear) };
+		}
+		else if (commandType == "SetSpeed")
+		{
+			auto newSpeed = std::stoi(GetNextArgument(instruction, commandType.length()));
+			return { std::make_unique<ChangeSpeedCommand>(car, newSpeed) };
+		}
 	}
-	else if (commandType == "EngineOn")
-	{
-		return { std::make_unique<TurnEngineOnCommand>(car) };
-	}
-	else if (commandType == "EngineOff")
-	{
-		return { std::make_unique<TurnEngineOffCommand>(car) };
-	}
-	else if (commandType == "SetGear")
-	{
-		auto newGear = std::stoi(GetNextArgument(instruction, commandType.length()));
-		return { std::make_unique<ChangeGearCommand>(car, newGear) };
-	}
-	else if (commandType == "SetSpeed")
-	{
-		auto newSpeed = std::stoi(GetNextArgument(instruction, commandType.length()));
-		return { std::make_unique<ChangeSpeedCommand>(car, newSpeed) };
-	}
+	catch (std::exception &exception)
+	{}
 
 	return std::nullopt;
 }
