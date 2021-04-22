@@ -1,7 +1,7 @@
-#include "direction/Direction.h"
-
 #ifndef INCLUDE_CAR_H
 #define INCLUDE_CAR_H
+
+#include "direction/Direction.h"
 
 class Car
 {

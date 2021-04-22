@@ -1,8 +1,7 @@
-#include "../../car/Car.h"
-
-
 #ifndef INCLUDE_COMMAND_H
 #define INCLUDE_COMMAND_H
+
+#include "../../car/Car.h"
 
 class Command
 {

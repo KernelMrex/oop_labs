@@ -1,8 +1,8 @@
-#include "../Command.h"
-#include <ostream>
-
 #ifndef INCLUDE_GET_INFO_COMMAND_H
 #define INCLUDE_GET_INFO_COMMAND_H
+
+#include "../Command.h"
+#include <ostream>
 
 class GetInfoCommand : public Command
 {

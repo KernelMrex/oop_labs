@@ -25,18 +25,9 @@ add_executable(
         src/command_control/command/change_speed_command/ChangeSpeedCommand.h
 )
 
-# Tests
-add_executable(
-        car_tests
-        tests/car_tests.cpp
-        src/car/Car.cpp
-        src/car/Car.h
-        src/car/direction/Direction.h
-)
-
 add_executable(
         command_control_tests
-        tests/command_control_tests.cpp
+        tests/car_tests.cpp
         src/car/Car.cpp
         src/car/Car.h
         src/car/direction/Direction.h
