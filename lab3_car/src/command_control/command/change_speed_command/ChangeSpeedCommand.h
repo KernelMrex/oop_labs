@@ -8,7 +8,7 @@ class ChangeSpeedCommand : public Command
 public:
 	ChangeSpeedCommand(Car &car, int newSpeed);
 
-	bool execute() override;
+	bool Execute() override;
 
 private:
 	Car& car;

@@ -6,7 +6,7 @@ ChangeSpeedCommand::ChangeSpeedCommand(Car& car, int newSpeed)
 {
 }
 
-bool ChangeSpeedCommand::execute()
+bool ChangeSpeedCommand::Execute()
 {
 	return car.SetSpeed(newSpeed);
 }

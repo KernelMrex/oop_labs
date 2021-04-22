@@ -7,7 +7,7 @@ GetInfoCommand::GetInfoCommand(const Car& car, std::ostream& ostream)
 {
 }
 
-bool GetInfoCommand::execute()
+bool GetInfoCommand::Execute()
 {
 	std::string direction;
 	switch (car.GetDirection())

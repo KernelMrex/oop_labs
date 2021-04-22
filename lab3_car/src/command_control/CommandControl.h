@@ -15,8 +15,8 @@ public:
 	void ListenAndServe() const;
 
 private:
-	[[nodiscard]] std::optional<std::unique_ptr<Command>> readCommand() const;
-	[[nodiscard]] static std::string getNextArgument(const std::string& instruction, size_t prevDelimiterPos = 0);
+	[[nodiscard]] std::optional<std::unique_ptr<Command>> ReadCommand() const;
+	[[nodiscard]] static std::string GetNextArgument(const std::string& instruction, size_t prevDelimiterPos = 0);
 
 	Car& car;
 	std::istream& in;

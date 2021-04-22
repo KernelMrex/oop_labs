@@ -8,7 +8,7 @@ class ChangeGearCommand : public Command
 public:
 	ChangeGearCommand(Car &car, int newGear);
 
-	bool execute() override;
+	bool Execute() override;
 
 private:
 	Car& car;

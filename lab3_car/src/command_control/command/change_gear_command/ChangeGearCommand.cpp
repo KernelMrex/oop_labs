@@ -6,7 +6,7 @@ ChangeGearCommand::ChangeGearCommand(Car& car, int newGear)
 {
 }
 
-bool ChangeGearCommand::execute()
+bool ChangeGearCommand::Execute()
 {
 	return car.SetGear(newGear);
 }

@@ -9,7 +9,7 @@ class GetInfoCommand : public Command
 public:
 	GetInfoCommand(const Car&, std::ostream&);
 
-	bool execute() override;
+	bool Execute() override;
 
 private:
 	const Car& car;

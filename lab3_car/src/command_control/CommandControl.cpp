@@ -16,27 +16,27 @@ void CommandControl::ListenAndServe() const
 {
 	while (!in.eof())
 	{
-		auto command = readCommand();
+		auto command = ReadCommand();
 		if (command.has_value())
 		{
-			if (command.value()->execute())
+			if (command.value()->Execute())
 			{
-				out << "Command execute success" << std::endl;
+				out << "Command Execute success" << std::endl;
 			}
 			else
 			{
-				out << "Command execute failed" << std::endl;
+				out << "Command Execute failed" << std::endl;
 			}
 		}
 	}
 }
 
-std::optional<std::unique_ptr<Command>> CommandControl::readCommand() const
+std::optional<std::unique_ptr<Command>> CommandControl::ReadCommand() const
 {
 	std::string instruction;
 	std::getline(in, instruction);
 
-	auto commandType = getNextArgument(instruction);
+	auto commandType = GetNextArgument(instruction);
 
 	if (commandType == "Info")
 	{
@@ -52,19 +52,19 @@ std::optional<std::unique_ptr<Command>> CommandControl::readCommand() const
 	}
 	else if (commandType == "SetGear")
 	{
-		auto newGear = std::stoi(getNextArgument(instruction, commandType.length()));
+		auto newGear = std::stoi(GetNextArgument(instruction, commandType.length()));
 		return { std::make_unique<ChangeGearCommand>(car, newGear) };
 	}
 	else if (commandType == "SetSpeed")
 	{
-		auto newSpeed = std::stoi(getNextArgument(instruction, commandType.length()));
+		auto newSpeed = std::stoi(GetNextArgument(instruction, commandType.length()));
 		return { std::make_unique<ChangeSpeedCommand>(car, newSpeed) };
 	}
 
 	return std::nullopt;
 }
 
-std::string CommandControl::getNextArgument(const std::string& instruction, size_t prevDelimiterPos)
+std::string CommandControl::GetNextArgument(const std::string& instruction, size_t prevDelimiterPos)
 {
 	auto lastDelimiterPos = instruction.find(' ', prevDelimiterPos);
 	return instruction.substr(prevDelimiterPos, lastDelimiterPos);

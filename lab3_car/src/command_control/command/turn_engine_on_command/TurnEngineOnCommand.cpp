@@ -5,7 +5,7 @@ TurnEngineOnCommand::TurnEngineOnCommand(Car& car)
 {
 }
 
-bool TurnEngineOnCommand::execute()
+bool TurnEngineOnCommand::Execute()
 {
 	return car.TurnEngineOn();
 }
