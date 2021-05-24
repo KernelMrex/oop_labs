@@ -127,3 +127,98 @@ TEST_CASE("sum up complex and real number", "[complex_and_real_sum_up]")
 		REQUIRE(complexResult.Im() == -34.0);
 	}
 }
+
+TEST_CASE("subtract two complex numbers", "[complex_subtract]")
+{
+	SECTION("constructing and subtracting two mixed values")
+	{
+		Complex complex1(12, -34);
+		Complex complex2(-56, 78);
+
+		auto complexResult = complex1 - complex2;
+
+		REQUIRE(complexResult.Re() == 68.0);
+		REQUIRE(complexResult.Im() == -112.0);
+	}
+
+	SECTION("constructing and subtracting two positive values")
+	{
+		Complex complex1(12, 34);
+		Complex complex2(56, 78);
+
+		auto complexResult = complex1 - complex2;
+
+		REQUIRE(complexResult.Re() == -44.0);
+		REQUIRE(complexResult.Im() == -44.0);
+	}
+
+	SECTION("constructing and subtracting two negative values")
+	{
+		Complex complex1(-12, -34);
+		Complex complex2(-56, -78);
+
+		auto complexResult = complex1 - complex2;
+
+		REQUIRE(complexResult.Re() == 44.0);
+		REQUIRE(complexResult.Im() == 44.0);
+	}
+
+	SECTION("constructing and subtracting two values and check addresses")
+	{
+		Complex complex1(-12, -34);
+		Complex complex2(-56, -78);
+
+		auto complexResult = complex1 - complex2;
+
+		REQUIRE(std::addressof(complex1) != std::addressof(complex2));
+		REQUIRE(std::addressof(complex1) != std::addressof(complexResult));
+		REQUIRE(std::addressof(complex2) != std::addressof(complexResult));
+	}
+}
+
+TEST_CASE("subtract complex and real number", "[complex_and_real_subtract]")
+{
+	SECTION("constructing and subtracting mixed complex and positive real")
+	{
+		Complex complex(12, -34);
+		double real = 56.0;
+
+		auto complexResult = complex - real;
+
+		REQUIRE(complexResult.Re() == -44.0);
+		REQUIRE(complexResult.Im() == -34.0);
+	}
+
+	SECTION("constructing and subtracting mixed complex and negative real")
+	{
+		Complex complex(12, -34);
+		double real = -56.0;
+
+		auto complexResult = complex - real;
+
+		REQUIRE(complexResult.Re() == 68.0);
+		REQUIRE(complexResult.Im() == -34.0);
+	}
+
+	SECTION("constructing and subtracting mixed complex and positive real")
+	{
+		double real = 56.0;
+		Complex complex(12, -34);
+
+		auto complexResult = real - complex;
+
+		REQUIRE(complexResult.Re() == 44.0);
+		REQUIRE(complexResult.Im() == 34.0);
+	}
+
+	SECTION("inverse constructing and subtracting mixed complex and negative real")
+	{
+		double real = -56.0;
+		Complex complex(12, -34);
+
+		auto complexResult = real - complex;
+
+		REQUIRE(complexResult.Re() == -68.0);
+		REQUIRE(complexResult.Im() == 34.0);
+	}
+}

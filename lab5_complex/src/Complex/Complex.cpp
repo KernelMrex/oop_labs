@@ -32,3 +32,8 @@ Complex operator+(const Complex& left, const Complex& right)
 {
 	return Complex(left.real + right.real, left.image + right.image);
 }
+
+Complex operator-(const Complex& left, const Complex& right)
+{
+	return Complex(left.real - right.real, left.image - right.image);
+}
