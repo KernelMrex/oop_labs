@@ -4,7 +4,7 @@
 class Complex
 {
 public:
-	explicit Complex(double real = 0, double image = 0);
+	Complex(double real = 0, double image = 0);
 
 	[[nodiscard]] double Re() const;
 
@@ -13,6 +13,8 @@ public:
 	[[nodiscard]] double GetMagnitude() const;
 
 	[[nodiscard]] double GetArgument() const;
+
+	friend Complex operator+(const Complex& left, const Complex& right);
 
 private:
 	double real;
