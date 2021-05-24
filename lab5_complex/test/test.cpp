@@ -104,4 +104,26 @@ TEST_CASE("sum up complex and real number", "[complex_and_real_sum_up]")
 		REQUIRE(complexResult.Re() == -44.0);
 		REQUIRE(complexResult.Im() == -34.0);
 	}
+
+	SECTION("constructing and summing up mixed complex and positive real")
+	{
+		Complex complex(12, -34);
+		double real = 56.0;
+
+		auto complexResult = real + complex;
+
+		REQUIRE(complexResult.Re() == 68.0);
+		REQUIRE(complexResult.Im() == -34.0);
+	}
+
+	SECTION("inverse constructing and summing up mixed complex and negative real")
+	{
+		Complex complex(12, -34);
+		double real = -56.0;
+
+		auto complexResult = real + complex;
+
+		REQUIRE(complexResult.Re() == -44.0);
+		REQUIRE(complexResult.Im() == -34.0);
+	}
 }
