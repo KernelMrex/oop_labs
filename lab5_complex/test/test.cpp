@@ -270,3 +270,50 @@ TEST_CASE("multiply two complex numbers", "[complex_multiplication]")
 		REQUIRE(std::addressof(complex2) != std::addressof(complexResult));
 	}
 }
+
+TEST_CASE("multiply complex and real number", "[complex_and_real_subtract]")
+{
+	SECTION("constructing and multiplying mixed complex and positive real")
+	{
+		Complex complex(1, -2);
+		double real = 3.0;
+
+		auto complexResult = complex * real;
+
+		REQUIRE(complexResult.Re() == 3.0);
+		REQUIRE(complexResult.Im() == -6.0);
+	}
+
+	SECTION("constructing and multiplying mixed complex and negative real")
+	{
+		Complex complex(1, -2);
+		double real = -3.0;
+
+		auto complexResult = complex * real;
+
+		REQUIRE(complexResult.Re() == -3.0);
+		REQUIRE(complexResult.Im() == 6.0);
+	}
+
+	SECTION("constructing and multiplying mixed complex and positive real")
+	{
+		double real = 3.0;
+		Complex complex(1, -2);
+
+		auto complexResult = real * complex;
+
+		REQUIRE(complexResult.Re() == 3.0);
+		REQUIRE(complexResult.Im() == -6.0);
+	}
+
+	SECTION("inverse constructing and multiplying mixed complex and negative real")
+	{
+		double real = -3.0;
+		Complex complex(1, -2);
+
+		auto complexResult = real * complex;
+
+		REQUIRE(complexResult.Re() == -3.0);
+		REQUIRE(complexResult.Im() == 6.0);
+	}
+}
