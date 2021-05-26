@@ -271,7 +271,7 @@ TEST_CASE("multiply two complex numbers", "[complex_multiplication]")
 	}
 }
 
-TEST_CASE("multiply complex and real number", "[complex_and_real_subtract]")
+TEST_CASE("multiply complex and real number", "[complex_and_real_multiplication]")
 {
 	SECTION("constructing and multiplying mixed complex and positive real")
 	{
