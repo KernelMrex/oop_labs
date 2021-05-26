@@ -42,3 +42,11 @@ Complex operator*(const Complex& left, const Complex& right)
 {
 	return Complex(left.real * right.real - left.image * right.image, left.real * right.image + left.image * right.real);
 }
+
+Complex operator/(const Complex& left, const Complex& right)
+{
+	return Complex(
+		(left.real * right.real + left.image * right.image) / (right.real * right.real + right.image * right.image),
+		(right.real * left.image - left.real * right.image) / (right.real * right.real + right.image * right.image)
+	);
+}

@@ -317,3 +317,99 @@ TEST_CASE("multiply complex and real number", "[complex_and_real_multiplication]
 		REQUIRE(complexResult.Im() == 6.0);
 	}
 }
+
+TEST_CASE("divide two complex numbers", "[complex_division]")
+{
+	SECTION("constructing and dividing two mixed values")
+	{
+		Complex complex1(2, -4);
+		Complex complex2(-8, 24);
+
+		auto complexResult = complex1 / complex2;
+
+		REQUIRE(complexResult.Re() == -0.175);
+		REQUIRE(complexResult.Im() == -0.025);
+	}
+
+	SECTION("constructing and dividing two positive values")
+	{
+		Complex complex1(2, 4);
+		Complex complex2(8, 24);
+
+		auto complexResult = complex1 / complex2;
+
+		REQUIRE(complexResult.Re() == 0.175);
+		REQUIRE(complexResult.Im() == -0.025);
+	}
+
+	SECTION("constructing and dividing two negative values")
+	{
+		Complex complex1(-2, -4);
+		Complex complex2(-8, -24);
+
+		auto complexResult = complex1 / complex2;
+
+		REQUIRE(complexResult.Re() == 0.175);
+		REQUIRE(complexResult.Im() == -0.025);
+	}
+
+	SECTION("constructing and dividing two values and check addresses")
+	{
+		Complex complex1(2, 4);
+		Complex complex2(8, 24);
+
+		auto complexResult = complex1 / complex2;
+
+		REQUIRE(std::addressof(complex1) != std::addressof(complex2));
+		REQUIRE(std::addressof(complex1) != std::addressof(complexResult));
+		REQUIRE(std::addressof(complex2) != std::addressof(complexResult));
+	}
+}
+
+TEST_CASE("divide complex and real number", "[complex_and_real_division]")
+{
+	SECTION("constructing and dividing mixed complex and positive real")
+	{
+		Complex complex(12, -6);
+		double real = 4.0;
+
+		auto complexResult = complex / real;
+
+		REQUIRE(complexResult.Re() == 3.0);
+		REQUIRE(complexResult.Im() == -1.5);
+	}
+
+	SECTION("constructing and dividing mixed complex and negative real")
+	{
+		Complex complex(12, -6);
+		double real = -4.0;
+
+		auto complexResult = complex / real;
+
+		REQUIRE(complexResult.Re() == -3.0);
+		REQUIRE(complexResult.Im() == 1.5);
+	}
+
+	SECTION("constructing and dividing mixed complex and positive real")
+	{
+		double real = 4.0;
+		Complex complex(8, -4);
+
+		auto complexResult = real / complex;
+
+		REQUIRE(complexResult.Re() == 0.4);
+		REQUIRE(complexResult.Im() == 0.2);
+
+	}
+
+	SECTION("inverse constructing and dividing mixed complex and negative real")
+	{
+		double real = -4.0;
+		Complex complex(8, -4);
+
+		auto complexResult = real / complex;
+
+		REQUIRE(complexResult.Re() == -0.4);
+		REQUIRE(complexResult.Im() == -0.2);
+	}
+}
