@@ -236,7 +236,7 @@ TEST_CASE("multiply two complex numbers", "[complex_multiplication]")
 		REQUIRE(complexResult.Im() == 10.0);
 	}
 
-	SECTION("constructing and subtracting two positive values")
+	SECTION("constructing and multiplying two positive values")
 	{
 		Complex complex1(1, 2);
 		Complex complex2(3, 4);
@@ -247,7 +247,7 @@ TEST_CASE("multiply two complex numbers", "[complex_multiplication]")
 		REQUIRE(complexResult.Im() == 10.0);
 	}
 
-	SECTION("constructing and subtracting two negative values")
+	SECTION("constructing and multiplying two negative values")
 	{
 		Complex complex1(-1, -2);
 		Complex complex2(-3, -4);
@@ -258,7 +258,7 @@ TEST_CASE("multiply two complex numbers", "[complex_multiplication]")
 		REQUIRE(complexResult.Im() == 10.0);
 	}
 
-	SECTION("constructing and subtracting two values and check addresses")
+	SECTION("constructing and multiplying two values and check addresses")
 	{
 		Complex complex1(1, 2);
 		Complex complex2(3, 4);
