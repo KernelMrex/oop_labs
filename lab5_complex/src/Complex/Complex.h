@@ -18,6 +18,8 @@ public:
 
 	friend Complex operator-(const Complex& left, const Complex& right);
 
+	friend Complex operator*(const Complex& left, const Complex& right);
+
 private:
 	double real;
 	double image;

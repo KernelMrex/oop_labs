@@ -222,3 +222,51 @@ TEST_CASE("subtract complex and real number", "[complex_and_real_subtract]")
 		REQUIRE(complexResult.Im() == 34.0);
 	}
 }
+
+TEST_CASE("multiply two complex numbers", "[complex_multiplication]")
+{
+	SECTION("constructing and multiplying two mixed values")
+	{
+		Complex complex1(1, -2);
+		Complex complex2(-3, 4);
+
+		auto complexResult = complex1 * complex2;
+
+		REQUIRE(complexResult.Re() == 5.0);
+		REQUIRE(complexResult.Im() == 10.0);
+	}
+
+	SECTION("constructing and subtracting two positive values")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(3, 4);
+
+		auto complexResult = complex1 * complex2;
+
+		REQUIRE(complexResult.Re() == -5.0);
+		REQUIRE(complexResult.Im() == 10.0);
+	}
+
+	SECTION("constructing and subtracting two negative values")
+	{
+		Complex complex1(-1, -2);
+		Complex complex2(-3, -4);
+
+		auto complexResult = complex1 * complex2;
+
+		REQUIRE(complexResult.Re() == -5.0);
+		REQUIRE(complexResult.Im() == 10.0);
+	}
+
+	SECTION("constructing and subtracting two values and check addresses")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(3, 4);
+
+		auto complexResult = complex1 * complex2;
+
+		REQUIRE(std::addressof(complex1) != std::addressof(complex2));
+		REQUIRE(std::addressof(complex1) != std::addressof(complexResult));
+		REQUIRE(std::addressof(complex2) != std::addressof(complexResult));
+	}
+}
