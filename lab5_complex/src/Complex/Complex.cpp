@@ -50,3 +50,33 @@ Complex operator/(const Complex& left, const Complex& right)
 		(right.real * left.image - left.real * right.image) / (right.real * right.real + right.image * right.image)
 	);
 }
+
+Complex& operator+=(Complex& left, const Complex& right)
+{
+	left.real += right.real;
+	left.image += right.image;
+	return left;
+}
+
+Complex& operator-=(Complex& left, const Complex& right)
+{
+	left.real -= right.real;
+	left.image -= right.image;
+	return left;
+}
+
+Complex& operator*=(Complex& left, const Complex& right)
+{
+	auto real = left.real * right.real - left.image * right.image;
+	left.image = left.real * right.image + left.image * right.real;
+	left.real = real;
+	return left;
+}
+
+Complex& operator/=(Complex& left, const Complex& right)
+{
+	auto real = (left.real * right.real + left.image * right.image) / (right.real * right.real + right.image * right.image);
+	left.image = (right.real * left.image - left.real * right.image) / (right.real * right.real + right.image * right.image);
+	left.real = real;
+	return left;
+}

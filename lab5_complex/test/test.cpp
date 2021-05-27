@@ -413,3 +413,119 @@ TEST_CASE("divide complex and real number", "[complex_and_real_division]")
 		REQUIRE(complexResult.Im() == -0.2);
 	}
 }
+
+TEST_CASE("sum up and overwrite", "[sum_up_and_overwrite]")
+{
+	SECTION("sum up two complex numbers")
+	{
+		Complex complex1(12, -34);
+		Complex complex2(-56, 78);
+
+		Complex& complexRef = complex1;
+		complex1 += complex2;
+
+		REQUIRE(complex1.Re() == -44.0);
+		REQUIRE(complex1.Im() == 44.0);
+		REQUIRE(std::addressof(complexRef) == std::addressof(complex1));
+	}
+
+	SECTION("sum up complex and real numbers")
+	{
+		Complex complex(12, -34);
+		double real = 56.0;
+
+		Complex& complexRef = complex;
+		complex += real;
+
+		REQUIRE(complex.Re() == 68.0);
+		REQUIRE(complex.Im() == -34.0);
+		REQUIRE(std::addressof(complexRef) == std::addressof(complex));
+	}
+}
+
+TEST_CASE("subtract and overwrite", "[subtract_and_overwrite]")
+{
+	SECTION("subtract two complex numbers")
+	{
+		Complex complex1(12, -34);
+		Complex complex2(-56, 78);
+
+		Complex& complexRef = complex1;
+		complex1 -= complex2;
+
+		REQUIRE(complex1.Re() == 68.0);
+		REQUIRE(complex1.Im() == -112.0);
+		REQUIRE(std::addressof(complexRef) == std::addressof(complex1));
+	}
+
+	SECTION("subtract complex and real numbers")
+	{
+		Complex complex(12, -34);
+		double real = 56.0;
+
+		Complex& complexRef = complex;
+		complex -= real;
+
+		REQUIRE(complex.Re() == -44.0);
+		REQUIRE(complex.Im() == -34.0);
+		REQUIRE(std::addressof(complexRef) == std::addressof(complex));
+	}
+}
+
+TEST_CASE("multiply and overwrite", "[multiply_and_overwrite]")
+{
+	SECTION("multiply two complex numbers")
+	{
+		Complex complex1(1, -2);
+		Complex complex2(-3, 4);
+
+		Complex& complexRef = complex1;
+		complex1 *= complex2;
+
+		REQUIRE(complex1.Re() == 5.0);
+		REQUIRE(complex1.Im() == 10.0);
+		REQUIRE(std::addressof(complexRef) == std::addressof(complex1));
+	}
+
+	SECTION("multiply complex and real numbers")
+	{
+		Complex complex(1, -2);
+		double real = 3;
+
+		Complex& complexRef = complex;
+		complex *= real;
+
+		REQUIRE(complex.Re() == 3.0);
+		REQUIRE(complex.Im() == -6.0);
+		REQUIRE(std::addressof(complexRef) == std::addressof(complex));
+	}
+}
+
+TEST_CASE("divide and overwrite", "[divide_and_overwrite]")
+{
+	SECTION("divide two complex numbers")
+	{
+		Complex complex1(2, -4);
+		Complex complex2(-8, 24);
+
+		Complex& complexRef = complex1;
+		complex1 /= complex2;
+
+		REQUIRE(complex1.Re() == -0.175);
+		REQUIRE(complex1.Im() == -0.025);
+		REQUIRE(std::addressof(complexRef) == std::addressof(complex1));
+	}
+
+	SECTION("divide complex and real numbers")
+	{
+		Complex complex(12, -6);
+		double real = 4.0;
+
+		Complex& complexRef = complex;
+		complex /= real;
+
+		REQUIRE(complex.Re() == 3.0);
+		REQUIRE(complex.Im() == -1.5);
+		REQUIRE(std::addressof(complexRef) == std::addressof(complex));
+	}
+}
