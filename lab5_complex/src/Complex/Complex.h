@@ -1,6 +1,8 @@
 #ifndef COMPLEX_H
 #define COMPLEX_H
 
+#include <ostream>
+
 class Complex
 {
 public:
@@ -8,7 +10,7 @@ public:
 
 	Complex(const Complex& complex);
 
-	Complex(Complex && complex) noexcept;
+	Complex(Complex&& complex) noexcept;
 
 	[[nodiscard]] double Re() const;
 
@@ -41,6 +43,8 @@ public:
 	friend bool operator==(const Complex& left, const Complex& right);
 
 	friend bool operator!=(const Complex& left, const Complex& right);
+
+	friend std::ostream& operator<<(std::ostream& out, const Complex& complex);
 
 private:
 	double real;

@@ -106,3 +106,39 @@ bool operator!=(const Complex& left, const Complex& right)
 {
 	return !(left == right);
 }
+
+std::ostream& operator<<(std::ostream& out, const Complex& complex)
+{
+	bool realNotZero = complex.real != 0;
+	bool imageNotZero = complex.image != 0;
+
+	if (realNotZero)
+	{
+		out
+			<< ((complex.real > 0) ? "" : "-")
+			<< complex.GetMagnitude();
+	}
+
+	if (imageNotZero && realNotZero)
+	{
+		out
+			<< ((complex.image > 0) ? '+' : '-')
+			<< complex.GetArgument()
+			<< 'i';
+	}
+
+	if (imageNotZero && !realNotZero)
+	{
+		out
+			<< ((complex.image > 0) ? "" : "-")
+			<< complex.GetArgument()
+			<< 'i';
+	}
+
+	if (!imageNotZero && !realNotZero)
+	{
+		out << '0';
+	}
+
+	return out;
+}

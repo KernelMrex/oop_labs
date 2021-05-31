@@ -581,3 +581,82 @@ TEST_CASE("equality operations", "[equality_operations]")
 		REQUIRE(complex1 != complex2);
 	}
 }
+
+TEST_CASE("steam operations", "[stream_operations]")
+{
+
+	SECTION("output operations")
+	{
+		std::ostringstream outputStringStream;
+
+		{
+			Complex complex(1, 2);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "1+2i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(-1, 2);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "-1+2i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(1, -2);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "1-2i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(-1, -2);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "-1-2i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(1, 0);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "1");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(1, 0);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "1");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(0, 1);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "1i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(0, -1);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "-1i");
+		}
+
+		outputStringStream.str("");
+
+		{
+			Complex complex(0, 0);
+			outputStringStream << complex;
+			REQUIRE(outputStringStream.str() == "0");
+		}
+	}
+}
