@@ -584,7 +584,6 @@ TEST_CASE("equality operations", "[equality_operations]")
 
 TEST_CASE("steam operations", "[stream_operations]")
 {
-
 	SECTION("output operations")
 	{
 		std::ostringstream outputStringStream;
@@ -657,6 +656,39 @@ TEST_CASE("steam operations", "[stream_operations]")
 			Complex complex(0, 0);
 			outputStringStream << complex;
 			REQUIRE(outputStringStream.str() == "0");
+		}
+	}
+
+	SECTION("input operations")
+	{
+		std::istringstream inputStringStream;
+
+		{
+			Complex complex;
+			inputStringStream.str("1+2i");
+			inputStringStream >> complex;
+			REQUIRE(complex == Complex(1, 2));
+		}
+
+		{
+			Complex complex;
+			inputStringStream.str("1-2i");
+			inputStringStream >> complex;
+			REQUIRE(complex == Complex(1, -2));
+		}
+
+		{
+			Complex complex;
+			inputStringStream.str("-1+2i");
+			inputStringStream >> complex;
+			REQUIRE(complex == Complex(-1, 2));
+		}
+
+		{
+			Complex complex;
+			inputStringStream.str("-1-2i");
+			inputStringStream >> complex;
+			REQUIRE(complex == Complex(-1, -2));
 		}
 	}
 }

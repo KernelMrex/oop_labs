@@ -2,6 +2,7 @@
 #define COMPLEX_H
 
 #include <ostream>
+#include <istream>
 
 class Complex
 {
@@ -45,6 +46,8 @@ public:
 	friend bool operator!=(const Complex& left, const Complex& right);
 
 	friend std::ostream& operator<<(std::ostream& out, const Complex& complex);
+
+	friend std::istream& operator>>(std::istream& in, Complex& complex);
 
 private:
 	double real;

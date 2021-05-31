@@ -2,6 +2,7 @@
 
 #include <cfloat>
 #include <cmath>
+#include <iostream>
 
 Complex::Complex(const Complex& complex) = default;
 
@@ -141,4 +142,13 @@ std::ostream& operator<<(std::ostream& out, const Complex& complex)
 	}
 
 	return out;
+}
+
+std::istream& operator>>(std::istream& in, Complex& complex)
+{
+	int image;
+	char sign;
+	in >> complex.real >> sign >> image;
+	complex.image = (sign == '-') ? -image : image;
+	return in;
 }
