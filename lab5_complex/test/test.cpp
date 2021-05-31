@@ -31,6 +31,15 @@ TEST_CASE("complex numbers can be constructed", "[complex_class]")
 		REQUIRE(complex.GetArgument() == 23.0);
 		REQUIRE(complex.GetMagnitude() == 12.0);
 	}
+
+	SECTION("make copy")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(complex1);
+
+		REQUIRE(complex2.Im() == complex1.Im());
+		REQUIRE(complex2.Re() == complex1.Re());
+	}
 }
 
 TEST_CASE("sum up two complex numbers", "[complex_sum_up]")
@@ -75,7 +84,6 @@ TEST_CASE("sum up two complex numbers", "[complex_sum_up]")
 
 		auto complexResult = complex1 + complex2;
 
-		REQUIRE(std::addressof(complex1) != std::addressof(complex2));
 		REQUIRE(std::addressof(complex1) != std::addressof(complexResult));
 		REQUIRE(std::addressof(complex2) != std::addressof(complexResult));
 	}
@@ -170,7 +178,6 @@ TEST_CASE("subtract two complex numbers", "[complex_subtract]")
 
 		auto complexResult = complex1 - complex2;
 
-		REQUIRE(std::addressof(complex1) != std::addressof(complex2));
 		REQUIRE(std::addressof(complex1) != std::addressof(complexResult));
 		REQUIRE(std::addressof(complex2) != std::addressof(complexResult));
 	}
@@ -265,7 +272,6 @@ TEST_CASE("multiply two complex numbers", "[complex_multiplication]")
 
 		auto complexResult = complex1 * complex2;
 
-		REQUIRE(std::addressof(complex1) != std::addressof(complex2));
 		REQUIRE(std::addressof(complex1) != std::addressof(complexResult));
 		REQUIRE(std::addressof(complex2) != std::addressof(complexResult));
 	}
@@ -360,7 +366,6 @@ TEST_CASE("divide two complex numbers", "[complex_division]")
 
 		auto complexResult = complex1 / complex2;
 
-		REQUIRE(std::addressof(complex1) != std::addressof(complex2));
 		REQUIRE(std::addressof(complex1) != std::addressof(complexResult));
 		REQUIRE(std::addressof(complex2) != std::addressof(complexResult));
 	}
@@ -527,5 +532,22 @@ TEST_CASE("divide and overwrite", "[divide_and_overwrite]")
 		REQUIRE(complex.Re() == 3.0);
 		REQUIRE(complex.Im() == -1.5);
 		REQUIRE(std::addressof(complexRef) == std::addressof(complex));
+	}
+}
+
+TEST_CASE("unary operations", "[unary_operations]")
+{
+	SECTION("unary plus")
+	{
+		Complex complex(1, 2);
+		REQUIRE((+complex).Re() == complex.Re());
+		REQUIRE((+complex).Im() == complex.Im());
+	}
+
+	SECTION("unary minus")
+	{
+		Complex complex(1, 2);
+		REQUIRE((-complex).Re() == -(complex.Re()));
+		REQUIRE((-complex).Im() == -(complex.Im()));
 	}
 }

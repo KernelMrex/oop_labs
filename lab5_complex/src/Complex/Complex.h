@@ -6,6 +6,10 @@ class Complex
 public:
 	Complex(double real = 0, double image = 0);
 
+	Complex(const Complex& complex);
+
+	Complex(Complex && complex) noexcept;
+
 	[[nodiscard]] double Re() const;
 
 	[[nodiscard]] double Im() const;
@@ -30,6 +34,9 @@ public:
 
 	friend Complex& operator/=(Complex& left, const Complex& right);
 
+	Complex operator+() const;
+
+	Complex operator-() const;
 private:
 	double real;
 	double image;
