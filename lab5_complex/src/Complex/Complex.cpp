@@ -1,5 +1,6 @@
 #include "Complex.h"
 
+#include <cfloat>
 #include <cmath>
 
 Complex::Complex(const Complex& complex) = default;
@@ -94,4 +95,14 @@ Complex& operator/=(Complex& left, const Complex& right)
 	left.image = (right.real * left.image - left.real * right.image) / (right.real * right.real + right.image * right.image);
 	left.real = real;
 	return left;
+}
+
+bool operator==(const Complex& left, const Complex& right)
+{
+	return (std::fabs(left.Re() - right.Re()) < DBL_EPSILON) && (std::fabs(left.Im() - right.Im()) < DBL_EPSILON);
+}
+
+bool operator!=(const Complex& left, const Complex& right)
+{
+	return !(left == right);
 }

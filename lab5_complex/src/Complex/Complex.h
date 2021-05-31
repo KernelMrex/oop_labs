@@ -18,6 +18,10 @@ public:
 
 	[[nodiscard]] double GetArgument() const;
 
+	Complex operator+() const;
+
+	Complex operator-() const;
+
 	friend Complex operator+(const Complex& left, const Complex& right);
 
 	friend Complex operator-(const Complex& left, const Complex& right);
@@ -34,9 +38,10 @@ public:
 
 	friend Complex& operator/=(Complex& left, const Complex& right);
 
-	Complex operator+() const;
+	friend bool operator==(const Complex& left, const Complex& right);
 
-	Complex operator-() const;
+	friend bool operator!=(const Complex& left, const Complex& right);
+
 private:
 	double real;
 	double image;

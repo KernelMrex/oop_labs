@@ -551,3 +551,33 @@ TEST_CASE("unary operations", "[unary_operations]")
 		REQUIRE((-complex).Im() == -(complex.Im()));
 	}
 }
+
+TEST_CASE("equality operations", "[equality_operations]")
+{
+	SECTION("compare two equal numbers")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(1, 2);
+
+		REQUIRE(complex1 == complex2);
+		REQUIRE(!(complex1 != complex2));
+	}
+
+	SECTION("compare two different numbers")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(3, 4);
+
+		REQUIRE(!(complex1 == complex2));
+		REQUIRE(complex1 != complex2);
+	}
+
+	SECTION("compare two different numbers but equal by module")
+	{
+		Complex complex1(1, 2);
+		Complex complex2(-1, -2);
+
+		REQUIRE(!(complex1 == complex2));
+		REQUIRE(complex1 != complex2);
+	}
+}
