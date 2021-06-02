@@ -1,8 +1,7 @@
 #ifndef COMPLEX_H
 #define COMPLEX_H
 
-#include <ostream>
-#include <istream>
+#include <iostream>
 
 class Complex
 {

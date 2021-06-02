@@ -2,7 +2,6 @@
 
 #include <cfloat>
 #include <cmath>
-#include <iostream>
 
 Complex::Complex(const Complex& complex) = default;
 
