@@ -49,8 +49,8 @@ public:
 	friend std::istream& operator>>(std::istream& in, Complex& complex);
 
 private:
-	double real;
-	double image;
+	double m_real;
+	double m_image;
 };
 
 #endif
