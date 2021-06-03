@@ -690,5 +690,13 @@ TEST_CASE("steam operations", "[stream_operations]")
 			inputStringStream >> complex;
 			REQUIRE(complex == Complex(-1, -2));
 		}
+
+		{
+			Complex complex1, complex2;
+			inputStringStream.str("-1-2i -3+4i");
+			inputStringStream >> complex1 >> complex2;
+			REQUIRE(complex1 == Complex(-1, -2));
+			REQUIRE(complex2 == Complex(-3, 4));
+		}
 	}
 }
