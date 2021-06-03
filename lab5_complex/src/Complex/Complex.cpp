@@ -149,5 +149,6 @@ std::istream& operator>>(std::istream& in, Complex& complex)
 	char sign;
 	in >> complex.real >> sign >> image;
 	complex.image = (sign == '-') ? -image : image;
+	in.ignore(1);
 	return in;
 }
