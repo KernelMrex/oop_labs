@@ -25,12 +25,12 @@ double Complex::Im() const
 
 double Complex::GetMagnitude() const
 {
-	return std::abs(m_real);
+	return std::sqrt(m_real * m_real + m_image * m_image);
 }
 
 double Complex::GetArgument() const
 {
-	return std::abs(m_image);
+	return std::tan(m_image / m_real);
 }
 
 Complex Complex::operator+() const
@@ -109,36 +109,10 @@ bool operator!=(const Complex& left, const Complex& right)
 
 std::ostream& operator<<(std::ostream& out, const Complex& complex)
 {
-	bool realNotZero = complex.m_real != 0;
-	bool imageNotZero = complex.m_image != 0;
-
-	if (realNotZero)
-	{
-		out
-			<< ((complex.m_real > 0) ? "" : "-")
-			<< complex.GetMagnitude();
-	}
-
-	if (imageNotZero && realNotZero)
-	{
-		out
-			<< ((complex.m_image > 0) ? '+' : '-')
-			<< complex.GetArgument()
-			<< 'i';
-	}
-
-	if (imageNotZero && !realNotZero)
-	{
-		out
-			<< ((complex.m_image > 0) ? "" : "-")
-			<< complex.GetArgument()
-			<< 'i';
-	}
-
-	if (!imageNotZero && !realNotZero)
-	{
-		out << '0';
-	}
+	out << complex.m_real
+		<< (complex.m_image >= 0 ? "+" : "")
+		<< complex.m_image
+		<< "i";
 
 	return out;
 }

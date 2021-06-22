@@ -6,30 +6,30 @@ TEST_CASE("complex numbers can be constructed", "[complex_class]")
 {
 	SECTION("constructing and getting mixed values")
 	{
-		Complex complex(12, -23);
-		REQUIRE(complex.Re() == 12.0);
-		REQUIRE(complex.Im() == -23.0);
+		Complex complex(4, -3);
+		REQUIRE(complex.Re() == 4.0);
+		REQUIRE(complex.Im() == -3.0);
 
-		REQUIRE(complex.GetArgument() == 23.0);
-		REQUIRE(complex.GetMagnitude() == 12.0);
+		REQUIRE(complex.GetArgument() == std::tan(complex.Im() / complex.Re()));
+		REQUIRE(complex.GetMagnitude() == 5.0);
 	}
 
 	SECTION("constructing and getting positive values")
 	{
-		Complex complex(12, 23);
-		REQUIRE(complex.Re() == 12.0);
-		REQUIRE(complex.Im() == 23.0);
-		REQUIRE(complex.GetArgument() == 23.0);
-		REQUIRE(complex.GetMagnitude() == 12.0);
+		Complex complex(4, 3);
+		REQUIRE(complex.Re() == 4.0);
+		REQUIRE(complex.Im() == 3.0);
+		REQUIRE(complex.GetArgument() == std::tan(complex.Im() / complex.Re()));
+		REQUIRE(complex.GetMagnitude() == 5.0);
 	}
 
 	SECTION("constructing and getting negative values")
 	{
-		Complex complex(-12, -23);
-		REQUIRE(complex.Re() == -12.0);
-		REQUIRE(complex.Im() == -23.0);
-		REQUIRE(complex.GetArgument() == 23.0);
-		REQUIRE(complex.GetMagnitude() == 12.0);
+		Complex complex(-4, -3);
+		REQUIRE(complex.Re() == -4.0);
+		REQUIRE(complex.Im() == -3.0);
+		REQUIRE(complex.GetArgument() == std::tan(complex.Im() / complex.Re()));
+		REQUIRE(complex.GetMagnitude() == 5.0);
 	}
 
 	SECTION("make copy")
@@ -623,15 +623,7 @@ TEST_CASE("steam operations", "[stream_operations]")
 		{
 			Complex complex(1, 0);
 			outputStringStream << complex;
-			REQUIRE(outputStringStream.str() == "1");
-		}
-
-		outputStringStream.str("");
-
-		{
-			Complex complex(1, 0);
-			outputStringStream << complex;
-			REQUIRE(outputStringStream.str() == "1");
+			REQUIRE(outputStringStream.str() == "1+0i");
 		}
 
 		outputStringStream.str("");
@@ -639,7 +631,7 @@ TEST_CASE("steam operations", "[stream_operations]")
 		{
 			Complex complex(0, 1);
 			outputStringStream << complex;
-			REQUIRE(outputStringStream.str() == "1i");
+			REQUIRE(outputStringStream.str() == "0+1i");
 		}
 
 		outputStringStream.str("");
@@ -647,7 +639,7 @@ TEST_CASE("steam operations", "[stream_operations]")
 		{
 			Complex complex(0, -1);
 			outputStringStream << complex;
-			REQUIRE(outputStringStream.str() == "-1i");
+			REQUIRE(outputStringStream.str() == "0-1i");
 		}
 
 		outputStringStream.str("");
@@ -655,7 +647,7 @@ TEST_CASE("steam operations", "[stream_operations]")
 		{
 			Complex complex(0, 0);
 			outputStringStream << complex;
-			REQUIRE(outputStringStream.str() == "0");
+			REQUIRE(outputStringStream.str() == "0+0i");
 		}
 	}
 
