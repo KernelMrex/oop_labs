@@ -6,20 +6,16 @@
 class RleCompressor final
 {
 public:
-	RleCompressor(std::istream& in, std::ostream& out)
-		: m_in(in)
-		, m_out(out)
-	{
-	}
+	RleCompressor() = delete;
 
-	bool compress()
+	bool static compress(std::istream& in, std::ostream& out)
 	{
 		unsigned char currByte;
 		unsigned char prevState = 0;
 		unsigned char counter = 0;
 		bool first = true;
 
-		while ((m_in >> currByte) && m_out)
+		while ((in >> currByte) && out)
 		{
 			if (first)
 			{
@@ -31,35 +27,47 @@ public:
 			{
 				if (counter >= 255)
 				{
-					m_out << counter << prevState;
+					out << counter << prevState;
 					counter = 0;
 				}
 				counter++;
 			}
 			else
 			{
-				m_out << counter << prevState;
+				out << counter << prevState;
 				counter = 1;
 				prevState = currByte;
 			}
 		}
 
-		if (!first && m_out)
+		if (!first && out)
 		{
-			m_out << counter << prevState;
+			out << counter << prevState;
 		}
 
-		return !(!m_in.eof() && !m_in.good() || !m_out);
+		return !(!in.eof() && !in.good() || !out);
 	}
 
-	bool decompress()
+	bool static decompress(std::istream& in, std::ostream& out)
 	{
-		return false;
+		unsigned char amountOfBytes;
+		unsigned char byte;
+
+		while ((in >> amountOfBytes) && out)
+		{
+			if (!(in >> byte))
+			{
+				return false;
+			}
+			out << std::string(amountOfBytes, (char) byte);
+		}
+
+		return !(!in.eof() && !in.good() || !out);
 	}
 
 private:
-	std::istream& m_in;
-	std::ostream& m_out;
+	std::istream& in;
+	std::ostream& out;
 };
 
 #endif // RLECOMPRESSOR_H

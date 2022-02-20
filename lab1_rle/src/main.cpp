@@ -26,9 +26,7 @@ int main(int argc, char* argv[])
 		std::cerr << "Error while opening file " << args->getOutputFilePath() << std::endl;
 	}
 
-	RleCompressor compressor(inputFile, outputFile);
-
-	bool res = args->getAction() == ActionEnum::PACK ? compressor.compress() : compressor.decompress();
+	bool res = args->getAction() == ActionEnum::PACK ? RleCompressor::compress(inputFile, outputFile) : RleCompressor::decompress(inputFile, outputFile);
 	if (!res)
 	{
 		std::cerr << "Error while performing " << (args->getAction() == ActionEnum::PACK ? "compression" : "decompression") << std::endl;
