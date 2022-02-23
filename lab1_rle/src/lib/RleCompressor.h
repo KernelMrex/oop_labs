@@ -8,19 +8,19 @@ class RleCompressor final
 public:
 	RleCompressor() = delete;
 
-	bool static compress(std::istream& in, std::ostream& out)
+	bool static Compress(std::istream& in, std::ostream& out)
 	{
 		unsigned char currByte;
 		unsigned char prevState = 0;
 		unsigned char counter = 0;
-		bool first = true;
+		bool isFirstChar = true;
 
 		while ((in >> currByte) && out)
 		{
-			if (first)
+			if (isFirstChar)
 			{
 				prevState = currByte;
-				first = false;
+				isFirstChar = false;
 			}
 
 			if (currByte == prevState)
@@ -40,7 +40,7 @@ public:
 			}
 		}
 
-		if (!first && out)
+		if (!isFirstChar && out)
 		{
 			out << counter << prevState;
 		}
@@ -48,7 +48,7 @@ public:
 		return !(!in.eof() && !in.good() || !out);
 	}
 
-	bool static decompress(std::istream& in, std::ostream& out)
+	bool static Decompress(std::istream& in, std::ostream& out)
 	{
 		unsigned char amountOfBytes;
 		unsigned char byte;

@@ -8,7 +8,7 @@
 class Args final
 {
 public:
-	static std::optional<Args> parseFromCLI(int argc, char** argv)
+	static std::optional<Args> ParseFromCLI(int argc, char** argv)
 	{
 		if (argc != 4)
 		{
@@ -38,19 +38,19 @@ public:
 	}
 
 	[[nodiscard]]
-	ActionEnum getAction() const
+	ActionEnum GetAction() const
 	{
 		return m_action;
 	}
 
 	[[nodiscard]]
-	const std::string& getInputFilePath() const
+	const std::string& GetInputFilePath() const
 	{
 		return m_inputFilePath;
 	}
 
 	[[nodiscard]]
-	const std::string& getOutputFilePath() const
+	const std::string& GetOutputFilePath() const
 	{
 		return m_outputFilePath;
 	}

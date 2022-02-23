@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[])
 {
-	auto args = Args::parseFromCLI(argc, argv);
+	auto args = Args::ParseFromCLI(argc, argv);
 	if (!args.has_value())
 	{
 		std::cerr
@@ -14,26 +14,26 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	std::ifstream inputFile(args->getInputFilePath());
+	std::ifstream inputFile(args->GetInputFilePath());
 	if (!inputFile.good())
 	{
-		std::cerr << "Error while opening file " << args->getInputFilePath() << std::endl;
+		std::cerr << "Error while opening file " << args->GetInputFilePath() << std::endl;
 	}
 
-	std::ofstream outputFile(args->getOutputFilePath());
+	std::ofstream outputFile(args->GetOutputFilePath());
 	if (!outputFile.good())
 	{
-		std::cerr << "Error while opening file " << args->getOutputFilePath() << std::endl;
+		std::cerr << "Error while opening file " << args->GetOutputFilePath() << std::endl;
 	}
 
-	bool res = args->getAction() == ActionEnum::PACK ? RleCompressor::compress(inputFile, outputFile) : RleCompressor::decompress(inputFile, outputFile);
+	bool res = args->GetAction() == ActionEnum::PACK ? RleCompressor::Compress(inputFile, outputFile) : RleCompressor::Decompress(inputFile, outputFile);
 	if (!res)
 	{
-		std::cerr << "Error while performing " << (args->getAction() == ActionEnum::PACK ? "compression" : "decompression") << std::endl;
+		std::cerr << "Error while performing " << (args->GetAction() == ActionEnum::PACK ? "compression" : "decompression") << std::endl;
 		return 1;
 	}
 
-	std::cout << (args->getAction() == ActionEnum::PACK ? "Compression" : "Decompression") << " complete" << std::endl;
+	std::cout << (args->GetAction() == ActionEnum::PACK ? "Compression" : "Decompression") << " complete" << std::endl;
 
 	return 0;
 }

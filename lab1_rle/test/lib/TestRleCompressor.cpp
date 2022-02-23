@@ -2,7 +2,7 @@
 #include "../../../catch.hpp"
 #include "../../src/lib/RleCompressor.h"
 
-TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
+TEST_CASE("RleCompressor class must Compress or Decompress", "[rle_compressor]")
 {
 	SECTION("Compressing simple string")
 	{
@@ -10,7 +10,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << "AAAAABBBC";
-		RleCompressor::compress(iss, oss);
+		RleCompressor::Compress(iss, oss);
 
 		std::stringstream res;
 		res << (char) 5 << "A" << (char) 3 << "B" << (char) 1 << "C";
@@ -24,7 +24,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << "ABCD";
-		RleCompressor::compress(iss, oss);
+		RleCompressor::Compress(iss, oss);
 
 		std::stringstream res;
 		res << (char) 1 << "A" << (char) 1 << "B" << (char) 1 << "C" << (char) 1 << "D";
@@ -38,7 +38,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << std::string(256, 'A') + "CD";
-		RleCompressor::compress(iss, oss);
+		RleCompressor::Compress(iss, oss);
 
 		std::stringstream res;
 		res << (char) 255 << "A" << (char) 1 << "A" << (char) 1 << "C" << (char) 1 << "D";
@@ -52,7 +52,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << "AB" + std::string(258, 'C') + "D";
-		RleCompressor::compress(iss, oss);
+		RleCompressor::Compress(iss, oss);
 
 		std::stringstream res;
 		res << (char) 1 << "A" << (char) 1 << "B" << (char) 255 << "C" << (char) 3 << "C" << (char) 1 << "D";
@@ -66,7 +66,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << "AB" + std::string(258, 'C');
-		RleCompressor::compress(iss, oss);
+		RleCompressor::Compress(iss, oss);
 
 		std::stringstream res;
 		res << (char) 1 << "A" << (char) 1 << "B" << (char) 255 << "C" << (char) 3 << "C";
@@ -80,7 +80,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << (char) 5 << "A" << (char) 3 << "B" << (char) 1 << "C";
-		RleCompressor::decompress(iss, oss);
+		RleCompressor::Decompress(iss, oss);
 
 		std::stringstream res;
 		res << "AAAAABBBC";
@@ -94,7 +94,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << (char) 1 << "A" << (char) 1 << "B" << (char) 1 << "C" << (char) 1 << "D";
-		RleCompressor::decompress(iss, oss);
+		RleCompressor::Decompress(iss, oss);
 
 		std::stringstream res;
 		res << "ABCD";
@@ -108,7 +108,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << (char) 255 << "A" << (char) 1 << "A" << (char) 1 << "C" << (char) 1 << "D";
-		RleCompressor::decompress(iss, oss);
+		RleCompressor::Decompress(iss, oss);
 
 		std::stringstream res;
 		res << std::string(256, 'A') + "CD";
@@ -122,7 +122,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << (char) 1 << "A" << (char) 1 << "B" << (char) 255 << "C" << (char) 3 << "C" << (char) 1 << "D";
-		RleCompressor::decompress(iss, oss);
+		RleCompressor::Decompress(iss, oss);
 
 		std::stringstream res;
 		res << "AB" + std::string(258, 'C') + "D";
@@ -136,7 +136,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << (char) 1 << "A" << (char) 1 << "B" << (char) 255 << "C" << (char) 3 << "C";
-		RleCompressor::decompress(iss, oss);
+		RleCompressor::Decompress(iss, oss);
 
 		std::stringstream res;
 		res << "AB" + std::string(258, 'C');
@@ -150,7 +150,7 @@ TEST_CASE("RleCompressor class must compress or decompress", "[rle_compressor]")
 		std::stringstream oss;
 
 		iss << "ABC";
-		bool res = RleCompressor::decompress(iss, oss);
+		bool res = RleCompressor::Decompress(iss, oss);
 
 		REQUIRE_FALSE(res);
 	}
