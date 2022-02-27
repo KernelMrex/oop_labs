@@ -6,9 +6,14 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(
         crypt
         src/main.cpp
+
+        src/lib/CryptService.h
 )
 
 add_executable(
         crypt_unit_tests
         test/unit/catch_main.cpp
+
+        src/lib/CryptService.h
+        test/unit/lib/CryptServiceTest.cpp
 )
