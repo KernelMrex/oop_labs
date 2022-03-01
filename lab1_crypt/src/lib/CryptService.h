@@ -30,6 +30,27 @@ public:
 		return !(!in.eof() && !in.good() || !out);
 	}
 
+	bool static Decrypt(std::istream& in, std::ostream& out, unsigned char keyByte)
+	{
+		unsigned char inByte, outByte;
+
+		while ((in >> inByte) && out)
+		{
+			outByte = GetAndMoveBit(inByte, 5, 7)
+				| GetAndMoveBit(inByte, 1, 6)
+				| GetAndMoveBit(inByte, 0, 5)
+				| GetAndMoveBit(inByte, 7, 4)
+				| GetAndMoveBit(inByte, 6, 3)
+				| GetAndMoveBit(inByte, 4, 2)
+				| GetAndMoveBit(inByte, 3, 1)
+				| GetAndMoveBit(inByte, 2, 0);
+
+			out << (char) (outByte ^ keyByte);
+		}
+
+		return !(!in.eof() && !in.good() || !out);
+	}
+
 private:
 	/**
 	 * @param in source byte
