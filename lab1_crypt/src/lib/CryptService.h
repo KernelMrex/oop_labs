@@ -11,6 +11,7 @@ public:
 	{
 		unsigned char inByte, outByte;
 
+		in >> std::noskipws;
 		while ((in >> inByte) && out)
 		{
 			outByte = inByte ^ keyByte;
