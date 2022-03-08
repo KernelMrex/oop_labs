@@ -1,0 +1,65 @@
+{
+  "cases": [
+    {
+      "name": "Test multi-line encryption",
+      "description": "Encrypting multiline file",
+      "exec_args": [
+        "encrypt",
+        "./data/test1/test1.in",
+        "./data/test1/test1.out",
+        "127"
+      ],
+      "expected": {
+        "type": "file",
+        "path": "./data/test1/test1.expected"
+      },
+      "return_code": 0
+    },
+    {
+      "name": "Test multi-line decryption",
+      "description": "",
+      "exec_args": [
+        "decrypt",
+        "./data/test2/test2.in",
+        "./data/test2/test2.out",
+        "127"
+      ],
+      "expected": {
+        "type": "file",
+        "path": "./data/test2/test2.expected"
+      },
+      "return_code": 0
+    },
+    {
+      "name": "Wrong amount of arguments",
+      "description": "",
+      "exec_args": [
+        "wrong-action",
+        "nothing",
+        "nowhere",
+        "127"
+      ],
+      "return_code": 1
+    },
+    {
+      "name": "Bad command description",
+      "description": "Decrypting multiline file",
+      "exec_args": [
+        "wrong-action",
+        "127"
+      ],
+      "return_code": 1
+    },
+    {
+      "name": "Error opening file",
+      "description": "",
+      "exec_args": [
+        "decrypt",
+        "nothing",
+        "nowhere",
+        "127"
+      ],
+      "return_code": 2
+    }
+  ]
+}
