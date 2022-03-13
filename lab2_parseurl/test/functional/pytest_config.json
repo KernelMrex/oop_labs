@@ -1,3 +1,58 @@
 {
-  "cases": []
+  "cases": [
+    {
+      "name": "Parsing urls",
+      "description": "Parse urls from multiline file",
+      "exec_args": [],
+      "input": {
+        "type": "file",
+        "path": "./test1/in.txt"
+      },
+      "output": {
+        "type": "file",
+        "path": "./test1/out.txt"
+      },
+      "expected": {
+        "type": "file",
+        "path": "./test1/expected.txt"
+      },
+      "return_code": 0
+    },
+    {
+      "name": "Check program exit",
+      "description": "Check program exit on empty line",
+      "exec_args": [],
+      "input": {
+        "type": "file",
+        "path": "./test2/in.txt"
+      },
+      "output": {
+        "type": "file",
+        "path": "./test2/out.txt"
+      },
+      "expected": {
+        "type": "file",
+        "path": "./test2/expected.txt"
+      },
+      "return_code": 0
+    },
+    {
+      "name": "Parse valid and invalid urls",
+      "description": "Successful parse correct and incorrect urls",
+      "exec_args": [],
+      "input": {
+        "type": "file",
+        "path": "./test3/in.txt"
+      },
+      "output": {
+        "type": "file",
+        "path": "./test3/out.txt"
+      },
+      "expected": {
+        "type": "file",
+        "path": "./test3/expected.txt"
+      },
+      "return_code": 0
+    }
+  ]
 }

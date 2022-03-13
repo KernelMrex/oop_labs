@@ -1,0 +1,30 @@
+URL: https://test.com/files/file
+HOST: test.com
+PORT: 443
+DOC: files/file
+
+URL: ftp://test.com/files/file
+HOST: test.com
+PORT: 21
+DOC: files/file
+
+URL: http://test.com/files/file
+HOST: test.com
+PORT: 80
+DOC: files/file
+
+URL: http://test/files/file
+HOST: test
+PORT: 80
+DOC: files/file
+
+URL: http://www.mysite.com/docs/document1.html?page=30&lang=en#title
+HOST: www.mysite.com
+PORT: 80
+DOC: docs/document1.html?page=30&lang=en#title
+
+URL: http://www.mysite.com:80/docs/document1.html?page=30&lang=en#title
+HOST: www.mysite.com
+PORT: 80
+DOC: docs/document1.html?page=30&lang=en#title
+

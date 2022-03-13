@@ -1,0 +1,8 @@
+https://test.com/files/file
+
+ftp://test.com/files/file
+http://test.com/files/file
+http://test/files/file
+http://www.mysite.com/docs/document1.html?page=30&lang=en#title
+http://www.mysite.com:80/docs/document1.html?page=30&lang=en#title
+bad_link

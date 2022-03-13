@@ -1,0 +1,6 @@
+https://test.com/files/file
+invalid_url
+http://test.com/files/file
+invalid_url
+http://www.mysite.com/docs/document1.html?page=30&lang=en#title
+invalid_url
