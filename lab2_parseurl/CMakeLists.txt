@@ -7,12 +7,14 @@ add_executable(
         parseurl
         src/main.cpp
         src/lib/Protocol.h
-        src/lib/UrlParser.h
+        src/lib/url.h
+        src/lib/url.cpp
 )
 
 add_executable(
         parseurl_unit_tests
         test/unit/catch_main.cpp
-        src/lib/UrlParser.h
-        test/unit/lib/UrlParserTest.cpp
+        src/lib/url.h
+        src/lib/url.cpp
+        test/unit/lib/urlTest.cpp
 )

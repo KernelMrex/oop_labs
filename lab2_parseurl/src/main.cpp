@@ -1,5 +1,5 @@
-#include "lib/UrlParser.h"
 #include <iostream>
+#include "lib/url.h"
 
 void DumpUrlData(const std::string& url, const Protocol& protocol, int port, const std::string& host, const std::string& document);
 
@@ -18,7 +18,7 @@ int main()
 			return 0;
 		}
 
-		if (UrlParser::ParseURL(urlToParse, proto, port, host, document))
+		if (ParseURL(urlToParse, proto, port, host, document))
 		{
 			DumpUrlData(urlToParse, proto, port, host, document);
 			std::cout << std::endl;
