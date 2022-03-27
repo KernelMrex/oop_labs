@@ -8,7 +8,7 @@ add_executable(
         src/main.cpp
 
         src/lib/Args.h
-        src/lib/ActionEnum.h
+        src/lib/Action.h
         src/lib/CryptService.h
 )
 

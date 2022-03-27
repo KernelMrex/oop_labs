@@ -56,10 +56,10 @@
       "exec_args": [
         "decrypt",
         "nothing",
-        "nowhere",
+        "/dev/null",
         "127"
       ],
-      "return_code": 2
+      "return_code": 1
     }
   ]
 }

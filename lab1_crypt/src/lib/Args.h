@@ -2,7 +2,7 @@
 #define ARGS_H
 
 #include <optional>
-#include "ActionEnum.h"
+#include "Action.h"
 
 class Args final
 {
@@ -34,8 +34,7 @@ public:
 		} };
 	}
 
-	[[nodiscard]]
-	ActionEnum GetAction() const
+	[[nodiscard]] Action GetAction() const
 	{
 		return m_action;
 	}
@@ -53,35 +52,35 @@ public:
 	}
 
 	[[nodiscard]]
-	unsigned char getKey() const
+	unsigned char GetKey() const
 	{
 		return m_key;
 	}
 
 private:
-	Args(ActionEnum action, std::string&& inputFilePath, std::string&& outputFilePath, unsigned char key)
+	Args(Action action, std::string&& inputFilePath, std::string&& outputFilePath, unsigned char key)
 		: m_action(action)
 		, m_inputFilePath(inputFilePath)
 		, m_outputFilePath(outputFilePath)
 		, m_key(key){};
 
-	ActionEnum m_action;
+	Action m_action;
 	std::string m_inputFilePath;
 	std::string m_outputFilePath;
 	unsigned char m_key;
 
 	[[nodiscard]]
-	static std::optional<ActionEnum> ParseActionEnum(const char* arg)
+	static std::optional<Action> ParseActionEnum(const char* arg)
 	{
 		auto actionString = std::string(arg);
-		ActionEnum action;
+		Action action;
 		if (actionString == "encrypt")
 		{
-			action = ActionEnum::ENCRYPT;
+			action = Action::ENCRYPT;
 		}
 		else if (actionString == "decrypt")
 		{
-			action = ActionEnum::DECRYPT;
+			action = Action::DECRYPT;
 		}
 		else
 		{

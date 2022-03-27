@@ -3,56 +3,73 @@
 
 #include <iostream>
 #include <utility>
+#include <unordered_map>
 
 class CryptService
 {
 public:
-	bool static Encrypt(std::istream& in, std::ostream& out, unsigned char keyByte)
+	explicit CryptService(unsigned char keyByte)
 	{
-		unsigned char inByte, outByte;
+		unsigned char swappedBitsToDecryptByte, xoredByteToEncrypt;
+
+		for (int i = 0; i <= 255; i++)
+		{
+			swappedBitsToDecryptByte = (unsigned char) (GetAndMoveBit(i, 5, 7)
+				| GetAndMoveBit(i, 1, 6)
+				| GetAndMoveBit(i, 0, 5)
+				| GetAndMoveBit(i, 7, 4)
+				| GetAndMoveBit(i, 6, 3)
+				| GetAndMoveBit(i, 4, 2)
+				| GetAndMoveBit(i, 3, 1)
+				| GetAndMoveBit(i, 2, 0));
+			m_decryptLookupTable[i] = swappedBitsToDecryptByte ^ keyByte;
+
+
+			xoredByteToEncrypt = i ^ keyByte;
+			m_encryptLookupTable[i] = (unsigned char) (GetAndMoveBit(xoredByteToEncrypt, 7, 5)
+				| GetAndMoveBit(xoredByteToEncrypt, 6, 1)
+				| GetAndMoveBit(xoredByteToEncrypt, 5, 0)
+				| GetAndMoveBit(xoredByteToEncrypt, 4, 7)
+				| GetAndMoveBit(xoredByteToEncrypt, 3, 6)
+				| GetAndMoveBit(xoredByteToEncrypt, 2, 4)
+				| GetAndMoveBit(xoredByteToEncrypt, 1, 3)
+				| GetAndMoveBit(xoredByteToEncrypt, 0, 2));
+		}
+	}
+
+	bool Encrypt(std::istream& in, std::ostream& out)
+	{
+		unsigned char inByte;
 
 		in >> std::noskipws;
 		while ((in >> inByte) && out)
 		{
-			outByte = inByte ^ keyByte;
-
-			out << (char) (
-				GetAndMoveBit(outByte, 7, 5)
-				| GetAndMoveBit(outByte, 6, 1)
-				| GetAndMoveBit(outByte, 5, 0)
-				| GetAndMoveBit(outByte, 4, 7)
-				| GetAndMoveBit(outByte, 3, 6)
-				| GetAndMoveBit(outByte, 2, 4)
-				| GetAndMoveBit(outByte, 1, 3)
-				| GetAndMoveBit(outByte, 0, 2)
-			);
+			out << m_encryptLookupTable[inByte];
 		}
+
+		out.flush();
 
 		return !(!in.eof() && !in.good() || !out);
 	}
 
-	bool static Decrypt(std::istream& in, std::ostream& out, unsigned char keyByte)
+	bool Decrypt(std::istream& in, std::ostream& out)
 	{
-		unsigned char inByte, outByte;
+		unsigned char inByte;
 
 		while ((in >> inByte) && out)
 		{
-			outByte = GetAndMoveBit(inByte, 5, 7)
-				| GetAndMoveBit(inByte, 1, 6)
-				| GetAndMoveBit(inByte, 0, 5)
-				| GetAndMoveBit(inByte, 7, 4)
-				| GetAndMoveBit(inByte, 6, 3)
-				| GetAndMoveBit(inByte, 4, 2)
-				| GetAndMoveBit(inByte, 3, 1)
-				| GetAndMoveBit(inByte, 2, 0);
-
-			out << (char) (outByte ^ keyByte);
+			out << m_decryptLookupTable[inByte];
 		}
+
+		out.flush();
 
 		return !(!in.eof() && !in.good() || !out);
 	}
 
 private:
+	std::unordered_map<unsigned char, unsigned char> m_encryptLookupTable{};
+	std::unordered_map<unsigned char, unsigned char> m_decryptLookupTable{};
+
 	/**
 	 * @param in source byte
 	 * @param from bit position in byte 0..7

@@ -1,7 +1,7 @@
 #ifndef ACTIONENUM_H
 #define ACTIONENUM_H
 
-enum class ActionEnum
+enum class Action
 {
 	ENCRYPT,
 	DECRYPT
