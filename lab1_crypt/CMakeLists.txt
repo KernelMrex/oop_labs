@@ -18,4 +18,4 @@ add_executable(
 
         src/lib/CryptService.h
         test/unit/lib/CryptServiceTest.cpp
-)
+        ../lab2_expand_template/test/unit/catch_main.cpp)
