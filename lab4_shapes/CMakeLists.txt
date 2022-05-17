@@ -11,6 +11,9 @@ add_executable(
         src/lib/IShape.h
         src/lib/CLineSegment.cpp
         src/lib/CLineSegment.h
+        src/lib/ISolidShape.h
+        src/lib/CTriangle.cpp
+        src/lib/CTriangle.h
 )
 
 add_executable(
@@ -22,4 +25,8 @@ add_executable(
         src/lib/CLineSegment.cpp
         src/lib/CLineSegment.h
         test/unit/lib/CLineSegmentTest.cpp
+        src/lib/ISolidShape.h
+        src/lib/CTriangle.cpp
+        src/lib/CTriangle.h
+        test/unit/lib/CTriangleTest.cpp
 )
