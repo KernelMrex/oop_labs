@@ -17,7 +17,7 @@ double CLineSegment::GetArea() const
 
 double CLineSegment::GetPerimeter() const
 {
-	return sqrt(pow(m_startPoint.x - m_endPoint.x, 2) + pow(m_startPoint.x - m_endPoint.x, 2));
+	return sqrt(pow(m_startPoint.x - m_endPoint.x, 2) + pow(m_startPoint.y - m_endPoint.y, 2));
 }
 
 std::string CLineSegment::ToString() const

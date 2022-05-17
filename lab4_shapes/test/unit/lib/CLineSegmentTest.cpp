@@ -6,8 +6,11 @@ TEST_CASE("CLineSegment unit tests", "[CLineSegment_unit_tests]")
 {
 	SECTION("CLineSegment must calculate perimeter")
 	{
-		CLineSegment lineSegment(CPoint(1, 2), CPoint(3, 4), 0);
-		REQUIRE(lineSegment.GetPerimeter() == sqrt(8));
+		CLineSegment lineSegment1(CPoint(1, 2), CPoint(3, 4), 0);
+		REQUIRE(lineSegment1.GetPerimeter() == sqrt(8));
+
+		CLineSegment lineSegment2(CPoint(0, 0), CPoint(3, 4), 0);
+		REQUIRE(lineSegment2.GetPerimeter() == 5);
 	}
 
 	SECTION("CLineSegment must calculate area equals to 0")
