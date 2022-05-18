@@ -14,7 +14,7 @@ add_executable(
         src/lib/ISolidShape.h
         src/lib/CTriangle.cpp
         src/lib/CTriangle.h
-)
+        src/lib/CRectangle.cpp src/lib/CRectangle.h)
 
 add_executable(
         shapes_unit_tests
@@ -29,4 +29,4 @@ add_executable(
         src/lib/CTriangle.cpp
         src/lib/CTriangle.h
         test/unit/lib/CTriangleTest.cpp
-)
+        src/lib/CRectangle.cpp src/lib/CRectangle.h test/unit/lib/CRectangleTest.cpp)
