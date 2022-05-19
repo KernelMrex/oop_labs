@@ -29,18 +29,6 @@ double CTriangle::GetPerimeter() const
 		 + sqrt(pow(m_vertex3.x - m_vertex1.x, 2) + pow(m_vertex3.y - m_vertex1.y, 2));
 }
 
-std::string CTriangle::ToString() const
-{
-	std::stringstream ss;
-	ss << "triangle "
-	   << m_vertex1.x << ' ' << m_vertex1.y << ' '
-	   << m_vertex2.x << ' ' << m_vertex2.y << ' '
-	   << m_vertex3.x << ' ' << m_vertex3.y << ' '
-	   << "0x" << std::setfill('0') << std::setw(6) << std::hex << m_outlineColor << ' '
-	   << "0x" << std::setfill('0') << std::setw(6) << std::hex << m_fillColor;
-	return ss.str();
-}
-
 uint32_t CTriangle::GetOutlineColor() const
 {
 	return m_outlineColor;

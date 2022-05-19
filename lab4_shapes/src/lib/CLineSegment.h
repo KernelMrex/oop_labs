@@ -16,9 +16,6 @@ public:
 	double GetPerimeter() const final;
 
 	[[nodiscard]]
-	std::string ToString() const final;
-
-	[[nodiscard]]
 	uint32_t GetOutlineColor() const final;
 
 	[[nodiscard]]

@@ -21,6 +21,8 @@ add_executable(
         src/lib/CCircle.h
         src/lib/parse_shape.h
         src/lib/parse_shape.cpp
+        src/lib/CShapeTextDumperVisitor.cpp
+        src/lib/CShapeTextDumperVisitor.h
 )
 
 add_executable(
@@ -49,4 +51,7 @@ add_executable(
         src/lib/parse_shape.cpp
         test/unit/lib/shape_utils_test.cpp
         test/unit/lib/MockShapeVisitor.h
+        src/lib/CShapeTextDumperVisitor.cpp
+        src/lib/CShapeTextDumperVisitor.h
+        test/unit/lib/CShapeTextDumperVisitor.cpp
 )

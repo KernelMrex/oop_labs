@@ -79,23 +79,4 @@ TEST_CASE("CRectangle unit tests", "[CRectangle_unit_tests]")
 		REQUIRE(rectangle.GetOutlineColor() == 0x012345);
 		REQUIRE(rectangle.GetFillColor() == 0x098765);
 	}
-
-	SECTION("CRectangle must provide dump")
-	{
-		CRectangle rectangle1(
-			CPoint(5, 10),
-			20,
-			40,
-			0x012345,
-			0x098765);
-		REQUIRE(rectangle1.ToString() == "rectangle 5 10 20 40 0x012345 0x098765");
-
-		CRectangle rectangle2(
-			CPoint(5.1, 10.2),
-			20.3,
-			40.4,
-			0x012345,
-			0x098765);
-		REQUIRE(rectangle2.ToString() == "rectangle 5.1 10.2 20.3 40.4 0x012345 0x098765");
-	}
 }

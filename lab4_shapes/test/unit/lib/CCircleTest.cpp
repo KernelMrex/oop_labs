@@ -65,23 +65,4 @@ TEST_CASE("CCircle unit tests", "[CCircle_unit_tests]")
 		REQUIRE(circle.GetOutlineColor() == 0x012345);
 		REQUIRE(circle.GetFillColor() == 0x098765);
 	}
-
-	SECTION("CCircle must provide dump")
-	{
-		CCircle circle1(
-			CPoint(5, 10),
-			20,
-			0x012345,
-			0x098765);
-
-		REQUIRE(circle1.ToString() == "circle 5 10 20 0x012345 0x098765");
-
-		CCircle circle(
-			CPoint(5.1, 10.2),
-			20.3,
-			0x012345,
-			0x098765);
-
-		REQUIRE(circle.ToString() == "circle 5.1 10.2 20.3 0x012345 0x098765");
-	}
 }

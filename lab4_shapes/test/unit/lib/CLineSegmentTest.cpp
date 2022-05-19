@@ -38,10 +38,5 @@ TEST_CASE("CLineSegment unit tests", "[CLineSegment_unit_tests]")
 
 	SECTION("CLineSegment must provide dump")
 	{
-		CLineSegment lineSegment1(CPoint(1, 2), CPoint(3, 4), 0x012345);
-		REQUIRE(lineSegment1.ToString() == "line_segment 1 2 3 4 0x012345");
-
-		CLineSegment lineSegment2(CPoint(1.1, 2.2), CPoint(3.3, 4.4), 0x012345);
-		REQUIRE(lineSegment2.ToString() == "line_segment 1.1 2.2 3.3 4.4 0x012345");
 	}
 }

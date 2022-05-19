@@ -20,16 +20,6 @@ double CLineSegment::GetPerimeter() const
 	return sqrt(pow(m_startPoint.x - m_endPoint.x, 2) + pow(m_startPoint.y - m_endPoint.y, 2));
 }
 
-std::string CLineSegment::ToString() const
-{
-	std::stringstream ss;
-	ss << "line_segment "
-	   << m_startPoint.x << ' ' << m_startPoint.y << ' '
-	   << m_endPoint.x << ' ' << m_endPoint.y << ' '
-	   << "0x" << std::setfill('0') << std::setw(6) << std::hex << m_outlineColor;
-	return ss.str();
-}
-
 uint32_t CLineSegment::GetOutlineColor() const
 {
 	return m_outlineColor;

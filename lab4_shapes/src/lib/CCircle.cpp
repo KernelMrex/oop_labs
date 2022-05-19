@@ -25,17 +25,6 @@ double CCircle::GetPerimeter() const
 	return 2 * M_PI * m_radius;
 }
 
-std::string CCircle::ToString() const
-{
-	std::stringstream ss;
-	ss << "circle "
-	   << m_center.x << ' ' << m_center.y << ' '
-	   << m_radius << ' '
-	   << "0x" << std::setfill('0') << std::setw(6) << std::hex << m_outlineColor << ' '
-	   << "0x" << std::setfill('0') << std::setw(6) << std::hex << m_fillColor;
-	return ss.str();
-}
-
 uint32_t CCircle::GetOutlineColor() const
 {
 	return m_outlineColor;

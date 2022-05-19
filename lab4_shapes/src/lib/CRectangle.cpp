@@ -25,17 +25,6 @@ double CRectangle::GetPerimeter() const
 	return m_width * 2 + m_height * 2;
 }
 
-std::string CRectangle::ToString() const
-{
-	std::stringstream ss;
-	ss << "rectangle "
-	   << m_topLeft.x << ' ' << m_topLeft.y << ' '
-	   << m_width << ' ' << m_height << ' '
-	   << "0x" << std::setfill('0') << std::setw(6) << std::hex << m_outlineColor << ' '
-	   << "0x" << std::setfill('0') << std::setw(6) << std::hex << m_fillColor;
-	return ss.str();
-}
-
 uint32_t CRectangle::GetOutlineColor() const
 {
 	return m_outlineColor;

@@ -76,22 +76,6 @@ TEST_CASE("CTriangle unit tests", "[CTriangle_unit_tests]")
 
 	SECTION("CTriangle must provide dump")
 	{
-		CTriangle triangle1(
-			CPoint(0, 0),
-			CPoint(0, 5),
-			CPoint(12, 5),
-			0x012345,
-			0x098765
-		);
-		REQUIRE(triangle1.ToString() == "triangle 0 0 0 5 12 5 0x012345 0x098765");
 
-		CTriangle triangle2(
-			CPoint(0.1, 0.2),
-			CPoint(0.3, 5.4),
-			CPoint(12.5, 5.6),
-			0x012345,
-			0x098765
-		);
-		REQUIRE(triangle2.ToString() == "triangle 0.1 0.2 0.3 5.4 12.5 5.6 0x012345 0x098765");
 	}
 }
