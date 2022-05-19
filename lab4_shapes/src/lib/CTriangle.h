@@ -33,6 +33,8 @@ public:
 	[[nodiscard]]
 	CPoint GetVertex3() const;
 
+	void Accept(IShapeVisitor& visitor) const final;
+
 private:
 	CPoint m_vertex1, m_vertex2, m_vertex3;
 	uint32_t m_outlineColor, m_fillColor;

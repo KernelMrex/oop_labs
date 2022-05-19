@@ -8,6 +8,7 @@ add_executable(
         src/main.cpp
         src/lib/CPoint.cpp
         src/lib/CPoint.h
+        src/lib/IShapeVisitor.h
         src/lib/IShape.h
         src/lib/CLineSegment.cpp
         src/lib/CLineSegment.h
@@ -18,6 +19,8 @@ add_executable(
         src/lib/CRectangle.h
         src/lib/CCircle.cpp
         src/lib/CCircle.h
+        src/lib/parse_shape.h
+        src/lib/parse_shape.cpp
 )
 
 add_executable(
@@ -26,6 +29,9 @@ add_executable(
         src/lib/CPoint.cpp
         src/lib/CPoint.h
         test/unit/lib/CPointTest.cpp
+        src/lib/IShapeVisitor.h
+        src/lib/IShape.h
+        src/lib/ISolidShape.h
         src/lib/CLineSegment.cpp
         src/lib/CLineSegment.h
         test/unit/lib/CLineSegmentTest.cpp
@@ -39,4 +45,8 @@ add_executable(
         src/lib/CCircle.cpp
         src/lib/CCircle.h
         test/unit/lib/CCircleTest.cpp
+        src/lib/parse_shape.h
+        src/lib/parse_shape.cpp
+        test/unit/lib/shape_utils_test.cpp
+        test/unit/lib/MockShapeVisitor.h
 )

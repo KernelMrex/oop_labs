@@ -65,3 +65,8 @@ CPoint CTriangle::GetVertex3() const
 {
 	return m_vertex3;
 }
+
+void CTriangle::Accept(IShapeVisitor& visitor) const
+{
+	visitor.VisitTriangle(*this);
+}

@@ -9,7 +9,7 @@ public:
 	[[nodiscard]]
 	virtual uint32_t GetFillColor() const = 0;
 
-	virtual ~ISolidShape() = default;
+	~ISolidShape() override = default;
 };
 
 #endif // ISOLIDSHAPE_H

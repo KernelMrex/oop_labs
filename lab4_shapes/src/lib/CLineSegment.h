@@ -27,6 +27,8 @@ public:
 	[[nodiscard]]
 	CPoint GetEndPoint() const;
 
+	void Accept(IShapeVisitor& visitor) const final;
+
 private:
 	CPoint m_startPoint, m_endPoint;
 	uint32_t m_outlineColor;

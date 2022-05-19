@@ -30,6 +30,8 @@ public:
 	[[nodiscard]]
 	double GetRadius() const;
 
+	void Accept(IShapeVisitor& visitor) const final;
+
 private:
 	CPoint m_center;
 	double m_radius;

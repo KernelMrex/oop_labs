@@ -65,3 +65,8 @@ double CRectangle::GetHeight() const
 {
 	return m_height;
 }
+
+void CRectangle::Accept(IShapeVisitor& visitor) const
+{
+	visitor.VisitRectangle(*this);
+}

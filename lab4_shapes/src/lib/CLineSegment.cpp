@@ -44,3 +44,8 @@ CPoint CLineSegment::GetEndPoint() const
 {
 	return m_endPoint;
 }
+
+void CLineSegment::Accept(IShapeVisitor& visitor) const
+{
+	visitor.VisitLineSegment(*this);
+}

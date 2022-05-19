@@ -36,6 +36,8 @@ public:
 	[[nodiscard]]
 	double GetHeight() const;
 
+	void Accept(IShapeVisitor& visitor) const final;
+
 private:
 	CPoint m_topLeft;
 	double m_width, m_height;
