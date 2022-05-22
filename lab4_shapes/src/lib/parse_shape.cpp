@@ -25,7 +25,31 @@ static const std::map<std::string, ShapeParsingLambda> shapeToParsingLambda = { 
 	}
 };
 
-std::unique_ptr<IShape> ParseShapeFromText(std::istream& in)
+std::vector<std::unique_ptr<IShape>> ParseShapesFromTextStream(std::istream& in)
+{
+	std::vector<std::unique_ptr<IShape>> shapes;
+
+	while (in)
+	{
+		try
+		{
+			shapes.push_back(ParseShapeFromTextStream(in));
+		}
+		catch (std::invalid_argument& ex)
+		{
+			if (ex.what() == std::string{"Empty line given"})
+			{
+				continue;
+			}
+
+			throw ex;
+		}
+	}
+
+	return shapes;
+}
+
+std::unique_ptr<IShape> ParseShapeFromTextStream(std::istream& in)
 {
 	if (!in)
 	{
@@ -34,8 +58,18 @@ std::unique_ptr<IShape> ParseShapeFromText(std::istream& in)
 
 	std::string line;
 	std::getline(in, line);
+	return ParseShapeFromText(line);
+}
+
+std::unique_ptr<IShape> ParseShapeFromText(const std::string& line)
+{
 	static std::regex figureTypeRegex("^(\\w+)");
 	std::smatch matches;
+
+	if (line.empty())
+	{
+		throw std::invalid_argument("Empty line given");
+	}
 
 	if (!std::regex_search(line, matches, figureTypeRegex))
 	{
