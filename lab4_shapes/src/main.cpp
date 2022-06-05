@@ -1,13 +1,20 @@
+#include "lib/CCanvas.h"
 #include "lib/CShapeTextDumperVisitor.h"
 #include "lib/IShape.h"
+#include "lib/ShapeDrawerVisitor.h"
 #include "lib/parse_shape.h"
 #include "lib/shape_utils.h"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <memory>
 #include <vector>
 
 int main()
 {
+	sf::RenderWindow window(sf::VideoMode(1600, 900), "lab4_shapes");
+	CCanvas canvas(window);
+	ShapeDrawerVisitor shapeDrawer(canvas);
+
 	std::vector<std::unique_ptr<IShape>> shapes;
 	try
 	{
@@ -20,6 +27,32 @@ int main()
 	}
 
 	CShapeTextDumperVisitor shapeTextDumper(std::cout);
+	for (auto& shape : shapes)
+	{
+		shape->Accept(shapeTextDumper);
+		std::cout << std::endl;
+	}
+
+	while (window.isOpen())
+	{
+		sf::Event event{};
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				window.close();
+			}
+		}
+
+		window.clear();
+
+		for (auto& shape : shapes)
+		{
+			shape->Accept(shapeDrawer);
+		}
+
+		window.display();
+	}
 
 	auto minAreaShape = FindMaxArea(shapes);
 	if (minAreaShape != shapes.end())

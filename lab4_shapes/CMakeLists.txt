@@ -3,6 +3,8 @@ project(lab4_shapes)
 
 set(CMAKE_CXX_STANDARD 20)
 
+find_package(SFML 2.5 COMPONENTS graphics REQUIRED)
+
 add_executable(
         shapes
         src/main.cpp
@@ -25,7 +27,13 @@ add_executable(
         src/lib/CShapeTextDumperVisitor.h
         src/lib/shape_utils.cpp
         src/lib/shape_utils.h
+        src/lib/CCanvas.cpp
+        src/lib/CCanvas.h
+        src/lib/ICanvas.h
+        src/lib/ShapeDrawerVisitor.cpp
+        src/lib/ShapeDrawerVisitor.h
 )
+target_link_libraries(shapes sfml-graphics)
 
 add_executable(
         shapes_unit_tests
@@ -59,4 +67,7 @@ add_executable(
         src/lib/shape_utils.h
         src/lib/shape_utils.cpp
         test/unit/lib/shape_utils_test.cpp
+        src/lib/ShapeDrawerVisitor.cpp
+        src/lib/ShapeDrawerVisitor.h
+        test/unit/lib/ShapeDrawerVisitorTest.cpp
 )
