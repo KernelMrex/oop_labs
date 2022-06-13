@@ -172,4 +172,37 @@ TEST_CASE("CHttpUrlTest unit tests", "[CHttpUrlTest_unit_tests]")
 			REQUIRE_THROWS_AS(CHttpUrl("", "/test.doc?alfa=beta#gamma", Protocol::HTTPS), CUrlParsingError);
 		}
 	}
+
+	SECTION("GetURL must provide valid url")
+	{
+		WHEN("Url is \"http://example.com\"")
+		{
+			CHttpUrl url("http://example.com");
+			REQUIRE(url.GetURL() == "http://example.com/");
+		}
+
+		WHEN("Url is \"https://example.com\"")
+		{
+			CHttpUrl url("https://example.com");
+			REQUIRE(url.GetURL() == "https://example.com/");
+		}
+
+		WHEN("Url is \"http://example.com:123\"")
+		{
+			CHttpUrl url("http://example.com:123");
+			REQUIRE(url.GetURL() == "http://example.com:123/");
+		}
+
+		WHEN("Url is \"https://example.com:321\"")
+		{
+			CHttpUrl url("https://example.com:321");
+			REQUIRE(url.GetURL() == "https://example.com:321/");
+		}
+
+		WHEN("Url is \"https://test.example.com:123/test.doc?alfa=beta#gamma\"")
+		{
+			CHttpUrl url("https://test.example.com:123/test.doc?alfa=beta#gamma");
+			REQUIRE(url.GetURL() == "https://test.example.com:123/test.doc?alfa=beta#gamma");
+		}
+	}
 }

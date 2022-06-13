@@ -124,3 +124,16 @@ bool CHttpUrl::ValidateDomain(const std::string& str)
 	static std::regex domainRegex(R"(^(?:[a-zA-Z0-9][a-zA-Z0-9\-]+\.)*[a-zA-Z0-9][a-zA-Z0-9\-]+$)");
 	return std::regex_match(str, domainRegex);
 }
+
+std::string CHttpUrl::GetURL() const
+{
+	std::stringstream ss;
+	ss << (GetProtocol() == Protocol::HTTP ? "http" : "https") << "://" << GetDomain();
+	if (GetDefaultPortForProtocol(GetProtocol()) != GetPort())
+	{
+		ss << ":" << GetPort();
+	}
+	ss << GetDocument();
+
+	return ss.str();
+}

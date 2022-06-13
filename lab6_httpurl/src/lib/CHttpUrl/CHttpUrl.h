@@ -13,7 +13,8 @@ public:
 
 	CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol);
 
-//	TODO: std::string GetURL() const;
+	[[nodiscard]]
+	std::string GetURL() const;
 
 	[[nodiscard]]
 	Protocol GetProtocol() const;
