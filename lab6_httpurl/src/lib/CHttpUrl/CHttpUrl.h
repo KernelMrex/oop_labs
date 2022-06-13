@@ -9,9 +9,9 @@ class CHttpUrl
 public:
 	explicit CHttpUrl(const std::string& url);
 
-//	TODO: CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, uint16_t port);
+    CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, uint16_t port);
 
-//	TODO: CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol);
+	CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol);
 
 //	TODO: std::string GetURL() const;
 
@@ -37,6 +37,7 @@ private:
 	static uint16_t ParsePort(const std::string& str);
 	static std::string ParseDocument(const std::string& str);
 	static uint16_t GetDefaultPortForProtocol(Protocol protocol);
+	static bool ValidateDomain(const std::string& str);
 };
 
 #endif // CHTTPURL_H

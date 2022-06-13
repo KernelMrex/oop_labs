@@ -96,4 +96,80 @@ TEST_CASE("CHttpUrlTest unit tests", "[CHttpUrlTest_unit_tests]")
 			REQUIRE_THROWS_AS(CHttpUrl("http://abc:0/"), CUrlParsingError);
 		}
 	}
+
+	SECTION("CHttpUrl(std::string domain, std::string document, Protocol protocol, uint16_t port) constructor must construct only valid urls")
+	{
+		WHEN("Url is \"https://test.example.com:123/test.doc?alfa=beta#gamma\"")
+		{
+			REQUIRE_NOTHROW(CHttpUrl("test.example.com", "test.doc?alfa=beta#gamma", Protocol::HTTPS, 123));
+			CHttpUrl url("test.example.com", "test.doc?alfa=beta#gamma", Protocol::HTTPS, 123);
+			REQUIRE(url.GetProtocol() == Protocol::HTTPS);
+			REQUIRE(url.GetDomain() == "test.example.com");
+			REQUIRE(url.GetPort() == 123);
+			REQUIRE(url.GetDocument() == "/test.doc?alfa=beta#gamma");
+		}
+
+		WHEN("Url is \"https://test.example.com:123/test.doc?alfa=beta#gamma\"")
+		{
+			REQUIRE_NOTHROW(CHttpUrl("test.example.com", "/test.doc?alfa=beta#gamma", Protocol::HTTPS, 123));
+			CHttpUrl url("test.example.com", "/test.doc?alfa=beta#gamma", Protocol::HTTPS, 123);
+			REQUIRE(url.GetProtocol() == Protocol::HTTPS);
+			REQUIRE(url.GetDomain() == "test.example.com");
+			REQUIRE(url.GetPort() == 123);
+			REQUIRE(url.GetDocument() == "/test.doc?alfa=beta#gamma");
+		}
+
+		WHEN("Url is \"http://----/test.doc?alfa=beta#gamma\"")
+		{
+			REQUIRE_THROWS_AS(CHttpUrl("----", "/test.doc?alfa=beta#gamma", Protocol::HTTPS, 123), CUrlParsingError);
+		}
+
+		WHEN("Url is \"http:///test.doc?alfa=beta#gamma\"")
+		{
+			REQUIRE_THROWS_AS(CHttpUrl("", "/test.doc?alfa=beta#gamma", Protocol::HTTPS, 123), CUrlParsingError);
+		}
+	}
+
+	SECTION("CHttpUrl(std::string domain, std::string document, Protocol protocol) constructor must construct only valid urls")
+	{
+		WHEN("Url is \"https://test.example.com/test.doc?alfa=beta#gamma\"")
+		{
+			REQUIRE_NOTHROW(CHttpUrl("test.example.com", "test.doc?alfa=beta#gamma", Protocol::HTTPS));
+			CHttpUrl url("test.example.com", "test.doc?alfa=beta#gamma", Protocol::HTTPS);
+			REQUIRE(url.GetProtocol() == Protocol::HTTPS);
+			REQUIRE(url.GetDomain() == "test.example.com");
+			REQUIRE(url.GetPort() == 443);
+			REQUIRE(url.GetDocument() == "/test.doc?alfa=beta#gamma");
+		}
+
+		WHEN("Url is \"https://test.example.com/test.doc?alfa=beta#gamma\"")
+		{
+			REQUIRE_NOTHROW(CHttpUrl("test.example.com", "/test.doc?alfa=beta#gamma", Protocol::HTTPS));
+			CHttpUrl url("test.example.com", "/test.doc?alfa=beta#gamma", Protocol::HTTPS);
+			REQUIRE(url.GetProtocol() == Protocol::HTTPS);
+			REQUIRE(url.GetDomain() == "test.example.com");
+			REQUIRE(url.GetPort() == 443);
+			REQUIRE(url.GetDocument() == "/test.doc?alfa=beta#gamma");
+		}
+
+		WHEN("Url is \"http://example.com\"")
+		{
+			REQUIRE_NOTHROW(CHttpUrl("example.com", "", Protocol::HTTP));
+			CHttpUrl url("example.com", "", Protocol::HTTP);
+			REQUIRE(url.GetProtocol() == Protocol::HTTP);
+			REQUIRE(url.GetDomain() == "example.com");
+			REQUIRE(url.GetPort() == 80);
+			REQUIRE(url.GetDocument() == "/");
+		}
+
+		WHEN("Url is \"http://----/test.doc?alfa=beta#gamma\"")
+		{
+			REQUIRE_THROWS_AS(CHttpUrl("----", "/test.doc?alfa=beta#gamma", Protocol::HTTPS), CUrlParsingError);
+		}
+
+		WHEN("Url is \"http:///test.doc?alfa=beta#gamma\"")
+		{
+			REQUIRE_THROWS_AS(CHttpUrl("", "/test.doc?alfa=beta#gamma", Protocol::HTTPS), CUrlParsingError);
+		}
+	}
 }

@@ -20,3 +20,8 @@ CUrlParsingError CUrlParsingError::InvalidPort()
 {
 	return CUrlParsingError(CUrlParsingError::INVALID_PORT_MSG);
 }
+
+CUrlParsingError CUrlParsingError::InvalidDomain()
+{
+	return CUrlParsingError(CUrlParsingError::INVALID_DOMAIN_MSG);
+}

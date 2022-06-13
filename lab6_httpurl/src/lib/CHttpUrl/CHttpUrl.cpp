@@ -20,6 +20,31 @@ CHttpUrl::CHttpUrl(const std::string& url)
 	m_document = ParseDocument(urlPartMatch[4]);
 }
 
+CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Protocol protocol, uint16_t port)
+{
+	if (!ValidateDomain(domain))
+	{
+		throw CUrlParsingError::InvalidDomain();
+	}
+	m_domain = domain;
+
+	m_document = ParseDocument(document);
+	m_port = port;
+	m_protocol = protocol;
+}
+
+CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Protocol protocol)
+{
+	if (!ValidateDomain(domain))
+	{
+		throw CUrlParsingError::InvalidDomain();
+	}
+	m_domain = domain;
+	m_document = ParseDocument(document);
+	m_port = GetDefaultPortForProtocol(protocol);
+	m_protocol = protocol;
+}
+
 Protocol CHttpUrl::GetProtocol() const
 {
 	return m_protocol;
@@ -92,4 +117,10 @@ uint16_t CHttpUrl::GetDefaultPortForProtocol(Protocol protocol)
 	case Protocol::HTTP:
 		return 80;
 	}
+}
+
+bool CHttpUrl::ValidateDomain(const std::string& str)
+{
+	static std::regex domainRegex(R"(^(?:[a-zA-Z0-9][a-zA-Z0-9\-]+\.)*[a-zA-Z0-9][a-zA-Z0-9\-]+$)");
+	return std::regex_match(str, domainRegex);
 }
