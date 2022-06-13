@@ -11,6 +11,8 @@ add_executable(
         src/lib/CHttpUrl/CHttpUrl.h
         src/lib/CHttpUrl/Exception/CUrlParsingError.cpp
         src/lib/CHttpUrl/Exception/CUrlParsingError.h
+        src/lib/http_utils.cpp
+        src/lib/http_utils.h
 )
 
 add_executable(

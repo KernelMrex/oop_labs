@@ -5,7 +5,7 @@
 CHttpUrl::CHttpUrl(const std::string& url)
 {
 	static std::regex urlRegex(
-		R"(^(https?)://((?:[a-zA-Z0-9][a-zA-Z0-9\-]+\.)*[a-zA-Z0-9][a-zA-Z0-9\-]+)(?:\:(\d{1,5}))?(\/?.*)$)"
+		R"(^(https?)://((?:[a-zA-Z0-9][a-zA-Z0-9\-]+\.)*[a-zA-Z0-9][a-zA-Z0-9\-]+)(?:\:(\d{1,5}))?(\/.*)?$)"
 		);
 
 	std::smatch urlPartMatch;
