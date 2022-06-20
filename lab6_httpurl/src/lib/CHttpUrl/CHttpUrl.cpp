@@ -17,7 +17,7 @@ CHttpUrl::CHttpUrl(const std::string& url)
 	m_protocol = ParseProtocol(urlPartMatch[1]);
 	m_domain = urlPartMatch[2];
 	m_port = urlPartMatch[3].str().empty() ? GetDefaultPortForProtocol(m_protocol) : ParsePort(urlPartMatch[3]);
-	m_document = ParseDocument(urlPartMatch[4]);
+	m_document = NormalizeDocument(urlPartMatch[4]);
 }
 
 CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Protocol protocol, uint16_t port)
@@ -28,7 +28,7 @@ CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Proto
 	}
 	m_domain = domain;
 
-	m_document = ParseDocument(document);
+	m_document = NormalizeDocument(document);
 	m_port = port;
 	m_protocol = protocol;
 }
@@ -40,7 +40,7 @@ CHttpUrl::CHttpUrl(const std::string& domain, const std::string& document, Proto
 		throw CUrlParsingError::InvalidDomain();
 	}
 	m_domain = domain;
-	m_document = ParseDocument(document);
+	m_document = NormalizeDocument(document);
 	m_port = GetDefaultPortForProtocol(protocol);
 	m_protocol = protocol;
 }
@@ -87,7 +87,7 @@ uint16_t CHttpUrl::ParsePort(const std::string& str)
 		int intValue = std::stoi(str);
 		if (intValue <= 0 || intValue >= 65536)
 		{
-			throw std::out_of_range("Value must be in range 0..65536");
+			throw std::out_of_range("Value must be in range 1..65535");
 		}
 		res = intValue;
 	}
@@ -103,7 +103,7 @@ uint16_t CHttpUrl::ParsePort(const std::string& str)
 	return res;
 }
 
-std::string CHttpUrl::ParseDocument(const std::string& str)
+std::string CHttpUrl::NormalizeDocument(const std::string& str)
 {
 	return str.starts_with("/") ? str : ("/" + str);
 }

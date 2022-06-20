@@ -36,7 +36,7 @@ private:
 
 	static Protocol ParseProtocol(const std::string& str);
 	static uint16_t ParsePort(const std::string& str);
-	static std::string ParseDocument(const std::string& str);
+	static std::string NormalizeDocument(const std::string& str);
 	static uint16_t GetDefaultPortForProtocol(Protocol protocol);
 	static bool ValidateDomain(const std::string& str);
 };

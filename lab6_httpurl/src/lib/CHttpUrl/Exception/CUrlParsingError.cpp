@@ -5,23 +5,22 @@ CUrlParsingError::CUrlParsingError(const std::string& msg)
 {
 }
 
-
 CUrlParsingError CUrlParsingError::InvalidUrl()
 {
-	return CUrlParsingError(CUrlParsingError::INVALID_URL_MSG);
+	return CUrlParsingError("Invalid url");
 }
 
 CUrlParsingError CUrlParsingError::InvalidProtocol()
 {
-	return CUrlParsingError(CUrlParsingError::INVALID_PROTOCOL_MSG);
+	return CUrlParsingError("Invalid protocol");
 }
 
 CUrlParsingError CUrlParsingError::InvalidPort()
 {
-	return CUrlParsingError(CUrlParsingError::INVALID_PORT_MSG);
+	return CUrlParsingError("Invalid port");
 }
 
 CUrlParsingError CUrlParsingError::InvalidDomain()
 {
-	return CUrlParsingError(CUrlParsingError::INVALID_DOMAIN_MSG);
+	return CUrlParsingError("Invalid domain");
 }
